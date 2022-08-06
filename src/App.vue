@@ -1,6 +1,6 @@
 <template>
   
-  <div id="app">  
+  <div id="app">
     <v-app>
        <hr>
        <router-view></router-view>
@@ -15,6 +15,8 @@ name: 'app'
 }
 </script>
 
-<style>
-
+<style lang="scss">
+  #app{
+    font-family: "Phetsarath";
+  }
 </style>
