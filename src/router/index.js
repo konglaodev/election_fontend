@@ -10,10 +10,81 @@ import Dashboard from '@/views/Dashboard.vue'
 import Verify from '@/views/Verify.vue'
 import Profile from '@/views/UserProfile.vue'
 import Profile_edit from '../components/profile/Profile_edit.vue'
+import Dashboard_super from '@/views/bie/judge/dashboard.vue'
+import User_Management from '@/components/bie/judge/management/user/user.vue'
+import People from '@/components/bie/judge/people/people.vue'
+import Election from '@/components/bie/judge/election_candidates/election_candidates.vue'
+import ElectionInformation from '@/components/bie/judge/election_candidates/election_information.vue'
+import DashboardVillageHeadman from '@/views/bie/village_headman/dashboard.vue'
+import UnitInformation from '@/components/bie/village_headman/management/unit/unit.vue'
+import CensusInformation from '@/components/bie/village_headman/management/census/census.vue'
+import PeopleInformation from '@/components/bie/village_headman/management/people/people.vue'
+import ElectorInformation from '@/components/bie/village_headman/management/elector/elector.vue'
+import CheckPermissionElection from '@/components/bie/village_headman/management/check_permission_election/check_permission_election.vue'
+import HeadmanElectionInformation from '@/components/bie/village_headman/headman_election_information/headman_election_information.vue'
 Vue.use(VueRouter)
 
 const routes = [
- 
+  {
+    path:'/dashboard_village_headman',
+    name:'dashboard_village_headman',
+    component: DashboardVillageHeadman
+  },
+  {
+    path:'/unit_information',
+    name:'unit_information',
+    component: UnitInformation
+  },
+  {
+    path:'/census_information',
+    name:'census_information',
+    component: CensusInformation
+  },
+  {
+    path:'/people_infomation',
+    name:'people_infomation',
+    component: PeopleInformation
+  },
+  {
+    path:'/elector_information',
+    name:'elector_information',
+    component: ElectorInformation
+  },
+  {
+    path:'/check_permission_election',
+    name:'check_permission_election',
+    component: CheckPermissionElection
+  },
+  {
+    path:'/headman_election_information',
+    name:'headman_election_information',
+    component: HeadmanElectionInformation
+  },
+  {
+    path:'/election_information',
+    name:'election_information',
+    component: ElectionInformation
+  },
+  {
+    path:'/headman_election_information',
+    name:'election_candidates',
+    component: Election
+  },
+  {
+    path:'/people',
+    name:'people',
+    component: People
+  },
+  {
+    path:'/user_management',
+    name:'user_management',
+    component: User_Management
+  },
+  {
+    path:'/dashboardsuper',
+    name:'dashboardsuper',
+    component: Dashboard_super
+  },
   {
     path: '/login',
     name: 'Login',
