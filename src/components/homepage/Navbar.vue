@@ -10,21 +10,21 @@
        <v-spacer></v-spacer>
        <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
-        
            <v-btn v-bind="attrs"
           v-on="on" icon>
         <v-icon >mdi-account</v-icon>
       </v-btn>
-        
       </template>
-      <v-list>
+      <v-list v-for="(item, index) in items" :key="index">
+        <router-link  :to= "item.link" style="text-decoration:none;"> 
         <v-list-item
-          v-for="(item, index) in items"
-          :key="index"
+          
         >
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
+        </router-link>
       </v-list>
+      
     </v-menu>
        
     </v-app-bar>
@@ -42,25 +42,30 @@
           v-model="group"
           active-class="deep-gray--text text--accent-4"
         >
+        <router-link to="/" style="text-decoration:none;"> 
           <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
             <v-list-item-title>ໜ້າຫຼັກ</v-list-item-title>
           </v-list-item>
-
+        </router-link>
+          <router-link to="/candidate" style="text-decoration:none;"> 
           <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
             <v-list-item-title>ຂໍ້ມູນຜູ້ສະໝັກນາຍບ້ານ</v-list-item-title>
           </v-list-item>
+            </router-link>
+<router-link to="/profiles" style="text-decoration:none;"> 
           <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
             <v-list-item-title>ຂໍ້ມູນຜູ້ໃຊ້</v-list-item-title>
           </v-list-item>
+</router-link>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -72,11 +77,17 @@
       drawer: false,
       group: null,
         items: [
-        { title: 'ຂໍ້ມູນຜູ້ໃຊ້' },
-        { title: 'ລົງທະບຽນ' },
-        { title: 'ເຂົ້າສູ່ລະບົບ' },
+        { title: 'ຂໍ້ມູນຜູ້ໃຊ້',link:'/profiles' },
+        { title: 'ລົງທະບຽນ' ,link:'Login'},
+        { title: 'ເຂົ້າສູ່ລະບົບ' ,link:'Login'},
         
       ],
     }),
   }
 </script>
+<style scoped>
+  
+router-link a{
+    text-decoration: none !important;
+}
+</style>
