@@ -1,10 +1,5 @@
 <template>
-  
-  <div id="app">  
-    <!-- <nav>
-        
-        <RouterLink to="/firebase">Firebase</RouterLink>
-      </nav> -->
+  <div id="app">
     <v-app>
        <hr>
        <router-view></router-view>

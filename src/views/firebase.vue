@@ -1,17 +1,18 @@
 <template>
-  <div>
-    <input type="tel" id="phoneNumber" />
+  <div style="background-color: gray;">
+
+    <input   type="tel" id="phoneNumber" />
 
     <button id="sign-in-button" @click="submitPhoneNumberAuth()">
       SIGN IN WITH PHONE
     </button>
 
-    <input type="text" id="otpcode" v-model="otpcode" />
+    <input  type="text" id="otpcode" v-model="otpcode" />
     <button id="confirm-code" @click="submitPhoneNumberAuthCode()">
       ENTER CODE
     </button>
 
-    <div id="recaptcha-container"></div>
+    <div style="background-color:gray;" id="recaptcha-container"></div>
   </div>
 </template>
 
@@ -64,13 +65,11 @@ export default {
         .then((confirmResult) => {
           this.confirmationResult = confirmResult;
           console.log(  this.confirmationResult);
-          //this.OTPDialog = true;
+          // this.OTPDialog = true;
         })
         .catch((error) => {
          console.log(error);
         });
-
-   
     },
 
     submitPhoneNumberAuthCode() {
@@ -93,4 +92,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+
+</style>
