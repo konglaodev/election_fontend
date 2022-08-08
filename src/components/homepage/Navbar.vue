@@ -63,9 +63,15 @@
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>ຂໍ້ມູນຜູ້ໃຊ້</v-list-item-title>
+            <v-list-item-title>ຂໍ້ມູນຜູ້ໃຊ້:{{username}}</v-list-item-title>
           </v-list-item>
 </router-link>
+<v-list-item>
+            <v-list-item-icon>
+              <v-icon></v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>ອອກຈາກລະບົບ</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

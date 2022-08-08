@@ -179,49 +179,58 @@ export default {
       });
       const data = JSON.stringify(res.data.Token.access_token);
       const role = JSON.stringify(res.data.Users.role_id);
+      const name = JSON.stringify(res.data.Users.name);
       const populations_id = JSON.stringify(res.data.Population);
       const status = JSON.stringify(res.data.Users.status);
       localStorage.setItem("token", data);
       localStorage.setItem("role", role);
       localStorage.setItem("populations_id",populations_id);
       localStorage.setItem("status",status);
-      console.log(data,role,populations_id);
-      alert(data);
+      localStorage.setItem("name",name);
+    if(role == 1){
+        this.$router.push('/dashboard_village_headman');
+    }else if(role ==2){
+        this.$router.push('/dashboard_village_headman');
+    }else {
+          this.$router.push('/home');
+    }  
+
+      
       // const token = JSON.parse(res);
       // console.log(JSON.parse(res));
       // console.log(token);
-      this.$router.push('/home');
+      
     
           
           
           
     
     },
-    handleLogin() {
-      this.loading = true;
-      this.$validator.validateAll().then((isValid) => {
-        if (!isValid) {
-          this.loading = false;
-          return;
-        }
-        if (this.user.username && this.user.password) {
-          this.$store.dispatch("auth/login", this.user).then(
-            () => {
-              this.$router.push("/profile");
-            },
-            (error) => {
-              this.loading = false;
-              this.message =
-                (error.response &&
-                  error.response.data &&
-                  error.response.data.message) ||
-                error.message ||
-                error.toString();
-            }
-          );
-        }
-      });
-    },
+    // handleLogin() {
+    //   this.loading = true;
+    //   this.$validator.validateAll().then((isValid) => {
+    //     if (!isValid) {
+    //       this.loading = false;
+    //       return;
+    //     }
+    //     if (this.user.username && this.user.password) {
+    //       this.$store.dispatch("auth/login", this.user).then(
+    //         () => {
+    //           this.$router.push("/profile");
+    //         },
+    //         (error) => {
+    //           this.loading = false;
+    //           this.message =
+    //             (error.response &&
+    //               error.response.data &&
+    //               error.response.data.message) ||
+    //             error.message ||
+    //             error.toString();
+    //         }
+    //       );
+    //     }
+    //   });
+    // },
   },
 };
 </script>

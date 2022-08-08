@@ -58,7 +58,7 @@
                       type="password"
                     />
 
-                    <v-btn type="submit" color="blue" dark block tile
+                    <v-btn  type="submit" color="blue" dark block tile
                       >ລົງທະບຽນ</v-btn
                     >
                   </v-form>
@@ -113,10 +113,15 @@ export default {
         .post("http://localhost:8000/api/register/", data)
         .then((res) => {
           console.log(res);
+          return res;
         })
         .catch((err) => {
           console.log(err);
         });
+
+        alert(res);
+        this.$router.push('/login');
+
     },
   },
 };
