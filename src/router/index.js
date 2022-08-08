@@ -22,9 +22,12 @@ import PeopleInformation from '@/components/bie/village_headman/management/peopl
 import ElectorInformation from '@/components/bie/village_headman/management/elector/elector.vue'
 import CheckPermissionElection from '@/components/bie/village_headman/management/check_permission_election/check_permission_election.vue'
 import HeadmanElectionInformation from '@/components/bie/village_headman/headman_election_information/headman_election_information.vue'
+
+
 Vue.use(VueRouter)
 
-const routes = [
+
+const routes= [
   {
     path:'/dashboard_village_headman',
     name:'dashboard_village_headman',
@@ -139,6 +142,27 @@ const routes = [
     component: () => import('../views/firebase.vue')
   },
   {
+    path: "/tutorials",
+    alias: "/tutorials",
+    name: "tutorials",
+    component: () => import("../components/Tutorials.vue")
+  },
+  {
+    path: "/tutorials/:id",
+    name: "tutorial-details",
+    component: () => import("../components/TutorialList.vue")
+  },
+  {
+    path: "/add",
+    name: "add",
+    component: () => import("../components/AddTutorial.vue")
+  },
+  {
+    path: "/crud",
+    name: "crud",
+    component: () => import("../views/crudTable.vue")
+  },
+  {
     path: '/',
     redirect:'/home'
   },
@@ -155,3 +179,16 @@ const router = new VueRouter({
 })
 
 export default router
+// router.beforeEach((to, from, next) => {
+//   const publicPages = ['/login', '/register', '/home'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = localStorage.getItem('user');
+
+//   // trying to access a restricted page + not logged in
+//   // redirect to login page
+//   if (authRequired && !loggedIn) {
+//     next('/login');
+//   } else {
+//     next();
+//   }
+// });

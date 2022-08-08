@@ -3,7 +3,7 @@
     <div class="Navbar">
       <Navbar :title="title"/>
       <div class="container-content">
-
+          <h1> my dashboard</h1>
       </div>
     </div>
   </div>

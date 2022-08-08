@@ -1,7 +1,7 @@
 <template>
         <div style="text-align:center; margin-bottom:50px;margin-top:50px;">
             
-   <v-btn
+   <v-btn href="/candidate"
               x-large
               color="info" class="text--white"
               dark

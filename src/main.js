@@ -5,6 +5,7 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import VeeValidate from 'vee-validate';
+Vue.use(VeeValidate);
 Vue.config.productionTip = false
 import { initializeApp } from "firebase/app";
 const firebaseConfig = {
@@ -22,5 +23,19 @@ new Vue({
   store,
   vuetify,
  
+ 
   render: h => h(App)
 }).$mount('#app')
+
+// router.beforeEach((to, from, next) => {
+//   const publicPages = ['/login', '/register', '/home','candidate'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = localStorage.getItem('user');
+//   // trying to access a restricted page + not logged in
+//   // redirect to login page
+//   if (authRequired && !loggedIn) {
+//     next('/home');
+//   } else {
+//     next();
+//   }
+// });

@@ -1,8 +1,8 @@
 <template>
  <div>
     <v-app-bar
-      color="white"
-     
+      color="#1CB4BE"
+      fixed 
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
@@ -78,15 +78,19 @@
       group: null,
         items: [
         { title: 'ຂໍ້ມູນຜູ້ໃຊ້',link:'/profiles' },
-        { title: 'ລົງທະບຽນ' ,link:'Login'},
-        { title: 'ເຂົ້າສູ່ລະບົບ' ,link:'Login'},
+        { title: 'ລົງທະບຽນ' ,link:'/firebase'},
+        { title: 'ເຂົ້າສູ່ລະບົບ' ,link:'/Login'},
         
       ],
-    }),
+    }),methods:{
+        onClickLogout(){
+          this.$router.push('/');
+          this.$store.dispatch('/doLogout');
+        } 
+    },
   }
 </script>
 <style scoped>
-  
 router-link a{
     text-decoration: none !important;
 }
