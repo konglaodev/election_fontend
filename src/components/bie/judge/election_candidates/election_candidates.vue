@@ -6,7 +6,7 @@
       <v-data-table
           :search="search"
           :headers="headers"
-          :items="desserts"
+          :items="candidateData['data']"
           sort-by="calories"
           class="elevation-1"
       >
@@ -45,10 +45,10 @@
                           cols="6"
                       >
                         <v-img
-                            lazy-src="https://picsum.photos/id/11/10/6"
+
                             max-height="250"
                             max-width="150"
-                            src="https://picsum.photos/id/11/500/300"
+                            :src="'http://127.0.0.1:8000/storage/candidate_images/'+peopleItem.image"
                         ></v-img>
 
                       </v-col>
@@ -66,7 +66,7 @@
                           <v-col
                               cols="12"
                           >
-                            <h3>ເບີໂທ: {{peopleItem.phone}}</h3>
+                            <h3>ວັນເດືອນປີເກີດ: {{peopleItem.dateOfBirth}}</h3>
                           </v-col>
                           <v-col
                               cols="12"
@@ -74,6 +74,25 @@
 
                             <h3>ລະດັບ: {{peopleItem.degree}}</h3>
                           </v-col>
+                          <v-col
+                              cols="12"
+                          >
+
+                            <h3>ສະໂລແກນ: {{peopleItem.slogan}}</h3>
+                          </v-col>
+                          <v-col
+                              cols="12"
+                          >
+
+                            <h3>ປະຫວັດ: {{peopleItem.history}}</h3>
+                          </v-col>
+                          <v-col
+                              cols="12"
+                          >
+
+                            <h3>ທີ່ຢູ່: {{peopleItem.address}}</h3>
+                          </v-col>
+
 
                         </v-row>
                       </v-col>
@@ -116,6 +135,14 @@
             </v-dialog>
           </v-toolbar>
         </template>
+        <template v-slot:[`item.image`]="{ item }">
+
+          <v-img
+              max-height="250"
+              max-width="150"
+              :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.image"
+          ></v-img>
+        </template>
         <template v-slot:[`item.actions`]="{ item }">
 
           <v-icon
@@ -134,27 +161,22 @@
           <!--            mdi-delete-->
           <!--          </v-icon>-->
         </template>
-        <template v-slot:no-data>
-          <v-btn
-              color="primary"
-              @click="initialize"
-          >
-            Reset
-          </v-btn>
-        </template>
+
       </v-data-table>
     </div>
   </div>
 </template>
 
 <script>
+
+import { mapActions, mapGetters } from "vuex";
 import Navbar from "@/components/bie/judge/dashboard/navbar.vue"
 export default {
   name: "election_candidates",
   data(){
     return{
       search: '',
-      title:"ຂໍ້ມູນປະຊາກອນທັງໝົດ",
+      title:"ລາຍງານຂໍ້ມູນປະຊາກອນທັງໝົດ",
       dialog: false,
       dialogDelete: false,
       permissionItem:[
@@ -162,15 +184,21 @@ export default {
         'efg'
       ],
       headers: [
+        { text: 'ຮູບ', value: 'image' },
         {
-          text: 'Name',
+          text: 'ຊື່',
           align: 'start',
           sortable: false,
           value: 'name',
         },
-        { text: 'Surname', value: 'surname' },
-        { text: 'Phone', value: 'phone' },
-        { text: 'Degree', value: 'degree' },
+        { text: 'ນາມສະກຸນ', value: 'surname' },
+        {text:'ເພດ',value: 'gender'},
+        { text: 'ວ/ດ/ປ ເກີດ', value: 'dateOfBirth' },
+        { text: 'ລະດັບ', value: 'degree' },
+        { text: 'ສະໂລແກນ', value: 'slogan' },
+        { text: 'ປະຫວັດ', value: 'history' },
+        { text: 'ທີ່ຢູ່', value: 'address' },
+
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],
@@ -178,24 +206,42 @@ export default {
       peopleItem: {
         name: '',
         surname: '',
-        phone: '',
+        gender: '',
+        dateOfBirth: '',
         degree: '',
+        slogan: '',
+        history: '',
+        address: '',
+        image: '',
 
       },
       defaultItem: {
         name: '',
         surname: '',
-        phone: '',
+        gender: '',
+        dateOfBirth: '',
         degree: '',
+        slogan: '',
+        history: '',
+        address: '',
+        image: '',
       },
     }
   },
+
+  mounted() {
+    this.getCandidate()
+  },
+
   components:{
     Navbar
   },
   computed: {
+    ...mapGetters({
+      candidateData: "Candidate/candidateData",
+    }),
     formTitle () {
-      return this.editedIndex === -1 ? 'ເພີ່ມຜູ້ໃຊ້' : 'ລາຍລະອຽດຂອງປະຊາກອນ'
+      return this.editedIndex === -1 ? 'ລາຍລະອຽດຂອງປະຊາກອນ' : 'ລາຍລະອຽດຂອງປະຊາກອນ'
     },
   },
 
@@ -213,6 +259,11 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      getCandidate: "Candidate/getCandidate",
+      getCandidateOne: "Candidate/getCandidateOne",
+    }),
+
     initialize () {
       this.desserts = [
         {

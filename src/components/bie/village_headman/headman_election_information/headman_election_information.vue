@@ -5,8 +5,8 @@
 
       <v-data-table
           :search="search"
-          :headers="headers"
-          :items="desserts"
+          :headers="headersPeople"
+          :items="peopleData['data']"
           sort-by="calories"
           class="elevation-1"
       >
@@ -21,6 +21,7 @@
                 v-model="dialog"
                 max-width="700px"
             >
+
               <template v-slot:activator="{  }">
 
                 <v-text-field
@@ -33,6 +34,7 @@
                     hide-details
                 ></v-text-field>
               </template>
+
               <v-card>
                 <v-card-title>
                   {{ formTitle }}
@@ -45,10 +47,10 @@
                           cols="6"
                       >
                         <v-img
-                            lazy-src="https://picsum.photos/id/11/10/6"
+
                             max-height="250"
                             max-width="150"
-                            src="https://picsum.photos/id/11/500/300"
+                            :src="'http://127.0.0.1:8000/storage/populations_images/'+peopleItem.image"
                         ></v-img>
 
                       </v-col>
@@ -60,19 +62,25 @@
                               cols="12"
                           >
                             <h3>
-                              ທ່ານ: {{peopleItem.name}} {{peopleItem.surname}}
+                              ຊື່ແລະນາມສະກຸນ: {{peopleItem.gender}} {{peopleItem.name}} {{peopleItem.surname}}
                             </h3>
                           </v-col>
                           <v-col
                               cols="12"
                           >
-                            <h3>ເບີໂທ: {{peopleItem.phone}}</h3>
+                            <h3>ວັນເດືອນປີເກີດ: {{peopleItem.dateOfBirth}}</h3>
                           </v-col>
+
                           <v-col
                               cols="12"
                           >
+                            <h3>ເບີໂທ: {{peopleItem.phoneNumber}}</h3>
+                          </v-col>
 
-                            <h3>ລະດັບ: {{peopleItem.degree}}</h3>
+                          <v-col
+                              cols="12"
+                          >
+                            <h3>ທີ່ຢູ່: {{peopleItem.address}}</h3>
                           </v-col>
 
                         </v-row>
@@ -88,14 +96,14 @@
                       text
                       @click="close"
                   >
-                    Cancel
+                    ຍົກເລີກ
                   </v-btn>
                   <v-btn
                       color="blue darken-1"
                       text
                       @click="save"
                   >
-                    Save
+                    ບັນທຶກ
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -116,6 +124,13 @@
             </v-dialog>
           </v-toolbar>
         </template>
+        <template v-slot:[`item.image`]="{item}">
+          <v-img
+              max-height="250"
+              max-width="150"
+              :src="'http://127.0.0.1:8000/storage/populations_images/'+item.image"
+          ></v-img>
+        </template>
         <template v-slot:[`item.actions`]="{ item }">
 
           <v-icon
@@ -134,14 +149,7 @@
           <!--            mdi-delete-->
           <!--          </v-icon>-->
         </template>
-        <template v-slot:no-data>
-          <v-btn
-              color="primary"
-              @click="initialize"
-          >
-            Reset
-          </v-btn>
-        </template>
+
       </v-data-table>
       <br>
       <v-container fill-height fluid>
@@ -150,25 +158,25 @@
             <h2>ປະຊາກອນທັງໝົດ</h2>
           </v-col>
           <v-col cols="12" sm="2">
-            <h2>500 ຄົນ</h2>
+            <h2>{{peopleData['data'].length ?? "0"}} ຄົນ</h2>
           </v-col>
           <v-col cols="12" sm="6">
             <h2>ປະຊາກອນທີ່ສາມາດລົງຄະແນນທັງໝົດ</h2>
           </v-col>
           <v-col cols="12" sm="2">
-            <h2>250 ຄົນ</h2>
+            <h2>{{peopleData['data'].length - peopleVotedData['data'].length ?? "0"}} ຄົນ</h2>
           </v-col>
           <v-col cols="12" sm="6">
             <h2>ປະຊາກອນທີ່ລົງສຽງແລ້ວ</h2>
           </v-col>
           <v-col cols="12" sm="2">
-            <h2>250 ຄົນ</h2>
+            <h2>{{peopleVotedData['data'].length ?? "0"}} ຄົນ</h2>
           </v-col>
           <v-col cols="12" sm="6">
-            <h2>ຜູ້ແທນທີ່ລົງສະໝັກ</h2>
+            <h2>ຜູ້ລົງສະໝັກເລືອກຕັ້ງ</h2>
           </v-col>
           <v-col cols="12" sm="2">
-            <h2>250 ຄົນ</h2>
+            <h2>{{candidateData['data'].length ?? "0"}} ຄົນ</h2>
           </v-col>
         </v-row>
       </v-container>
@@ -184,10 +192,13 @@
           <thead>
           <tr>
             <th class="text-left">
-              Name
+              ເພດ
             </th>
             <th class="text-left">
-              ຊື່ແລະນາມສະກຸນ
+              ຊື່
+            </th>
+            <th class="text-left">
+              ນາມສະກຸນ
             </th>
             <th class="text-left">
               ຄະແນນ
@@ -196,12 +207,19 @@
           </thead>
           <tbody>
           <tr
-              v-for="item in desserts"
-              :key="item.name"
+              v-for="item in candidateHighVoteData['data']"
+              :key="item.id"
           >
-            <td>{{ item.name }}</td>
-            <td>{{ item.name }} {{ item.surname }}</td>
-            <td>{{ item.phone }}</td>
+
+            <td>  <v-img
+                max-height="250"
+                max-width="150"
+                :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.image"
+            ></v-img></td>
+            <td>{{ item.gender }}</td>
+            <td>{{ item.candidate_name }}</td>
+            <td>{{ item.candidate_surname }}</td>
+            <td>{{ item.votes_count }}</td>
           </tr>
           </tbody>
         </template>
@@ -211,29 +229,33 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue"
 export default {
   name: "election_candidates",
   data(){
     return{
       search: '',
-      title:"ຂໍ້ມູນການເລືອກຕັ້ງ",
+      title:"ລາຍງານຂໍ້ມູນການເລືອກຕັ້ງ",
       dialog: false,
       dialogDelete: false,
       permissionItem:[
         'abc',
         'efg'
       ],
-      headers: [
+      headersPeople: [
+        { text: 'ຮູບ', value: 'image' },
+        { text:'ເພດ',value: 'gender'},
         {
-          text: 'Name',
+          text: 'ຊື່',
           align: 'start',
           sortable: false,
           value: 'name',
         },
-        { text: 'Surname', value: 'surname' },
-        { text: 'Phone', value: 'phone' },
-        { text: 'Degree', value: 'degree' },
+        { text: 'ນາມສະກຸນ', value: 'surname' },
+        { text: 'ເບີໂທ', value: 'phoneNumber' },
+        { text: 'ວ/ດ/ປ ເກີດ', value: 'dateOfBirth' },
+        { text: 'ທີ່ຢູ່', value: 'address' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],
@@ -241,15 +263,20 @@ export default {
       peopleItem: {
         name: '',
         surname: '',
-        phone: '',
-        degree: '',
-
+        gender: '',
+        dateOfBirth: '',
+        phoneNumber: '',
+        address: '',
+        image: '',
       },
       defaultItem: {
         name: '',
         surname: '',
-        phone: '',
-        degree: '',
+        gender: '',
+        dateOfBirth: '',
+        phoneNumber: '',
+        address: '',
+        image: '',
       },
     }
   },
@@ -257,6 +284,14 @@ export default {
     Navbar
   },
   computed: {
+    ...mapGetters({
+      peopleVotedData:"People/peopleVotedData",
+      candidateHighVoteData: "ElectionInformation/candidateHighVoteData",
+      peopleData: "PeopleForJudge/peopleData",
+      censusData: "Census/censusData",
+      candidateData: "Candidate/candidateData"
+
+    }),
     formTitle () {
       return this.editedIndex === -1 ? 'ເພີ່ມຜູ້ໃຊ້' : 'ລາຍລະອຽດຂອງປະຊາກອນ'
     },
@@ -272,42 +307,35 @@ export default {
   },
 
   created () {
-    this.initialize()
+    this.getPeople()
+    this.getCandidateHighVote()
+    this.getCandidate()
+    this.getPeopleVoted()
+
   },
 
   methods: {
-    initialize () {
-      this.desserts = [
-        {
-          name: 'Frozen Yogurt',
-          surname: 'Surname1',
-          phone: '+8562059880655',
-          degree: 'CEO',
-        },
-        {
-          name: 'Fire',
-          surname: 'Surname2',
-          phone: '+8562059880655',
-          degree: 'CEO',
-        },
-        {
-          name: 'Water',
-          surname: 'Surname4',
-          phone: '+8562059880655',
-          degree: 'CEO',
-        },
-        {
-          name: 'Electric',
-          surname: 'Surname4',
-          phone: '+8562059880655',
-          degree: 'CEO',
-        },
+    ...mapActions({
+      getPeopleVoted:"People/getPeopleVoted",
+      getCandidate: "Candidate/getCandidate",
+      getCandidateHighVote: "ElectionInformation/getCandidateAllHighVote",
+      getCensus:"Census/getCensus",
+      getPeople: "PeopleForJudge/getPeople",
+      getPeopleOne: "PeopleForJudge/getPeopleOne",
+    }),
 
-      ]
+
+
+    viewItem (item) {
+      this.btnIndex = 1
+      this.editedIndex = this.peopleData['data'].indexOf(item)
+      this.peopleItem = Object.assign({}, item)
+      this.dialogView = true
     },
 
     editItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
+      this.btnIndex = 0
+      this.editedIndex = this.peopleData['data'].indexOf(item)
       this.peopleItem = Object.assign({}, item)
       this.dialog = true
     },

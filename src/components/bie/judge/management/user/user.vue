@@ -6,8 +6,8 @@
       <v-data-table
           :search="search"
           :headers="headers"
-          :items="desserts"
-          sort-by="calories"
+          :items="userData['data']"
+
           class="elevation-1"
       >
         <template v-slot:top>
@@ -30,7 +30,7 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                  New Item
+                  ເພີ່ມ
                 </v-btn>
                 <v-text-field
                     class="pr-10"
@@ -50,53 +50,38 @@
                   <v-container>
                     <v-row dense>
                       <v-col
+                          v-show="editedIndex < 0"
                           cols="12"
                       >
                         <v-text-field
                             outlined
-                            v-model="editedItem.name"
+                            v-model="userItem.name"
                             label="ຊື່ຜູ້ໃຊ້"
                         ></v-text-field>
                       </v-col>
                       <v-col
+
                           cols="12"
 
                       >
                         <v-text-field
+                            :disabled="editedIndex > -1"
                             outlined
-                            v-model="editedItem.phone"
+                            v-model="userItem.phoneNumber"
                             label="ເບີໂທ"
                         ></v-text-field>
                       </v-col>
+
                       <v-col
                           cols="12"
-
-                      >
-                        <v-text-field
-                            outlined
-                            v-model="editedItem.password"
-                            label="ລະຫັດຜ່ານ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-
-                      >
-                        <v-text-field
-                            outlined
-                            v-model="editedItem.cpassword"
-                            label="ຢືນຢັນລະຫັດຜ່ານ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-
                       >
                           <v-select
                               :items="permissionItem"
+                              item-text="name"
+                              item-value="id"
                               label="ສິດການນຳໃຊ້"
                               outlined
-                              v-model="editedItem.permission"
+                              v-model="userItem.role_id"
                           ></v-select>
 
                       </v-col>
@@ -111,29 +96,15 @@
                       text
                       @click="close"
                   >
-                    Cancel
+                    ຍົກເລີກ
                   </v-btn>
                   <v-btn
                       color="blue darken-1"
                       text
                       @click="save"
                   >
-                    Save
+                    ບັນທຶກ
                   </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-            <v-dialog v-model="dialogDelete" max-width="500px" >
-              <v-card
-              >
-
-                <v-card-title class="justify-center" >ຕ້ອງການລຶບຜູ້ໃຊ້ແທ້ຫຼືບໍ່?</v-card-title>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="grey" dark @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="red darken-1" dark @click="deleteItemConfirm">OK</v-btn>
-                  <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -149,29 +120,19 @@
           >
             mdi-pencil
           </v-icon>
-          <v-icon
-              color="red"
-              dense
-              @click="deleteItem(item)"
-          >
-            mdi-delete
-          </v-icon>
+
         </template>
-        <template v-slot:no-data>
-          <v-btn
-              color="primary"
-              @click="initialize"
-          >
-            Reset
-          </v-btn>
-        </template>
+
       </v-data-table>
     </div>
+    <Alert/>
   </div>
 </template>
 
 <script>
+import Alert from "@/components/bie/alert/alert.vue"
 import Navbar from "@/components/bie/judge/dashboard/navbar.vue"
+import {mapActions, mapGetters} from "vuex";
 export default {
   name: "user",
   data(){
@@ -181,46 +142,49 @@ export default {
       dialog: false,
       dialogDelete: false,
       permissionItem:[
-          'abc',
-          'efg'
+        {'id':1,'name': 'superadmin'},
+        {'id':2,'name': 'admin'},
+        {'id':3,'name': 'user'}
       ],
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: 'ຊື່',
           align: 'start',
           sortable: false,
           value: 'name',
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
+        { text: 'ເບີໂທ', value: 'phoneNumber' },
+        { text: 'ສະຖານະ', value: 'status' },
+        { text: 'ສິດການນຳໃຊ້', value: 'role_id' },
+
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
-      editedItem: {
+      userItem: {
         name: '',
-        phone: '',
-        password: '',
-        cpassword: '',
-        permission: '',
+        phoneNumber: '',
+        status: '',
+        role_id: '',
       },
       defaultItem: {
         name: '',
-        phone: '',
-        password: '',
-        cpassword: '',
-        permission: '',
+        phoneNumber: '',
+        status: '',
+        role_id: '',
       },
     }
   },
   components:{
-    Navbar
+    Navbar,
+    Alert
   },
   computed: {
+    ...mapGetters({
+      userData: "User/userData",
+    }),
     formTitle () {
-      return this.editedIndex === -1 ? 'ເພີ່ມຜູ້ໃຊ້' : 'ແກ້ໄຂຜູ້ໃຊ້'
+      return this.editedIndex === -1 ? 'ເພີ່ມຜູ້ໃຊ້' : 'ແກ້ໄຂສິດນຳໃຂ້'
     },
   },
 
@@ -234,94 +198,30 @@ export default {
   },
 
   created () {
-    this.initialize()
+    this.getUser()
+
   },
 
   methods: {
-    initialize () {
-      this.desserts = [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ]
-    },
+    ...mapActions({
+      getUser: "User/getUser",
+      getUserOne: "User/getUserOne",
+      createUser: "User/createUser",
+      updateUser: "User/updateUser",
+      deleteUser: "User/deleteUser"
+    }),
+
+
 
     editItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.editedIndex = this.userData['data'].indexOf(item)
+      this.userItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
       this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.userItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
@@ -333,7 +233,7 @@ export default {
     close () {
       this.dialog = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
+        this.userItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
@@ -341,16 +241,16 @@ export default {
     closeDelete () {
       this.dialogDelete = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
+        this.userItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
 
     save () {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        this.updateUser({user_id:this.userData['data'][this.editedIndex]['id'],phoneNumber:this.userItem.phoneNumber,role_id:this.userItem.role_id})
       } else {
-        this.desserts.push(this.editedItem)
+        this.createUser({name:this.userItem.name,phoneNumber:this.userItem.phoneNumber,role_id:this.userItem.role_id})
       }
       this.close()
     },

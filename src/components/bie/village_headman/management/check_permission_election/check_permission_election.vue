@@ -6,8 +6,7 @@
       <v-data-table
           :search="search"
           :headers="headers"
-          :items="desserts"
-          sort-by="calories"
+          :items="verifyData['data']"
           class="elevation-1"
       >
         <template v-slot:top>
@@ -19,17 +18,9 @@
                 v-model="dialog"
                 max-width="500px"
             >
-              <template v-slot:activator="{ on, attrs }">
+              <template v-slot:activator="{ }">
 
-                <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                  New Item
-                </v-btn>
+
                 <v-text-field
                     class="pr-10"
                     v-model="search"
@@ -51,53 +42,13 @@
                           cols="12"
                       >
                         <v-text-field
+                            disabled
                             outlined
-                            v-model="editedItem.name"
-                            label="ຊື່ຜູ້ໃຊ້"
+                            v-model="verifyItem.status"
+                            label="ປ່ຽນສະຖານະ"
                         ></v-text-field>
                       </v-col>
-                      <v-col
-                          cols="12"
 
-                      >
-                        <v-text-field
-                            outlined
-                            v-model="editedItem.phone"
-                            label="ເບີໂທ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-
-                      >
-                        <v-text-field
-                            outlined
-                            v-model="editedItem.password"
-                            label="ລະຫັດຜ່ານ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-
-                      >
-                        <v-text-field
-                            outlined
-                            v-model="editedItem.cpassword"
-                            label="ຢືນຢັນລະຫັດຜ່ານ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col
-                          cols="12"
-
-                      >
-                        <v-select
-                            :items="permissionItem"
-                            label="ສິດການນຳໃຊ້"
-                            outlined
-                            v-model="editedItem.permission"
-                        ></v-select>
-
-                      </v-col>
                     </v-row>
                   </v-container>
                 </v-card-text>
@@ -120,20 +71,7 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-dialog v-model="dialogDelete" max-width="500px" >
-              <v-card
-              >
 
-                <v-card-title class="justify-center" >ຕ້ອງການລຶບປະຊາກອນຄົນນີ້ແທ້ຫຼືບໍ່?</v-card-title>
-                <v-card-subtitle >{{editedItem.name}}</v-card-subtitle>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="grey" dark @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="red darken-1" dark @click="deleteItemConfirm">OK</v-btn>
-                  <v-spacer></v-spacer>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
             <v-dialog
                 v-model="dialogView"
                 max-width="500px"
@@ -150,10 +88,10 @@
                           cols="6"
                       >
                         <v-img
-                            lazy-src="https://picsum.photos/id/11/10/6"
+
                             max-height="250"
                             max-width="150"
-                            src="https://picsum.photos/id/11/500/300"
+                            :src="'http://127.0.0.1:8000/storage/verifys_images/'+verifyItem"
                         ></v-img>
 
                       </v-col>
@@ -165,34 +103,10 @@
                               cols="12"
                           >
                             <h3>
-                              ຊື່ຜູ້ໃຊ້: {{editedItem.name}}
+                              ສະຖານະ: {{verifyItem.status}}
                             </h3>
                           </v-col>
-                          <v-col
-                              cols="12"
-                          >
-                            <h3>ເບີໂທ: {{editedItem.phone}}</h3>
-                          </v-col>
-                          <v-col
-                              cols="12"
-                          >
 
-                            <h3>ວັນເດືອນປີເກີດ: {{editedItem.dob}}</h3>
-                          </v-col>
-                          <v-col
-                              cols="12"
-
-                          >
-
-                            <h3>ທີ່ຢູ່: {{editedItem.address}}</h3>
-                          </v-col>
-                          <v-col
-                              cols="12"
-
-                          >
-                            <h3>ສຳມະໂນຄົວເລກທີ: {{editedItem.census_no}}</h3>
-
-                          </v-col>
                         </v-row>
                       </v-col>
                     </v-row>
@@ -205,7 +119,7 @@
                       text
                       @click="closeView"
                   >
-                    Cancel
+                    ປິດ
                   </v-btn>
 
                 </v-card-actions>
@@ -223,14 +137,7 @@
           >
             mdi-pencil
           </v-icon>
-<!--          <v-icon-->
-<!--              class="mr-2"-->
-<!--              color="red"-->
-<!--              dense-->
-<!--              @click="deleteItem(item)"-->
-<!--          >-->
-<!--            mdi-delete-->
-<!--          </v-icon>-->
+
           <v-icon
               color="blue"
               large
@@ -240,21 +147,17 @@
             mdi-eye
           </v-icon>
         </template>
-        <template v-slot:no-data>
-          <v-btn
-              color="primary"
-              @click="initialize"
-          >
-            Reset
-          </v-btn>
-        </template>
+
       </v-data-table>
     </div>
+    <Alert/>
   </div>
 </template>
 
 <script>
+import Alert from "@/components/bie/alert/alert.vue"
 import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue"
+import {mapActions, mapGetters} from "vuex";
 export default {
   name: "check_permission_election",
   data(){
@@ -265,47 +168,41 @@ export default {
       dialog: false,
       dialogDelete: false,
       dialogView:false,
-      permissionItem:[
-        'abc',
-        'efg'
-      ],
+
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: 'ຮູບ',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'picture_verify',
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
+        { text: 'ສະຖານະ', value: 'status' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
-      editedItem: {
-        name: '',
-        phone: '',
-        password: '',
-        cpassword: '',
-        permission: '',
+      verifyItem: {
+        picture_verify: '',
+        status: '',
+        user_id: '',
       },
       defaultItem: {
-        name: '',
-        phone: '',
-        password: '',
-        cpassword: '',
-        permission: '',
+        picture_verify: '',
+        status: '',
+        user_id: '',
       },
     }
   },
   components:{
-    Navbar
+    Navbar,
+    Alert
   },
   computed: {
+    ...mapGetters({
+      verifyData: "Verify/verifyData",
+    }),
     formTitle () {
-      return this.btnIndex === -1 ? 'ເພີ່ມປະຊາກອນ' :this.btnIndex === 0 ? 'ແກ້ໄຂປະຊາກອນ' : 'ເບິ່ງລາຍລະອຽດປະຊາກອນ'
+      return this.btnIndex === -1 ? 'ເພີ່ມປະຊາກອນ' :this.btnIndex === 0 ? 'ແກ້ໄຂສິດ' : 'ເບິ່ງລາຍລະອຽດ'
     },
   },
 
@@ -323,6 +220,7 @@ export default {
 
   created () {
     this.initialize()
+    this.getVerify()
   },
 
   methods: {
@@ -400,24 +298,28 @@ export default {
         },
       ]
     },
+    ...mapActions({
+      getVerify:"Verify/getVerify",
+      updateVerify: "Verify/updateVerify"
+    }),
 
     viewItem (item) {
       this.btnIndex = 1
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.editedIndex = this.VerifyData['data'].indexOf(item)
+      this.verifyItem = Object.assign({}, item)
       this.dialogView = true
     },
 
     editItem (item) {
       this.btnIndex = 0
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.editedIndex =this.VerifyData['data'].indexOf(item)
+      this.verifyItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
       this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.verifyItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
@@ -429,7 +331,7 @@ export default {
     close () {
       this.dialog = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
+        this.verifyItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
@@ -437,7 +339,7 @@ export default {
     closeDelete () {
       this.dialogDelete = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
+        this.verifyItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
@@ -445,15 +347,15 @@ export default {
     closeView () {
       this.dialogView = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
+        this.verifyItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
     save () {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        this.updateVerify({verify_id:this.VerifyData['data'][this.editedIndex]['id'] ,user_id:this.verifyItem.user_id,status:this.verifyItem.status})
       } else {
-        this.desserts.push(this.editedItem)
+        this.desserts.push(this.verifyItem)
       }
       this.close()
     },

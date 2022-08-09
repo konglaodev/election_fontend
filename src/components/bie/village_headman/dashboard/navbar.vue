@@ -111,17 +111,6 @@
 
           <v-list-item
               link
-              @click="$router.push('/elector_information')"
-          >
-            <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>ຂໍ້ມູນຜູ້ສະໝັກເລືອກຕັ້ງ</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item
-              link
               @click="$router.push('/check_permission_election')"
           >
             <v-list-item-icon>

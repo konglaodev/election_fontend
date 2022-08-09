@@ -6,11 +6,10 @@
       <v-data-table
           :search="search"
           :headers="headers"
-          :items="peopleData['data']"
+          :items="candidateData['data']"
           sort-by="calories"
           class="elevation-1"
       >
-
         <template v-slot:top>
           <v-toolbar
               flat
@@ -47,70 +46,58 @@
 
                 <v-card-text>
                   <v-container>
-                    <v-row dense>
+                    <v-row dense no-gutters>
+
                       <v-col
                           cols="12"
                       >
-                        <div class="upload-image mb-5" v-if="previewImage == null">
-                          <div class="content" >
-                            <i class="fas fa-plus-circle"></i>
-                            <h3>ຮູບ</h3>
-                          </div>
-                          <input
-                              type="file"
-                              class="choose-file"
-                              name="upload-image"
-                              accept="image/*"
-                              @change="UploadImage"
-                          />
-                        </div>
-
-
-                        <div class="image" v-else>
-
-
-                          <div class="increase-decrease-image" >
-
-                            <v-btn
-                                class="mx-2"
-                                color="error"
-                                dark
-                                fab
-                                small
-                                @click="removeImage"
-                            >
-                              <v-icon dark>
-                                mdi-close
-                              </v-icon>
-                            </v-btn>
-
+                          <div class="upload-image mb-5" v-if="previewImage == null">
+                            <div class="content" >
+                              <i class="fas fa-plus-circle"></i>
+                              <h3>ຮູບ</h3>
+                            </div>
                             <input
-                                ref="uploader"
-                                accept="image/*"
-                                class="d-none"
                                 type="file"
+                                class="choose-file"
+                                name="upload-image"
+                                accept="image/*"
                                 @change="UploadImage"
                             />
                           </div>
-                          <v-img class="image-files" :src="previewImage"   max-width="100%" max-height="250"  contain/>
+
+
+                          <div class="image" v-else>
+
+
+                              <div class="increase-decrease-image" >
+
+                                <v-btn
+                                    class="mx-2"
+                                    color="error"
+                                    dark
+                                    fab
+                                    small
+                                    @click="removeImage"
+                                >
+                                  <v-icon dark>
+                                    mdi-close
+                                  </v-icon>
+                                </v-btn>
+
+                                <input
+                                    ref="uploader"
+                                    accept="image/*"
+                                    class="d-none"
+                                    type="file"
+                                    @change="UploadImage"
+                                />
+                              </div>
+                              <v-img class="image-files" :src="previewImage"   max-width="100%" max-height="250"  contain/>
 
 
 
-                        </div>
+                          </div>
 
-                      </v-col>
-                      <v-col
-                          cols="12"
-                      >
-
-                        <v-select
-                            :items="genderItem"
-                            item-text="number"
-                            item-value="number"
-                            label="ເພດ"
-                            outlined
-                            v-model="peopleItem.gender"
-                        ></v-select>
                       </v-col>
 
                       <v-col
@@ -118,27 +105,18 @@
                       >
                         <v-text-field
                             outlined
-                            v-model="peopleItem.name"
+                            v-model="candidateItem.name"
                             label="ຊື່"
                         ></v-text-field>
                       </v-col>
                       <v-col
                           cols="12"
-                      >
-                        <v-text-field
-                            outlined
-                            v-model="peopleItem.surname"
-                            label="ນາມສະກຸນ"
-                        ></v-text-field>
-                      </v-col>
 
-                      <v-col
-                          cols="12"
                       >
                         <v-text-field
                             outlined
-                            v-model="peopleItem.phoneNumber"
-                            label="ເບີໂທ"
+                            v-model="candidateItem.surname"
+                            label="ນາມສະກຸນ"
                         ></v-text-field>
                       </v-col>
                       <v-col
@@ -157,7 +135,7 @@
                           <template v-slot:activator="{ on, attrs }">
                             <v-text-field
                                 outlined
-                                v-model="peopleItem.dateOfBirth"
+                               v-model="candidateItem.dateOfBirth"
                                 label="ວັນ ເດືອນ ປີເກີດ"
 
                                 persistent-hint
@@ -168,35 +146,60 @@
                             ></v-text-field>
                           </template>
                           <v-date-picker
-                              v-model="peopleItem.dateOfBirth"
+                              v-model="candidateItem.dateOfBirth"
                               no-title
                               @input="menu1=false"
                           ></v-date-picker>
                         </v-menu>
                       </v-col>
+
+
                       <v-col
                           cols="12"
-
                       >
                         <v-text-field
+
                             outlined
-                            v-model="peopleItem.address"
-                            label="ທີ່ຢູ່"
+                            v-model="candidateItem.degree"
+
+                            label="ລະດັບ"
                         ></v-text-field>
                       </v-col>
+
                       <v-col
                           cols="12"
-
                       >
-                        <v-select
-                            :items="censusData['0']"
-                            item-text="cencus_id"
-                            item-value="id"
-                            label="ເລກສຳມະໂນ"
-                            outlined
-                            v-model="peopleItem.cencus_id"
-                        ></v-select>
+                        <v-text-field
 
+                            outlined
+                            v-model="candidateItem.slogan"
+
+                            label="ສະໂລແກນ"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col
+                          cols="12"
+                      >
+                        <v-text-field
+
+                            outlined
+                            v-model="candidateItem.history"
+
+                            label="ປະຫວັດ"
+                        ></v-text-field>
+                      </v-col>
+
+                      <v-col
+                          cols="12"
+                      >
+                        <v-text-field
+
+                            outlined
+                            v-model="candidateItem.address"
+
+                            label="ທີ່ຢູ່"
+                        ></v-text-field>
                       </v-col>
                     </v-row>
                   </v-container>
@@ -221,9 +224,7 @@
               </v-card>
             </v-dialog>
             <v-dialog v-model="dialogDelete" max-width="500px" >
-              <v-card
-              >
-
+              <v-card>
                 <v-card-title class="justify-center" >ຕ້ອງການລຶບປະຊາກອນຄົນນີ້ແທ້ຫຼືບໍ່?</v-card-title>
 
                 <v-card-actions>
@@ -253,7 +254,7 @@
 
                             max-height="250"
                             max-width="150"
-                            :src="'http://127.0.0.1:8000/storage/populations_images/'+peopleItem.image"
+                            :src="'http://127.0.0.1:8000/storage/candidate_images/'+candidateItem.image"
                         ></v-img>
 
                       </v-col>
@@ -265,25 +266,38 @@
                               cols="12"
                           >
                             <h3>
-                              ຊື່ແລະນາມສະກຸນ: {{peopleItem.gender}} {{peopleItem.name}} {{peopleItem.surname}}
+                              ຊື່ແລະນາມສະກຸນ: {{candidateItem.gender}} {{candidateItem.name}} {{candidateItem.surname}}
                             </h3>
                           </v-col>
                           <v-col
                               cols="12"
                           >
-                            <h3>ວັນເດືອນປີເກີດ: {{peopleItem.dateOfBirth}}</h3>
+                            <h3>ວັນເດືອນປີເກີດ: {{candidateItem.dateOfBirth}}</h3>
                           </v-col>
-
                           <v-col
                               cols="12"
                           >
-                            <h3>ເບີໂທ: {{peopleItem.phoneNumber}}</h3>
-                          </v-col>
 
+                            <h3>ລະດັບ: {{candidateItem.degree}}</h3>
+                          </v-col>
                           <v-col
                               cols="12"
                           >
-                            <h3>ທີ່ຢູ່: {{peopleItem.address}}</h3>
+
+                            <h3>ສະໂລແກນ: {{candidateItem.slogan}}</h3>
+                          </v-col>
+                          <v-col
+                              cols="12"
+                          >
+
+                            <h3>ປະຫວັດ: {{candidateItem.history}}</h3>
+                          </v-col>
+                          <v-col
+                              cols="12"
+
+                          >
+
+                            <h3>ທີ່ຢູ່: {{candidateItem.address}}</h3>
                           </v-col>
 
                         </v-row>
@@ -306,11 +320,12 @@
             </v-dialog>
           </v-toolbar>
         </template>
-        <template v-slot:[`item.image`]="{item}">
+        <template v-slot:[`item.image`]="{ item }">
+
           <v-img
               max-height="250"
               max-width="150"
-              :src="'http://127.0.0.1:8000/storage/populations_images/'+item.image"
+              :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.image"
           ></v-img>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
@@ -356,27 +371,28 @@
 
 <script>
 import Alert from "@/components/bie/alert/alert.vue"
-import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue"
+import Navbar from "@/components/bie/judge/dashboard/navbar.vue"
 import {mapActions, mapGetters} from "vuex";
 export default {
-  name: "people",
+  name: "elector",
+  mounted() {
+    this.getCandidate()
+  },
   data(){
     return{
-      imageString:'',
+      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      menu1:false,
       btnIndex:-1,
       search: '',
-      title:"ຂໍ້ມູນປະຊາກອນ",
+      title:"ຈັດການຜູ້ສະໝັກເລືອກຕັ້ງ",
       dialog: false,
       dialogDelete: false,
       dialogView:false,
-      menu1:false,
       uploadImage: null,
+
       previewImage: null,
-      genderItem:[
-        'ທ້າວ',
-        'ນາງ'
-      ],
       headers: [
+
         { text: 'ຮູບ', value: 'image' },
         { text:'ເພດ',value: 'gender'},
         {
@@ -386,33 +402,39 @@ export default {
           value: 'name',
         },
         { text: 'ນາມສະກຸນ', value: 'surname' },
-        { text: 'ເບີໂທ', value: 'phoneNumber' },
         { text: 'ວ/ດ/ປ ເກີດ', value: 'dateOfBirth' },
+        { text: 'ລະດັບ', value: 'degree' },
+        { text: 'ສະໂລແກນ', value: 'slogan' },
+        { text: 'ປະຫວັດ', value: 'history' },
         { text: 'ທີ່ຢູ່', value: 'address' },
-        { text: 'ເລກສຳມະໂນ', value: 'cencus_id' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      desserts: [],
+
       editedIndex: -1,
-      peopleItem: {
+      candidateItem: {
+
         name: '',
         surname: '',
-        gender: '',
+        gender: 'ທ່ານ',
         dateOfBirth: '',
-        phoneNumber: '',
+        degree: '',
+        slogan: '',
+        history: '',
         address: '',
         image: '',
-        cencus_id:''
+
       },
       defaultItem: {
+
         name: '',
         surname: '',
         gender: '',
         dateOfBirth: '',
-        phoneNumber: '',
+        degree: '',
+        slogan: '',
+        history: '',
         address: '',
         image: '',
-        cencus_id:''
       },
     }
   },
@@ -421,16 +443,12 @@ export default {
     Alert
   },
   computed: {
-
     ...mapGetters({
-      peopleData: "People/peopleData",
-      censusData: "Census/censusData"
+      candidateData: "Candidate/candidateData",
     }),
-
     formTitle () {
       return this.btnIndex === -1 ? 'ເພີ່ມປະຊາກອນ' :this.btnIndex === 0 ? 'ແກ້ໄຂປະຊາກອນ' : 'ເບິ່ງລາຍລະອຽດປະຊາກອນ'
     },
-
   },
 
   watch: {
@@ -445,21 +463,15 @@ export default {
     },
   },
 
-  created () {
-    this.getPeople()
-    this.getCensus()
-  },
 
   methods: {
     ...mapActions({
-      getCensus:"Census/getCensus",
-      getPeople: "People/getPeople",
-      getPeopleOne: "People/getPeopleOne",
-      createPeople: "People/createPeople",
-      updatePeople: "People/updatePeople",
-      deletePeople: "People/deletePeople"
+      getCandidate: "Candidate/getCandidate",
+      getCandidateOne: "Candidate/getCandidateOne",
+      createCandidate: "Candidate/createCandidate",
+      updateCandidate: "Candidate/updateCandidate",
+      deleteCandidate: "Candidate/deleteCandidate"
     }),
-
     async convertUrlToFileImage(image) {
       console.log(image)
       const response = await fetch(image);
@@ -474,14 +486,14 @@ export default {
     UploadImage(e) {
       const img = e.target.files[0];
 
-      this.uploadImage = img
-      console.log(this.uploadImage)
-      const reader = new FileReader();
-      reader.readAsDataURL(img);
-      reader.onload = (e) => {
-        this.previewImage= e.target.result;
-        console.log(this.previewImage);
-      }
+        this.uploadImage = img
+        console.log(this.uploadImage)
+        const reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = (e) => {
+          this.previewImage= e.target.result;
+          console.log(this.previewImage);
+        }
 
     },
 
@@ -492,41 +504,37 @@ export default {
 
     viewItem (item) {
       this.btnIndex = 1
-      this.editedIndex = this.peopleData['data'].indexOf(item)
-      this.peopleItem = Object.assign({}, item)
+      this.editedIndex = this.candidateData['data'].indexOf(item)
+      this.candidateItem = Object.assign({}, item)
       this.dialogView = true
     },
 
-    editItem (item) {
+    async editItem (item) {
+
       this.btnIndex = 0
-      this.editedIndex = this.peopleData['data'].indexOf(item)
-
-
-      //this.getPeopleOne({people_id:this.peopleData['data'][this.editedIndex]['id']})
-
-
-
-      this.peopleItem = Object.assign({}, item)
+      this.editedIndex = this.candidateData['data'].indexOf(item)
+      this.candidateItem = Object.assign({}, item)
       this.dialog = true
-       this.convertUrlToFileImage("http://127.0.0.1:8000/storage/populations_images/"+item.image)
+      await this.convertUrlToFileImage("http://127.0.0.1:8000/storage/candidate_images/"+item.image)
 
     },
 
     deleteItem (item) {
-      this.editedIndex = this.peopleData['data'].indexOf(item)
-      this.peopleItem = Object.assign({}, item)
+      this.editedIndex = this.candidateData['data'].indexOf(item)
+      this.candidateItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm () {
-      this.deletePeople({people_id:this.peopleData['data'][this.editedIndex]['id']})
+
+      this.deleteCandidate({candidate_id:this.candidateData['data'][this.editedIndex]['id']})
       this.closeDelete()
     },
 
     close () {
       this.dialog = false
       this.$nextTick(() => {
-        this.peopleItem = Object.assign({}, this.defaultItem)
+        this.candidateItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
@@ -534,7 +542,7 @@ export default {
     closeDelete () {
       this.dialogDelete = false
       this.$nextTick(() => {
-        this.peopleItem = Object.assign({}, this.defaultItem)
+        this.candidateItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
@@ -542,35 +550,40 @@ export default {
     closeView () {
       this.dialogView = false
       this.$nextTick(() => {
-        this.peopleItem = Object.assign({}, this.defaultItem)
+        this.candidateItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
     save () {
       if (this.editedIndex > -1) {
-        this.updatePeople(
+        //Object.assign(this.candidateData['data'][this.editedIndex], this.candidateItem)
+        this.updateCandidate(
             {
-              people_id: this.peopleData['data'][this.editedIndex]['id'],
-              name: this.peopleItem.name,
-              surname: this.peopleItem.surname,
-              gender: this.peopleItem.gender,
-              dateOfBirth: this.peopleItem.dateOfBirth,
-              phoneNumber: this.peopleItem.phoneNumber,
-              address: this.peopleItem.address,
+              candidate_id: this.candidateData['data'][this.editedIndex]['id'],
+              name: this.candidateItem.name,
+              surname: this.candidateItem.surname,
+              gender: this.candidateItem.gender,
+              dateOfBirth: this.candidateItem.dateOfBirth,
+              degree: this.candidateItem.degree,
+              slogan: this.candidateItem.slogan,
+              history: this.candidateItem.history,
+              address: this.candidateItem.address,
               image: this.uploadImage,
-              cencus_id:this.peopleItem.cencus_id
             }
+
         )
       } else {
-        this.createPeople({
-              name: this.peopleItem.name,
-              surname: this.peopleItem.surname,
-              gender: this.peopleItem.gender,
-              dateOfBirth: this.peopleItem.dateOfBirth,
-              phoneNumber: this.peopleItem.phoneNumber,
-              address: this.peopleItem.address,
+        // this.candidateData['data'].push(this.candidateItem)
+        this.createCandidate({
+              name: this.candidateItem.name,
+              surname: this.candidateItem.surname,
+              gender: this.candidateItem.gender,
+              dateOfBirth: this.candidateItem.dateOfBirth,
+              degree: this.candidateItem.degree,
+              slogan: this.candidateItem.slogan,
+              history: this.candidateItem.history,
+              address: this.candidateItem.address,
               image: this.uploadImage,
-          cencus_id:this.peopleItem.cencus_id
             }
         )
       }
@@ -586,5 +599,6 @@ export default {
   width: 100%;
   background-color: #f0f2f5;
   padding: 1rem;
+
 }
 </style>

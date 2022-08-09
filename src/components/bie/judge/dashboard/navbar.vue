@@ -96,10 +96,20 @@
               <v-list-item-title>ຂໍ້ມູນປະຊາກອນ</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-
           <v-list-item
               link
-              @click="$router.push('/headman_election_information')"
+              @click="$router.push('/candidate_information')"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-clock</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>ຂໍ້ມູນຜູ້ສະໝັກເລືອກຕັ້ງ</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+              link
+              @click="$router.push('/election_candidates')"
           >
             <v-list-item-icon>
               <v-icon>mdi-clock</v-icon>

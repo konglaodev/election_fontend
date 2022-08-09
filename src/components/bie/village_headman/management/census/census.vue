@@ -6,7 +6,7 @@
       <v-data-table
           :search="search"
           :headers="headers"
-          :items="desserts"
+          :items="censusData['0']"
           sort-by="calories"
           class="elevation-1"
       >
@@ -30,7 +30,7 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                  New Item
+                  ເພີ່ມ
                 </v-btn>
                 <v-text-field
                     class="pr-10"
@@ -54,19 +54,20 @@
                       >
                         <v-text-field
                             outlined
-                            v-model="editedItem.census"
+                            v-model="censusItem.cencus_id"
                             label="ເລກສຳມະໂນ"
                         ></v-text-field>
                       </v-col>
                       <v-col
                           cols="12"
-
                       >
                         <v-select
-                            :items="unitItem"
+                            :items="unitData['data']"
+                            item-text="number"
+                            item-value="id"
                             label="ໜ່ວຍ"
                             outlined
-                            v-model="editedItem.villages_number"
+                            v-model="censusItem.village_id"
                         ></v-select>
 
                       </v-col>
@@ -81,28 +82,25 @@
                       text
                       @click="close"
                   >
-                    Cancel
+                    ຍົກເລີກ
                   </v-btn>
                   <v-btn
                       color="blue darken-1"
                       text
                       @click="save"
                   >
-                    Save
+                    ບັນທຶກ
                   </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
             <v-dialog v-model="dialogDelete" max-width="500px" >
-              <v-card
-              >
-
+              <v-card>
                 <v-card-title class="justify-center" >ຕ້ອງການລຶບເລກສຳມະໂນແທ້ຫຼືບໍ່?</v-card-title>
-
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="grey" dark @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="red darken-1" dark @click="deleteItemConfirm">OK</v-btn>
+                  <v-btn color="grey" dark @click="closeDelete">ຍົກເລີກ</v-btn>
+                  <v-btn color="red darken-1" dark @click="deleteItemConfirm">ຕົກລົງ</v-btn>
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
@@ -137,11 +135,14 @@
         </template>
       </v-data-table>
     </div>
+    <Alert/>
   </div>
 </template>
 
 <script>
+import Alert from "@/components/bie/alert/alert.vue"
 import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue"
+import {mapActions, mapGetters} from "vuex";
 export default {
   name: "census",
   data(){
@@ -156,30 +157,35 @@ export default {
       ],
       headers: [
         {
-          text: 'Census No',
+          text: 'ເລກສຳມະໂນ',
           align: 'start',
           sortable: false,
-          value: 'census',
+          value: 'cencus_id',
         },
-        { text: 'Villages number', value: 'villages_number', sortable: false },
+        { text: 'ເລກໜ່ວຍ', value: 'village_id', sortable: false },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
-      editedItem: {
-        census:'',
-        villages_number: '',
+      censusItem: {
+        cencus_id:'',
+        village_id: '',
       },
       defaultItem: {
-        census:'',
-        villages_number: '',
+        cencus_id:'',
+        village_id: '',
       },
     }
   },
   components:{
-    Navbar
+    Navbar,
+    Alert
   },
   computed: {
+    ...mapGetters({
+      censusData: "Census/censusData",
+      unitData: "Unit/unitData"
+    }),
     formTitle () {
       return this.editedIndex === -1 ? 'ເພີ່ມເລກສຳມະໂນ' : 'ແກ້ເລກສຳມະໂນ'
     },
@@ -195,10 +201,19 @@ export default {
   },
 
   created () {
-    this.initialize()
+    this.getCensus()
+    this.getUnit()
   },
 
   methods: {
+    ...mapActions({
+      getUnit:"Unit/getUnit",
+      getCensus: "Census/getCensus",
+      getCensusOne: "Census/getCensusOne",
+      createCensus: "Census/createCensus",
+      updateCensus: "Census/updateCensus",
+      deleteCensus: "Census/deleteCensus"
+    }),
     initialize () {
       this.desserts = [
         {
@@ -214,26 +229,28 @@ export default {
     },
 
     editItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.editedIndex = this.censusData['0'].indexOf(item)
+      this.censusItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.editedIndex = this.censusData['0'].indexOf(item)
+      this.censusItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm () {
-      this.desserts.splice(this.editedIndex, 1)
+      this.deleteCensus(
+          {census_id:this.censusData['0'][this.editedIndex]['id']}
+      )
       this.closeDelete()
     },
 
     close () {
       this.dialog = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
+        this.censusItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
@@ -241,16 +258,16 @@ export default {
     closeDelete () {
       this.dialogDelete = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
+        this.censusItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
       })
     },
 
     save () {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        this.updateCensus({census_id: this.censusData['0'][this.editedIndex]['id'],village_id_ref:this.censusItem.village_id,cencus_id_ref:this.censusItem.cencus_id})
       } else {
-        this.desserts.push(this.editedItem)
+        this.createCensus({cencus_id_ref:this.censusItem.cencus_id.toString(),village_id_ref:this.censusItem.village_id})
       }
       this.close()
     },

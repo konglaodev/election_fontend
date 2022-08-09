@@ -19,7 +19,7 @@ import DashboardVillageHeadman from '@/views/bie/village_headman/dashboard.vue'
 import UnitInformation from '@/components/bie/village_headman/management/unit/unit.vue'
 import CensusInformation from '@/components/bie/village_headman/management/census/census.vue'
 import PeopleInformation from '@/components/bie/village_headman/management/people/people.vue'
-import ElectorInformation from '@/components/bie/village_headman/management/elector/elector.vue'
+import CandidateInformation from '@/components/bie/judge/management/candidate/candidate.vue'
 import CheckPermissionElection from '@/components/bie/village_headman/management/check_permission_election/check_permission_election.vue'
 import HeadmanElectionInformation from '@/components/bie/village_headman/headman_election_information/headman_election_information.vue'
 Vue.use(VueRouter)
@@ -46,9 +46,9 @@ const routes = [
     component: PeopleInformation
   },
   {
-    path:'/elector_information',
-    name:'elector_information',
-    component: ElectorInformation
+    path:'/candidate_information',
+    name:'candidate_information',
+    component: CandidateInformation
   },
   {
     path:'/check_permission_election',
@@ -66,7 +66,7 @@ const routes = [
     component: ElectionInformation
   },
   {
-    path:'/headman_election_information',
+    path:'/election_candidates',
     name:'election_candidates',
     component: Election
   },
