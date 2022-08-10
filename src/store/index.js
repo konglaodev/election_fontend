@@ -14,6 +14,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loggedIn: false ,
+    phoneregister:"",
     modalNotificationSuccess: {
       type: 'success',
       snackbar: false,
@@ -48,6 +50,7 @@ export default new Vuex.Store({
     },
   },
   modules: {
+
     Candidate,
     Unit,
     Census,

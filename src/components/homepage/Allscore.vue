@@ -7,8 +7,8 @@
     
         <tbody>
           <tr v-for="item in desserts" :key="item.name">
-            <td style="font-style:bold; font-size:16px">{{ item.name }}</td>
-            <td style="font-size:16px">{{ item.calories }}</td>
+            <td style="font-style:bold; font-size:36px">{{ item.name }}</td>
+            <td style="font-size:36px">{{ item.calories }}</td>
           </tr>
         </tbody>
       </template>
@@ -17,18 +17,32 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
+  
+  mounted(){
+    axios.get("http://127.0.0.1:8000/api/sumvote_score_all").then((response)=>{
+      this.desserts[0].calories =  response.data.data[0].scorevoted;
+    }).catch((err)=>{
+      console.log(err);
+    });
+    axios.get("http://127.0.0.1:8000/api/canvoted").then((response)=>{
+ this.desserts[1].calories =  response.data.data[0].canvoted
+    }).catch((err)=>{
+      console.log(err);
+    });
+  },
   data() {
     return {
       desserts: [
       
         {
-          name: "ຄະແນນສຽງເລືອກແລ້ວທັງໝົດ",
-          calories: 452,
+          name: "ຄະແນນສຽງເລືອກແລ້ວ",
+          calories: "loading...",
         },
         {
           name: "ຄະແນນສຽງທັງໝົດ",
-          calories: 518,
+          calories: "loading...",
         },
       ],
     };

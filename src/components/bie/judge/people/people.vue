@@ -2,7 +2,6 @@
   <div>
     <Navbar :title="title"/>
     <div class="container-content">
-
       <v-data-table
           :search="search"
           :headers="headers"

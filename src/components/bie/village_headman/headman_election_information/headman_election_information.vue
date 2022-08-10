@@ -191,6 +191,9 @@
         <template v-slot:default>
           <thead>
           <tr>
+             <th class="text-left">
+              ຮູບ
+            </th>
             <th class="text-left">
               ເພດ
             </th>
@@ -206,8 +209,9 @@
           </tr>
           </thead>
           <tbody>
+            
           <tr
-              v-for="item in candidateHighVoteData['data']"
+              v-for="item in candidateHighVoteData['Data']"
               :key="item.id"
           >
 
@@ -216,7 +220,7 @@
                 max-width="150"
                 :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.image"
             ></v-img></td>
-            <td>{{ item.gender }}</td>
+            <td>{{ item.gender}}</td>
             <td>{{ item.candidate_name }}</td>
             <td>{{ item.candidate_surname }}</td>
             <td>{{ item.votes_count }}</td>

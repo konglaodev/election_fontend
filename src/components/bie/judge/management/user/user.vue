@@ -71,7 +71,16 @@
                             label="ເບີໂທ"
                         ></v-text-field>
                       </v-col>
-
+<v-col
+                          v-show="editedIndex < 0"
+                          cols="12"
+                      >
+                        <v-text-field
+                            outlined
+                            v-model="userItem.password"
+                            label="ລະຫັດຜ່ານ"
+                        ></v-text-field>
+                      </v-col>
                       <v-col
                           cols="12"
                       >
@@ -154,7 +163,9 @@ export default {
           value: 'name',
         },
         { text: 'ເບີໂທ', value: 'phoneNumber' },
+         { text: 'ລະຫັດຜ່ານ', value: 'password' },
         { text: 'ສະຖານະ', value: 'status' },
+        
         { text: 'ສິດການນຳໃຊ້', value: 'role_id' },
 
         { text: 'Actions', value: 'actions', sortable: false },
@@ -166,12 +177,14 @@ export default {
         phoneNumber: '',
         status: '',
         role_id: '',
+           password: '',
       },
       defaultItem: {
         name: '',
         phoneNumber: '',
         status: '',
         role_id: '',
+           password: '',
       },
     }
   },
@@ -250,7 +263,7 @@ export default {
       if (this.editedIndex > -1) {
         this.updateUser({user_id:this.userData['data'][this.editedIndex]['id'],phoneNumber:this.userItem.phoneNumber,role_id:this.userItem.role_id})
       } else {
-        this.createUser({name:this.userItem.name,phoneNumber:this.userItem.phoneNumber,role_id:this.userItem.role_id})
+        this.createUser({password:this.userItem.password,name:this.userItem.name,phoneNumber:this.userItem.phoneNumber,role_id:this.userItem.role_id})
       }
       this.close()
     },

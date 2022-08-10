@@ -208,7 +208,7 @@
           </thead>
           <tbody>
           <tr
-              v-for="item in candidateHighVoteData['data']"
+              v-for="item in candidateHighVoteData['Data']"
               :key="item.id"
           >
 

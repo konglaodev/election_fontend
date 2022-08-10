@@ -121,6 +121,19 @@ const routes = [
     component: Verify
   },
   {
+    path: '/profilesedit/:id',
+    name: 'profile_edit',
+    component: Profile_edit
+  },
+  {
+    path: '/firebase',
+    name: 'firebase',
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/firebase.vue')
+  },
+  {
     path: '/profiles',
     name: 'profile',
     component: Profile
@@ -129,6 +142,11 @@ const routes = [
     path: '/profilesedit/:id',
     name: 'profile_edit',
     component: Profile_edit
+  },
+  {
+    path: "/crud",
+    name: "crud",
+    component: () => import("../views/crudTable.vue")
   },
   {
     path: '/',

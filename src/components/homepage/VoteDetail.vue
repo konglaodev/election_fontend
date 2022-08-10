@@ -1,74 +1,58 @@
 <template>
   <div class="vote_main">
 
-    <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <tr>
-            <th class="text-left">ຊື່ຜູ້ສະໝັກເລືອກຕັ້ງ</th>
-            <th class="text-left">ຄະແນນສຽງ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in desserts" :key="item.name">
-            <td>{{ item.name }}</td>
-            <td>{{ item.calories }}</td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
+     <v-data-table 
+    :headers="header"
+    :items="candidateData"
+    :items-per-page="5"
+    class="elevation-1 "
+  ></v-data-table>
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
+      header:[
+        {
+          text:'ຊື່',
+          align:'start',
+          sortable: true,
+          value:'candidate_name'
+        },
+        {
+          text:'ນາມສະກຸນ',
+          sortable: true,
+          value:'candidate_surname'
+        },
+        {
+          text:'ຄະແນນໂຫວດ',
+          sortable: true,
+          value:'votes_count'
+        }
+      ],
+      candidateData:[
+
+      ],
       desserts: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-        },
       ],
     };
   },
+  mounted(){
+    axios.get('http://127.0.0.1:8000/api/getScoreAll').then(response=>{
+      this.candidateData = response.data.Data;
+    
+    }).catch(error => console.log(error));
+  }
 };
 </script>
 <style scoped>
+  .vote_main{
+    font-size: 35px;
+  }
+  table.v-table thead th {
+      font-size: 20px !important;
 
+ }
 </style>

@@ -1,10 +1,10 @@
 <template>
-<div>
-  <v-carousel hide-delimiters>
+<div style="margin-top:100px;">
+  <v-carousel hide-delimiters >
     <v-carousel-item
       v-for="(item,i) in items"
       :key="i"
-      :src="item.src"
+      :src="item"
     ></v-carousel-item>
   </v-carousel>
 
@@ -18,25 +18,34 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+ 
  data () {
       return {
-        items: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
-        ],
+
+        items: {}
+         
+        ,
       }
-    },
+    }, mounted (){
+      axios.get('http://localhost:8000/api/showimagesCandidate')
+      .then(response =>{
+        
+        let imageArray = [];
+        for (let i = 0; i < response.data.data.length; i++) {
+          console.log("http://localhost:8000/storage/candidate_images/"+response.data.data[i].image)
+          imageArray.push(
+            "http://localhost:8000/storage/candidate_images/"+response.data.data[i].image);
+        }
+     this.items=imageArray;
+      
+      }).catch(error =>{
+ console.log(error)
+            this.errored = true
+      })
+    }
+    
 }
 </script>
 

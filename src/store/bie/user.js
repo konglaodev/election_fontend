@@ -38,13 +38,15 @@ const actions={
     async createUser({dispatch},{
         name,
         phoneNumber,
-        role_id
+        role_id,
+        password
 
     }){
         let arg={
             name:name,
             phoneNumber:phoneNumber,
-            role_id:role_id
+            role_id:role_id,
+            password:password
 
         }
 

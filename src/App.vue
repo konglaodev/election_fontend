@@ -1,22 +1,19 @@
 <template>
-  
   <div id="app">
     <v-app>
-       <hr>
-       <router-view></router-view>
+      <router-view></router-view>
     </v-app>
-   
   </div>
 </template>
 
 <script>
 export default {
-name: 'app'
-}
+  name: "app",
+};
 </script>
 
 <style lang="scss">
-  #app{
-    font-family: "Phetsarath";
-  }
+#app {
+  font-family: "BoonHome";
+}
 </style>
