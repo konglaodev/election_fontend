@@ -155,7 +155,7 @@ export default {
     if (this.recaptchaVerifier) {
       this.recaptchaVerifier.clear();
     }
-  //  getAuth().settings.appVerificationDisabledForTesting = true;
+   getAuth().settings.appVerificationDisabledForTesting = true;
     this.recaptchaVerifier = new RecaptchaVerifier(
       "sign-in-button",
       {

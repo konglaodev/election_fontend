@@ -19,7 +19,7 @@ export default new Vuex.Store({
     showlogin:false,
     showAdmin:false,
     showSuper:false,
-    phoneregister:"",
+    phoneregister:false,
     modalNotificationSuccess: {
       type: 'success',
       snackbar: false,

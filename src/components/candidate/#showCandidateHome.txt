@@ -113,89 +113,89 @@
   
 </template>
 <script>
-import axios from "axios";
-export default{
-  data(){
-    return {
-      responseMessage:{
-        header:"",
-        message:"",
-      },
-      responseDialog:false,
+// import axios from "axios";
+// export default{
+//   data(){
+//     return {
+//       responseMessage:{
+//         header:"",
+//         message:"",
+//       },
+//       responseDialog:false,
     
-      voteData:{},
-      comfirmDialog:false,
-      candidateData :[]
-    }
-  },
-  mounted() {
-    axios.get("http://127.0.0.1:8000/api/showcandidate").then((response)=>{
-      this.candidateData = response.data.data;
-    }).catch((err)=>{
-      console.log(err);
-    })
-  },
-  methods:{
-    closeResponseDialog(){
-     this.responseMessage.header = "";
-    this.responseMessage.message= "";
+//       voteData:{},
+//       comfirmDialog:false,
+//       candidateData :[]
+//     }
+//   },
+//   mounted() {
+//     axios.get("http://127.0.0.1:8000/api/showcandidate").then((response)=>{
+//       this.candidateData = response.data.data;
+//     }).catch((err)=>{
+//       console.log(err);
+//     })
+//   },
+//   methods:{
+//     closeResponseDialog(){
+//      this.responseMessage.header = "";
+//     this.responseMessage.message= "";
    
-    this.responseDialog = false;
+//     this.responseDialog = false;
 
     
-    },
-    openConfirmDialog(item){
+//     },
+//     openConfirmDialog(item){
      
-      if(localStorage.getItem("populations_id")=="undefined")
-      {
-        alert("ທ່ານບໍ່ມີສິດໂຫວດ");
-        return;
-      }
-      if(localStorage.getItem("status")=="undefined" )
-      {
-        alert("ທ່ານບໍ່ມີສິດ");
-        return;
-      }
-      if(localStorage.getItem("token")=="undefined")
-      {
-         this.responseMessage.message="ເຂົ້າສູ່ລະບົບກ່ອນ";
-        return;
-      }
-      this.voteData = item;
-      this.comfirmDialog=true;
-    },
-   vote(){
+//       if(localStorage.getItem("populations_id")=="undefined")
+//       {
+//         alert("ທ່ານບໍ່ມີສິດໂຫວດ");
+//         return;
+//       }
+//       if(localStorage.getItem("status")=="undefined" )
+//       {
+//         alert("ທ່ານບໍ່ມີສິດ");
+//         return;
+//       }
+//       if(localStorage.getItem("token")=="undefined")
+//       {
+//          this.responseMessage.message="ເຂົ້າສູ່ລະບົບກ່ອນ";
+//         return;
+//       }
+//       this.voteData = item;
+//       this.comfirmDialog=true;
+//     },
+//    vote(){
    
-   console.log(localStorage.getItem("populations_id"));
-   console.log(this.voteData.id);
-   axios.post("http://127.0.0.1:8000/api/vote",{
-    population_id:localStorage.getItem("populations_id"),
-    candidate_id:this.voteData.id
-   }).then((response)=>{
-    this.responseMessage.header = "ເລືອກສຳເລັດ";
-    this.responseMessage.message= "ການໂຫວດຂອງທ່ານສຳເລັດແລ້ວ";
-      this.comfirmDialog = false; 
-    this.responseDialog=true;
+//    console.log(localStorage.getItem("populations_id"));
+//    console.log(this.voteData.id);
+//    axios.post("http://127.0.0.1:8000/api/vote",{
+//     population_id:localStorage.getItem("populations_id"),
+//     candidate_id:this.voteData.id
+//    }).then((response)=>{
+//     this.responseMessage.header = "ເລືອກສຳເລັດ";
+//     this.responseMessage.message= "ການໂຫວດຂອງທ່ານສຳເລັດແລ້ວ";
+//       this.comfirmDialog = false; 
+//     this.responseDialog=true;
     
-   }).catch((err)=>{
-    /* eslint-disable */
-      this.comfirmDialog = false; 
+//    }).catch((err)=>{
+//     /* eslint-disable */
+//       this.comfirmDialog = false; 
     
-   this.responseMessage.header="ການໂຫວດບໍ່ສຳເລັດ";
-   if(err.response.status==422){
-     this.responseMessage.message="ກະລຸນາເຂົ້າສູ່ລະບົບ ແລະ ຢືນຢັນຕົວຕົນ";
-   }
-   else{
-   console.log(err.response.data);
- console.log(err.response.data["message"]);
-     this.responseMessage.message="ບໍ່ສາມາດໂຫວດໄດ້";
-   }
-   this.responseDialog=true;
-    /* eslint-disable */
-   })
-   }
-  }
-}
+//    this.responseMessage.header="ການໂຫວດບໍ່ສຳເລັດ";
+//    if(err.response.status==422){
+//      this.responseMessage.message="ກະລຸນາເຂົ້າສູ່ລະບົບ ແລະ ຢືນຢັນຕົວຕົນ";
+//    }
+//    else{
+//    console.log(err.response.data);
+//  console.log(err.response.data["message"]);
+//      this.responseMessage.message="ບໍ່ສາມາດໂຫວດໄດ້";
+//    }
+//    this.responseDialog=true;
+//     /* eslint-disable */
+//    })
+//    }
+//   }
+// }
 
 </script>
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="home" >
 
     <center><h1 style="margin-top:50PX;" >ສະຫຼຸບລາຍລະອຽດ</h1></center><br>
     <v-simple-table >
@@ -49,8 +49,11 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="scss" >
 
+.home{
+    font-family: $font-family  !important;
 
+}
 
 </style>

@@ -87,6 +87,7 @@ class HttpRequest {
     }
 
     setHeader (header) {
+        axios.defaults.headers.common['Access-Control-Allow-Origin'] = ['*'];
         // this.axiosInstance.defaults.headers.common[header.key] = header.value
         this.axiosInstance.defaults.headers.common = header
         //this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer '+User.state.token

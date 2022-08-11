@@ -193,8 +193,7 @@ export default {
     // }
 
     async handleSubmit(e) {
-      if (this.username == null && this.password == null) {
-      }
+     
       e.preventDefault();
       this.loading = true;
 
@@ -218,13 +217,13 @@ export default {
 
       this.loading = false;
 
-      if (role == 1) {
+      if (role == 1&&data!=undefined) {
         this.$router.push("/dashboardsuper");
         this.$store.state.showlogoutbutton = true;
-      } else if (role == 2) {
+      } else if (role == 2 &&data!=undefined) {
         this.$router.push("/dashboard_village_headman");
         $store.state.showlogoutbutton = true;
-      } else if (role == 3) {
+      } else if (role == 3 &&data!=undefined) {
         this.$router.push("/home");
         this.$store.state.showlogoutbutton = true;
       } else {
@@ -237,8 +236,9 @@ export default {
         localStorage.removeItem("_grecaptcha");
         localStorage.removeItem("token");
         this.$router.push("/");
-        this.wrong = true;;
-      
+        this.wrong = true;
+        this.$store.state.showlogoutbutton = false;
+      this.$store.state.showlogin=true;
         this.$router.push("/login");
       }
 

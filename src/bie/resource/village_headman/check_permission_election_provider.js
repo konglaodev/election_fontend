@@ -57,15 +57,16 @@ class CheckPermissionElectionProvider extends HttpRequest {
 
     async updateVerify(
         {
-            verify_id,
+            
             user_id,
             status
 
         }
     ){
+        console.log(user_id);
 
         var bodyFormData = new FormData();
-        bodyFormData.append('user_id',user_id);
+     
         bodyFormData.append('status',status);
 
         bodyFormData.append('_method','put');
@@ -73,7 +74,7 @@ class CheckPermissionElectionProvider extends HttpRequest {
             'Content-Type': 'multipart/form-data',
         })
 
-        const {data} = await this.create('updatevery/'+verify_id,bodyFormData)
+        const {data} = await this.create('updatevery/'+user_id,bodyFormData)
 
 
         return data

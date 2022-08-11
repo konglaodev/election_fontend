@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="home" >
     <div class="text_title">
       <h1 style="font-size:50px;">ຍີນດີຕ້ອນຮັບເຂົ້າສູ່ເວັບໄຊ</h1>     
       <h2 style="opacity: 0.5">ເລືອກຕັ້ງນາຍບ້ານຮູບແບບອອນລາຍ</h2>
@@ -52,7 +52,11 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.home{
+    font-family: $font-family  !important;
+
+}
   .vote_main{
     font-size: 35px;
   }

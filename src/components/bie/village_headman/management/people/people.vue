@@ -136,6 +136,8 @@
                           cols="12"
                       >
                         <v-text-field
+                        type="number"
+                        placeholder="98765432"
                             outlined
                             v-model="peopleItem.phoneNumber"
                             label="ເບີໂທ"
@@ -459,12 +461,18 @@ export default {
       getPeopleOne: "People/getPeopleOne",
       createPeople: "People/createPeople",
       updatePeople: "People/updatePeople",
-      deletePeople: "People/deletePeople"
+      deletePeople: "People/deletePeople",
+      getImageUrl: "People/getImageUrl"
     }),
 
     async convertUrlToFileImage(image) {
-      console.log(image)
-      const response = await fetch(image);
+let    headers= {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+        }
+      
+      const response = await fetch(image,{headers:headers});
       // here image is url/location of image
       const blob = await response.blob();
       const file = new File([blob], image.split('/').pop(), {type: blob.type});
@@ -510,12 +518,13 @@ export default {
 
       this.peopleItem = Object.assign({}, item)
       this.dialog = true
-       this.convertUrlToFileImage("http://127.0.0.1:8000/storage/populations_images/"+item.image)
-
+    
     },
 
     deleteItem (item) {
       this.editedIndex = this.peopleData['data'].indexOf(item)
+      console.log(this.editedIndex)
+       console.log(this.peopleData['data'][this.editedIndex]['id'])
       this.peopleItem = Object.assign({}, item)
       this.dialogDelete = true
     },

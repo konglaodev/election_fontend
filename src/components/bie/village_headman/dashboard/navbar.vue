@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" >
     <v-app-bar
       dense
       color="white"
@@ -20,13 +20,13 @@
         </template>
 
         <v-list>
-          <v-list-item>
+          <v-list-item @click="$router.push('/');">
             <v-list-item-title>ໜ້າຫຼັກ</v-list-item-title>
           </v-list-item>
 
-          <v-list-item>
-             <router-link to="/" @click="clearAndLogout();">
-            <v-list-item-title>ອອກຈາກລະບົບ</v-list-item-title>  </router-link>
+          <v-list-item @click="clearAndLogout();">
+             
+            <v-list-item-title>ອອກຈາກລະບົບ</v-list-item-title>  
           </v-list-item>
        
         </v-list>
@@ -110,6 +110,7 @@ export default {
     drawer: false,
     group: null,
     userinfo: "",
+    
   }),
   methods:{
      clearAndLogout() {
@@ -128,6 +129,7 @@ export default {
   },
   mounted() {
     this.userinfo = JSON.parse(localStorage.getItem("name"));
+    
   },
 
   watch: {

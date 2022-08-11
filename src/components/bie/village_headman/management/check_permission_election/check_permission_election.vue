@@ -1,37 +1,31 @@
 <template>
   <div>
-    <Navbar :title="title"/>
+    <Navbar :title="title" />
     <div class="container-content">
       <center>
-        <h1 style="margin-top:30px;margin-bottom:30px;">ກວດສອບສິດເລືອກຕັ້ງ</h1>
+        <h1 style="margin-top: 30px; margin-bottom: 30px">
+          ກວດສອບສິດເລືອກຕັ້ງ
+        </h1>
       </center>
-        
+
       <v-data-table
-          :search="search"
-          :headers="headers"
-          :items="verifyData['data']"
-          class="elevation-1"
+        :search="search"
+        :headers="headers"
+        :items="verifyData['data']"
+        class="elevation-1"
       >
-      
         <template v-slot:top>
-          <v-toolbar
-              flat
-          >
+          <v-toolbar flat>
             <v-spacer></v-spacer>
-            <v-dialog
-                v-model="dialog"
-                max-width="395px"
-            >
-              <template v-slot:activator="{ }">
-
-
+            <v-dialog v-model="dialog" max-width="395px">
+              <template v-slot:activator="{}">
                 <v-text-field
-                    class="pr-10"
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Search"
-                    single-line
-                    hide-details
+                  class="pr-10"
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Search"
+                  single-line
+                  hide-details
                 ></v-text-field>
               </template>
               <v-card>
@@ -42,44 +36,34 @@
                 <v-card-text>
                   <v-container>
                     <v-row dense>
-                      <v-col
-                          cols="12"
-                      >
-                        <v-text-field
-                            disabled
-                            outlined
-                            v-model="verifyItem.status"
-                            label="ປ່ຽນສະຖານະ"
-                        ></v-text-field>
+                      <v-col cols="12">
+                        <v-select
+                         
+                          :items="statusData"
+                          item-text="name"
+                          item-value="name"
+                          outlined
+                          label="ກວດສອບສິດເລືອກຕັ້ງ"
+                          v-model="verifyItem.status"
+                        >
+                        </v-select>
                       </v-col>
-
                     </v-row>
                   </v-container>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="close"
-                  >
+                  <v-btn color="blue darken-1" text @click="close">
                     ຍົກເລີກ
                   </v-btn>
-                  <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="save"
-                  >
-                   ບັນທຶກ
+                  <v-btn color="blue darken-1" text @click="save">
+                    ບັນທຶກ
                   </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
 
-            <v-dialog
-                v-model="dialogView"
-                max-width="500px"
-            >
+            <v-dialog v-model="dialogView" max-width="100%">
               <v-card>
                 <v-card-title>
                   {{ formTitle }}
@@ -88,288 +72,228 @@
                 <v-card-text>
                   <v-container>
                     <v-row dense>
-                      <v-col
-                          cols="6"
-                      >
-                        <v-img
-
-                            max-height="250"
-                            max-width="150"
-                            :src="'http://127.0.0.1:8000/storage/verifys_images/'+verifyItem"
-                        ></v-img>
-
-                      </v-col>
-
                       <v-col cols="6">
-                        <v-row >
+                        <v-img
+                          max-height="400"
+                          max-width="400"
+                          :src="
+                            'http://127.0.0.1:8000/storage/verifys_images/' +
+                            verifyItem.picture_verify
+                          "
+                        ></v-img>
+                        <h3>ສະຖານະ: {{ verifyItem.status }}</h3>
+                      </v-col>
+                      <v-col cols="6">
+                          <h1>ຂໍ້ມູນຜູ້ໃຊ້</h1> 
+                          <br/>
 
-                          <v-col
-                              cols="12"
-                          >
-                            <h3>
-                              ສະຖານະ: {{verifyItem.status}}
-                            </h3>
-                          </v-col>
 
-                        </v-row>
+                        <h3>ຊື່ຜູ້ໃຊ້: {{ verifyItem.name }}</h3> <br>
+                        <h3>ເບີໂທລະສັບ: {{ verifyItem.phoneNumber }}</h3><br>
+                        <h3>ສະຖານະ: {{ verifyItem.status }}</h3><br>
+                        <h3>ວັນທີ: {{ verifyItem.created_at }}</h3><br>
                       </v-col>
                     </v-row>
                   </v-container>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="closeView"
-                  >
+                  <v-btn color="blue darken-1" text @click="closeView">
                     ປິດ
                   </v-btn>
-
                 </v-card-actions>
               </v-card>
             </v-dialog>
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-
-          <v-icon
-              color="orange"
-              dense
-              class="mr-2"
-              @click="editItem(item)"
-          >
+          <v-icon color="orange" dense class="mr-2" @click="editItem(item)">
             mdi-pencil
           </v-icon>
 
-          <v-icon
-              color="blue"
-              large
-              class="mr-2"
-              @click="viewItem(item)"
-          >
+          <v-icon color="blue" large class="mr-2" @click="viewItem(item)">
             mdi-eye
           </v-icon>
         </template>
-
+        <template v-slot:[`item.picture_verify`]="{ item }">
+          
+   <v-img
+                          max-height="250"
+                          max-width="150"
+                          :src="
+                            'http://127.0.0.1:8000/storage/verifys_images/' +
+                            item.picture_verify
+                          "
+                        ></v-img>
+        </template>
       </v-data-table>
     </div>
-    <Alert/>
+    <Alert />
   </div>
 </template>
 
 <script>
-import Alert from "@/components/bie/alert/alert.vue"
-import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue"
-import {mapActions, mapGetters} from "vuex";
+import Alert from "@/components/bie/alert/alert.vue";
+import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "check_permission_election",
-  data(){
-    return{
-      btnIndex:-1,
-      search: '',
-      title:"ກວດສອບສິດເລືອກຕັ້ງ",
+  data() {
+    return {
+      btnIndex: -1,
+      search: "",
+      title: "ກວດສອບສິດເລືອກຕັ້ງ",
       dialog: false,
       dialogDelete: false,
-      dialogView:false,
-
+      dialogView: false,
+      statusData: [{ id: 1, name: "verify" },{id: 2, name: "not_verify"}],
       headers: [
         {
-          text: 'ຮູບ',
-          align: 'start',
+          text: "ຮູບ",
+          value: "picture_verify",
+          align: "start",
           sortable: false,
-          value: 'picture_verify',
         },
-        { text: 'ສະຖານະ', value: 'status' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        {
+          text: "name",
+          value: "name",
+        },
+        { text: "phoneNumber", value: "phoneNumber" },
+
+        { text: "ສະຖານະ", value: "status" },
+        { text: "ວັນທີ", value: "created_at" },
+        { text: "Actions", value: "actions", sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
       verifyItem: {
-        picture_verify: '',
-        status: '',
-        user_id: '',
+        picture_verify: "",
+        name: "",
+        phoneNumber: "",
+        status: "",
+        created_at: "",
+        user_id: "",
       },
       defaultItem: {
-        picture_verify: '',
-        status: '',
-        user_id: '',
+      picture_verify: "",
+        name: "",
+        phoneNumber: "",
+        status: "",
+        created_at: "",
+        user_id: "",
       },
-    }
+    };
   },
-  components:{
+  components: {
     Navbar,
-    Alert
+    Alert,
   },
   computed: {
     ...mapGetters({
       verifyData: "Verify/verifyData",
     }),
-    formTitle () {
-      return this.btnIndex === -1 ? 'ເພີ່ມປະຊາກອນ' :this.btnIndex === 0 ? 'ແກ້ໄຂສິດ' : 'ເບິ່ງລາຍລະອຽດ'
+    formTitle() {
+      return this.btnIndex === -1
+        ? "ເພີ່ມປະຊາກອນ"
+        : this.btnIndex === 0
+        ? "ແກ້ໄຂສິດ"
+        : "ເບິ່ງລາຍລະອຽດ";
     },
   },
 
   watch: {
-    dialog (val) {
-      val || this.close()
+    dialog(val) {
+      val || this.close();
     },
-    dialogDelete (val) {
-      val || this.closeDelete()
+    dialogDelete(val) {
+      val || this.closeDelete();
     },
-    dialogView (val) {
-      val || this.closeView()
+    dialogView(val) {
+      val || this.closeView();
     },
   },
 
-  created () {
-    this.initialize()
-    this.getVerify()
+  created() {
+    
+    this.getVerify();
   },
 
   methods: {
-    initialize () {
-      this.desserts = [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-        },
-      ]
-    },
+  
     ...mapActions({
-      getVerify:"Verify/getVerify",
-      updateVerify: "Verify/updateVerify"
+      getVerify: "Verify/getVerify",
+      updateVerify: "Verify/updateVerify",
     }),
 
-    viewItem (item) {
-      this.btnIndex = 1
-      this.editedIndex = this.VerifyData['data'].indexOf(item)
-      this.verifyItem = Object.assign({}, item)
-      this.dialogView = true
+    viewItem(item) {
+      this.btnIndex = 1;
+      this.editedIndex = this.verifyData["data"].indexOf(item);
+      this.verifyItem = Object.assign({}, item);
+      this.dialogView = true;
     },
 
-    editItem (item) {
-      this.btnIndex = 0
-      this.editedIndex =this.VerifyData['data'].indexOf(item)
-      this.verifyItem = Object.assign({}, item)
-      this.dialog = true
+    editItem(item) {
+//       console.log(this.verifyData['data']);
+//       this.btnIndex = 0;
+// console.log(this.verifyData["data"][this.editedIndex]["id"]);
+      this.editedIndex = this.verifyData["data"].indexOf(item);
+console.log(this.editIndex);
+      this.verifyItem = Object.assign({}, item);
+      this.dialog = true;
     },
 
-    deleteItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.verifyItem = Object.assign({}, item)
-      this.dialogDelete = true
+    deleteItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.verifyItem = Object.assign({}, item);
+      this.dialogDelete = true;
     },
 
-    deleteItemConfirm () {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+    deleteItemConfirm() {
+      this.desserts.splice(this.editedIndex, 1);
+      this.closeDelete();
     },
 
-    close () {
-      this.dialog = false
+    close() {
+      this.dialog = false;
       this.$nextTick(() => {
-        this.verifyItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+        this.verifyItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
 
-    closeDelete () {
-      this.dialogDelete = false
+    closeDelete() {
+      this.dialogDelete = false;
       this.$nextTick(() => {
-        this.verifyItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+        this.verifyItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
 
-    closeView () {
-      this.dialogView = false
+    closeView() {
+      this.dialogView = false;
       this.$nextTick(() => {
-        this.verifyItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+        this.verifyItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
-    save () {
+    save() {
       if (this.editedIndex > -1) {
-        this.updateVerify({verify_id:this.VerifyData['data'][this.editedIndex]['id'] ,user_id:this.verifyItem.user_id,status:this.verifyItem.status})
+        this.updateVerify({
+          user_id: this.verifyData["data"][this.editedIndex]["id"],
+         
+          status: this.verifyItem.status,
+        });
       } else {
-        this.desserts.push(this.verifyItem)
+        this.desserts.push(this.verifyItem);
       }
-      this.close()
+      this.close();
     },
   },
-
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.container-content{
+.container-content {
   width: 100%;
   background-color: #f0f2f5;
   padding: 1rem;

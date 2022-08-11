@@ -5,11 +5,13 @@ const peopleProvider = new PeopleProvider()
 const state={
     peopleData:{},
     peopleVotedData:{},
+    imageUrl:''
 }
 
 const getters={
     peopleData:state=>state.peopleData,
     peopleVotedData:state=>state.peopleVotedData,
+    imageUrl:state=>state.imageUrl
 
 }
 
@@ -20,11 +22,21 @@ const mutations={
     setPeopleVoted(state,data){
         state.peopleVotedData = data;
     },
-
+    setImageUrl(state,data){
+        state.imageUrl = data;
+    },
 
 }
 
 const actions={
+
+    async getImageUrl ({commit},{imageUrl}) {
+        const data = await peopleProvider.getImageUrl({imageUrl:imageUrl})
+
+        commit('setImageUrl', data)
+
+        return data
+    },
 
     async getPeopleVoted ({commit}) {
         const data = await peopleProvider.getPeople()

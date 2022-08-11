@@ -32,17 +32,17 @@ const actions={
 
 
     async updateVerify({dispatch },{
-        verify_id,
+      
         user_id,
         status
 
     }){
         let arg={
-            verify_id:verify_id,
+            
             user_id:user_id,
             status:status,
         }
-        await verifyProvider.updateCensus(arg)
+        await verifyProvider.updateVerify(arg)
         dispatch('getVerify',{ root: true });
 
     },

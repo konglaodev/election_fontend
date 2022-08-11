@@ -316,6 +316,7 @@
 <script>
 import Navbar from "@/components/bie/judge/dashboard/navbar.vue"
 import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "people",
   data(){
@@ -411,8 +412,17 @@ export default {
     }),
 
     async convertUrlToFileImage(image) {
+
+      const requestOptions ={
+       method:"GET",
+       mosw:"no-cors",
+        headers:{
+          
+          "accept": "application/json",
+        }
+      }
       console.log(image)
-      const response = await fetch(image);
+      const response = await fetch(image,{requestOptions});
       // here image is url/location of image
       const blob = await response.blob();
       const file = new File([blob], image.split('/').pop(), {type: blob.type});

@@ -9,7 +9,15 @@ class PeopleProvider extends HttpRequest {
         super()
     }
 
+    async getImageUrl({imageUrl}) {
+        //Call setHeader on class HttpRequest and write common header
+        //If write Header on class HttpRequest Should call like under method
+        this.setHeader({})
+        // example path http://172.28.26.82:7001/this.get()
+        const {data} = await this.get(imageUrl)
 
+        return data
+    }
     async getPeopleOne({people_id}) {
         //Call setHeader on class HttpRequest and write common header
         //If write Header on class HttpRequest Should call like under method
@@ -81,6 +89,7 @@ class PeopleProvider extends HttpRequest {
 
         }
     ){
+        console.log(name);
         var bodyFormData = new FormData();
         bodyFormData.append('name',name);
         bodyFormData.append('surname',surname);
@@ -95,19 +104,19 @@ class PeopleProvider extends HttpRequest {
             'Content-Type': 'multipart/form-data',
         })
 
-        const {data} = await this.update('populations/'+people_id,bodyFormData)
+        const {data} = await this.update('updatePopulations/'+people_id,bodyFormData)
 
 
         return data
     }
 
 
-    async deletePeople ({candidate_id}) {
+    async deletePeople ({people_id}) {
 
         this.setHeader({})
 
         // example path http://172.28.26.82:7001/this.get()
-        const {data} = await this.delete('populations/'+candidate_id)
+        const {data} = await this.delete('populations/'+people_id)
 
         return data
     }

@@ -1,5 +1,5 @@
 <template>
-<div style="margin-top:100px;">
+<div style="margin-top:100px;" class="home">
     <v-container grid-list-xs v-for="item in candidateData" :key="item.id">
          <v-card 
     class="mx-auto"
@@ -15,7 +15,7 @@
         <v-list-item-title class="text-h5 mb-1">
            {{item.gender}}  {{item.name}}  {{item.surname}}
         </v-list-item-title>
-        <v-list-item-subtitle><b>ວັນເດືອນປີເກີດ:</b> {{item.dateOfBirth}}</v-list-item-subtitle>
+        <v-list-item-subtitle><b style="font-family: Saysettha OT">ວັນເດືອນປີເກີດ:</b> {{item.dateOfBirth}}</v-list-item-subtitle>
         <v-list-item-subtitle><b>ສະໂລແກນ</b> {{item.slogan}}</v-list-item-subtitle>
         <v-list-item-subtitle><b>ປະຫວັດຫຍໍ້:</b> {{item.history}}</v-list-item-subtitle>
         <v-list-item-subtitle><b>ທີ່ຢູ່: </b>{{item.address}}</v-list-item-subtitle>
@@ -52,11 +52,11 @@
       persistent
       max-width="290"
     >
-      <v-card>
+      <v-card class="home">
         <v-card-title class="text-h5">
          ຢັ້ນຢືນການໂຫວດ
         </v-card-title>
-        <v-card-text>ທ່ານຕ້ອງການເລືອກ  <b>{{voteData.gender}} {{voteData.name}} {{voteData.surname}}</b> ແທ້ບໍ່?.</v-card-text>
+        <v-card-text >ທ່ານຕ້ອງການເລືອກ  <b class="home" style="font-family: Saysettha OT">{{voteData.gender}} {{voteData.name}} {{voteData.surname}}</b> ແທ້ບໍ່?.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -182,3 +182,9 @@ export default{
 }
 
 </script>
+<style lang="scss" >
+.home{
+    font-family: $font-family  !important;
+
+}
+</style>

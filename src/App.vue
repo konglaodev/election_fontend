@@ -13,5 +13,10 @@ export default {
 </script>
 
 <style lang="scss">
+#app 
+{
+  font-family: $font-family  !important;
+}
+
 
 </style>
