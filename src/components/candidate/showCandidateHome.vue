@@ -1,9 +1,10 @@
 <template>
 <div style="margin-top:100px; width:100%">
-    <v-container grid-list-xs v-for="item in candidateData" :key="item.id">
-         <v-card  color="#1CB4BE"
+
+    <v-container  v-for="item in candidateData" :key="item.id">
+         <v-card   
+     max-width="400"
     class="mx-auto"
-    max-width="500"
     outlined
   >
     <v-list-item three-line >
@@ -12,11 +13,12 @@
         <div class="text-overline mb-4">
      
         </div>
-        <v-list-item-title class="text-h5 mb-1">
+        <v-list-item-title class="text-h5 mb-1" >
            {{item.gender}}  {{item.name}}  {{item.surname}}
         </v-list-item-title>
         <v-list-item-subtitle><b>ວັນເດືອນປີເກີດ:</b> {{item.dateOfBirth}}</v-list-item-subtitle>
-        <v-list-item-subtitle><b>ສະໂລແກນ</b> {{item.slogan}}</v-list-item-subtitle>
+        <v-list-item-subtitle><b>ລະດັບການສືກສາ:</b> {{item.degree}}</v-list-item-subtitle>
+        <v-list-item-subtitle><b>ນະໂຍບາຍ</b> {{item.slogan}}</v-list-item-subtitle>
         <v-list-item-subtitle><b>ປະຫວັດຫຍໍ້:</b> {{item.history}}</v-list-item-subtitle>
         <v-list-item-subtitle><b>ທີ່ຢູ່: </b>{{item.address}}</v-list-item-subtitle>
       </v-list-item-content>
@@ -25,13 +27,14 @@
       
       rounded
         tile
-        size="200"
+        
         color="grey"
       
       >
       <v-img  :src="'http://localhost:8000/storage/candidate_images/'+item.image">
 
       </v-img></v-list-item-avatar>
+
     </v-list-item>
 
     <v-card-actions >
@@ -55,11 +58,11 @@
       persistent
       max-width="290"
     >
-      <v-card>
-        <v-card-title class="text-h5">
-         ຢັ້ນຢືນການໂຫວດ
+      <v-card >
+        <v-card-title class="text-h5" >
+         ຢັ້ນຢືນການເລືອກຕັ້ງ
         </v-card-title>
-        <v-card-text>ທ່ານຕ້ອງການໂຫວດ  <b>{{voteData.gender}} {{voteData.name}} {{voteData.surname}}</b> ແທ້ບໍ່?.</v-card-text>
+        <v-card-text>ທ່ານຕ້ອງການເລືອກ  <b>{{voteData.gender}} {{voteData.name}} {{voteData.surname}}</b> ແທ້ບໍ່?.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -74,7 +77,7 @@
             text
             @click="vote()"
           >
-            ຕົກລົງ
+            ເລືອກ
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -126,7 +129,7 @@ export default{
     }
   },
   mounted() {
-    axios.get("http://127.0.0.1:8000/api/Candidate").then((response)=>{
+    axios.get("http://127.0.0.1:8000/api/showcandidate").then((response)=>{
       this.candidateData = response.data.data;
     }).catch((err)=>{
       console.log(err);
@@ -148,6 +151,16 @@ export default{
         alert("ທ່ານບໍ່ມີສິດໂຫວດ");
         return;
       }
+      if(localStorage.getItem("status")=="undefined" )
+      {
+        alert("ທ່ານບໍ່ມີສິດ");
+        return;
+      }
+      if(localStorage.getItem("token")=="undefined")
+      {
+         this.responseMessage.message="ເຂົ້າສູ່ລະບົບກ່ອນ";
+        return;
+      }
       this.voteData = item;
       this.comfirmDialog=true;
     },
@@ -159,7 +172,7 @@ export default{
     population_id:localStorage.getItem("populations_id"),
     candidate_id:this.voteData.id
    }).then((response)=>{
-    this.responseMessage.header = "ໂຫລດສຳເລັດ";
+    this.responseMessage.header = "ເລືອກສຳເລັດ";
     this.responseMessage.message= "ການໂຫວດຂອງທ່ານສຳເລັດແລ້ວ";
       this.comfirmDialog = false; 
     this.responseDialog=true;
@@ -170,7 +183,7 @@ export default{
     
    this.responseMessage.header="ການໂຫວດບໍ່ສຳເລັດ";
    if(err.response.status==422){
-     this.responseMessage.message="ທ່ານບໍ່ມີສິດໂຫວດ";
+     this.responseMessage.message="ກະລຸນາເຂົ້າສູ່ລະບົບ ແລະ ຢືນຢັນຕົວຕົນ";
    }
    else{
    console.log(err.response.data);
@@ -185,3 +198,6 @@ export default{
 }
 
 </script>
+<style scoped>
+
+</style>

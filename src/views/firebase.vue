@@ -48,10 +48,14 @@
                 >
                   ລະບົບຈະສົ່ງລະຫັດຢັ້ນຢືນເຂົ້າສູ່ເບີໂທລະສັບຂອງທ່ານ
                 </h6>
+                <v-alert v-model="dialogfalse" type="info">
+      ປ້ອນເບີໂທໃໝ່
+    </v-alert>
                 <v-row align="center" justify="center">
+                  
                   <v-col cols="12" sm="8">
                     <v-text-field
-                   
+                    
                       label="ເບີໂທລະສັບ"
                       outlined
                       dense
@@ -59,6 +63,7 @@
                       placeholder="98765432"
                       autocomplete="true"
                       class="mt-16"
+                      type="number"
                       v-model="phoneNumber"
                       :rules="usernameRule"
                     />
@@ -113,7 +118,7 @@
                   <h6 class="text-center">ກະລຸນາລົງທະບຽນ ເພື່ອເຂົ້າໃຊ້ລະບົບ</h6>
                 </v-card-text>
                 <div class="text-center">
-                  <v-btn tile outlined dark >ລົງທະບຽນ</v-btn>
+                  <v-btn tile outlined dark @click="$router.push('/login');" >ເຂົ້າສູ່ລະບົບ</v-btn>
                 </div>
               </div>
             </v-col>
@@ -134,6 +139,7 @@ import {
 import { initializeApp } from "firebase/app";
 export default {
   data: () => ({
+  dialogfalse : false,
     recaptchaVerifier: null,
     confirmationResult: null,
     otpcode: "",
@@ -169,6 +175,10 @@ export default {
       this.dialog = true;
     },
     submitPhoneNumberAuth() {
+      if(this.phoneNumber == null){
+        this.dialogfalse = true;
+        this.loading=false;
+      }
       this.loading=true;
       // We are using the test phone numbers we created before
       // var phoneNumber = document.getElementById("phoneNumber").value;

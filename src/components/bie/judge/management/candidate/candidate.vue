@@ -404,7 +404,7 @@ export default {
         { text: 'ນາມສະກຸນ', value: 'surname' },
         { text: 'ວ/ດ/ປ ເກີດ', value: 'dateOfBirth' },
         { text: 'ລະດັບ', value: 'degree' },
-        { text: 'ສະໂລແກນ', value: 'slogan' },
+        { text: 'ນະໂຍບາຍ', value: 'slogan' },
         { text: 'ປະຫວັດ', value: 'history' },
         { text: 'ທີ່ຢູ່', value: 'address' },
         { text: 'Actions', value: 'actions', sortable: false },
@@ -447,7 +447,7 @@ export default {
       candidateData: "Candidate/candidateData",
     }),
     formTitle () {
-      return this.btnIndex === -1 ? 'ເພີ່ມປະຊາກອນ' :this.btnIndex === 0 ? 'ແກ້ໄຂປະຊາກອນ' : 'ເບິ່ງລາຍລະອຽດປະຊາກອນ'
+      return this.btnIndex === -1 ? 'ເພີ່ມຜູ້ສະໝັກເລືອກຕັ້ງ' :this.btnIndex === 0 ? 'ແກ້ໄຂປະຊາກອນ' : 'ເບິ່ງລາຍລະອຽດປະຊາກອນ'
     },
   },
 

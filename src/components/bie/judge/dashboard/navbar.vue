@@ -1,6 +1,6 @@
 <template>
-  <div class="navbar">
-    <v-app-bar
+  <div class="navbar" v-if="showadmin" >
+    <v-app-bar 
         dense
         color="white"
         elevate-on-scroll
@@ -13,6 +13,8 @@
       <v-spacer></v-spacer>
 
       <v-menu
+       transition="scale-transition"
+      origin="center center"
           left
           bottom
       >
@@ -28,11 +30,10 @@
 
         <v-list>
           <v-list-item
-              v-for="n in 5"
-              :key="n"
+              
               @click="() => {}"
           >
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
+            <v-list-item-title>ໜ້າຫຼັກ</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -61,9 +62,9 @@
           <v-list-item link @click="$router.push('/dashboardsuper')">
             <v-list-item-content>
               <v-list-item-title class="text-h6">
-                John Leider
+              
               </v-list-item-title>
-              <v-list-item-subtitle>john@vuetifyjs.com</v-list-item-subtitle>
+              <v-list-item-subtitle> {{userLogin}}</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
@@ -139,13 +140,28 @@
 <script>
 export default {
   name: "navbar",
+
   props:{
     title:String,
   },
   data: () => ({
     drawer: false,
     group: null,
+    userLogin:"",
+    userrole: "",
+    showadmin: false,
   }),
+  mounted(){
+
+  this.userLogin= localStorage.getItem("name");
+  this.userrole= localStorage.getItem("role");
+  if(this.userrole==1){
+    this.showadmin=true;
+  }else{
+    this.$router.push('/');
+  }
+
+  },
 
   watch: {
     group () {

@@ -189,12 +189,14 @@
 
                       >
                         <v-select
-                            :items="censusData['0']"
+                        
+                            :items="censusData['data']"
                             item-text="cencus_id"
                             item-value="id"
                             label="ເລກສຳມະໂນ"
                             outlined
                             v-model="peopleItem.cencus_id"
+                            
                         ></v-select>
 
                       </v-col>

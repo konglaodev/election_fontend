@@ -5,8 +5,9 @@
               x-large
                class="text--white"
               dark
+              color="blue"
             >
-              ກົດເພື່ອໃປໜ້າເລືອກຕັ້ງ
+              ກົດໃປໜ້າເລືອກຕັ້ງ
             </v-btn>
 
         </div>

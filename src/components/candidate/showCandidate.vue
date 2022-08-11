@@ -56,7 +56,7 @@
         <v-card-title class="text-h5">
          ຢັ້ນຢືນການໂຫວດ
         </v-card-title>
-        <v-card-text>ທ່ານຕ້ອງການໂຫວດ  <b>{{voteData.gender}} {{voteData.name}} {{voteData.surname}}</b> ແທ້ບໍ່?.</v-card-text>
+        <v-card-text>ທ່ານຕ້ອງການເລືອກ  <b>{{voteData.gender}} {{voteData.name}} {{voteData.surname}}</b> ແທ້ບໍ່?.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn

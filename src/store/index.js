@@ -15,6 +15,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     loggedIn: false ,
+    showlogoutbutton:false,
+    showlogin:false,
+    showAdmin:false,
+    showSuper:false,
     phoneregister:"",
     modalNotificationSuccess: {
       type: 'success',

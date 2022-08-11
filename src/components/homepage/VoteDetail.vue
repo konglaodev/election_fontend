@@ -1,10 +1,15 @@
 <template>
-  <div class="vote_main">
+  <div >
+    <div class="text_title">
+      <h1 style="font-size:50px;">ຍີນດີຕ້ອນຮັບເຂົ້າສູ່ເວັບໄຊ</h1>     
+      <h2 style="opacity: 0.5">ເລືອກຕັ້ງນາຍບ້ານຮູບແບບອອນລາຍ</h2>
+    </div>
 
+  <div class="text_result">ຜົນການເລືອກຕັ້ງ</div>
      <v-data-table 
     :headers="header"
     :items="candidateData"
-    :items-per-page="5"
+    :items-per-page="10"
     class="elevation-1 "
   ></v-data-table>
   </div>
@@ -55,4 +60,14 @@ export default {
       font-size: 20px !important;
 
  }
+ .text_title{
+   margin-top: 100px;
+    text-align: center;
+     margin-bottom: 50px;
+}
+.text_result{
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 50px;
+}
 </style>

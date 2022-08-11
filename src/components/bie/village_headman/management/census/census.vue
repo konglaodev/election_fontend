@@ -6,7 +6,7 @@
       <v-data-table
           :search="search"
           :headers="headers"
-          :items="censusData['0']"
+          :items="censusData['data']"
           sort-by="calories"
           class="elevation-1"
       >
@@ -229,20 +229,20 @@ export default {
     },
 
     editItem (item) {
-      this.editedIndex = this.censusData['0'].indexOf(item)
+      this.editedIndex = this.censusData['data'].indexOf(item)
       this.censusItem = Object.assign({}, item)
       this.dialog = true
     },
 
     deleteItem (item) {
-      this.editedIndex = this.censusData['0'].indexOf(item)
+      this.editedIndex = this.censusData['data'].indexOf(item)
       this.censusItem = Object.assign({}, item)
       this.dialogDelete = true
     },
 
     deleteItemConfirm () {
       this.deleteCensus(
-          {census_id:this.censusData['0'][this.editedIndex]['id']}
+          {census_id:this.censusData['data'][this.editedIndex]['id']}
       )
       this.closeDelete()
     },
@@ -265,7 +265,7 @@ export default {
 
     save () {
       if (this.editedIndex > -1) {
-        this.updateCensus({census_id: this.censusData['0'][this.editedIndex]['id'],village_id_ref:this.censusItem.village_id,cencus_id_ref:this.censusItem.cencus_id})
+        this.updateCensus({census_id: this.censusData['data'][this.editedIndex]['id'],village_id_ref:this.censusItem.village_id,cencus_id_ref:this.censusItem.cencus_id})
       } else {
         this.createCensus({cencus_id_ref:this.censusItem.cencus_id.toString(),village_id_ref:this.censusItem.village_id})
       }

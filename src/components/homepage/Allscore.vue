@@ -1,6 +1,6 @@
 <template>
   <div >
-<hr style="margin-top:50PX;" ><b></b>
+
     <center><h1 style="margin-top:50PX;" >ສະຫຼຸບລາຍລະອຽດ</h1></center><br>
     <v-simple-table >
       <template v-slot:default>

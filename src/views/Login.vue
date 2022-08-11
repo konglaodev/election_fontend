@@ -20,8 +20,13 @@
                       ລະບົບຈະກວດສອບສິດອັດຕະໂນມັດຖ້າທ່ານມີເບີໂທລະສັບ
                       ທີ່ທາງຄະນະກຳມະການຫຼືຄະນະບ້ານເອົາເຂົ້າໃນລະບົບແລ້ວ
                     </h6>
+
                     <v-row align="center" justify="center">
                       <v-col cols="12" sm="8">
+                            <v-alert dense outlined v-model="wrong" type="error">
+                            ຂໍ້ມູນຜູ້ໃຊ້ບໍ່ຖືກຕ້ອງ
+                            
+                          </v-alert>
                         <v-form @submit.prevent="handleSubmit">
                           <v-text-field
                             v-model="username"
@@ -32,6 +37,7 @@
                             color="blue"
                             autocomplete="true"
                             class="mt-16"
+                            type="number"
                             :rules="usernameRule"
                           />
 
@@ -51,9 +57,17 @@
                             <div class="form-group"></div>
                             <v-col cols="12" sm="5"> </v-col>
                           </v-row>
-                          <v-btn type="submit" color="blue" dark block tile :loading="loading"
+                          <v-btn
+                            type="submit"
+                            color="blue"
+                            dark
+                            block
+                            tile
+                            :loading="loading"
                             >ເຂົ້າສູ່ລະບົບ</v-btn
                           >
+                      
+                       
                         </v-form>
                         <!-- <h5
                           class="text-center  grey--text mt-4 mb-3"
@@ -109,7 +123,6 @@
 <script>
 export default {
   data: () => ({
-
     step: 1,
   }),
   props: {
@@ -124,16 +137,24 @@ export default {
   name: "Login",
   data() {
     return {
+      wrong: false,
+      snackbar: false,
       // user: new User("", ""),
       loading: false,
       message: "",
       step: 1,
       username: "",
       password: "",
-      token:"",
-      usernameRule: [(v1) => !!v1 || "ປ້ອນເບີໂທ"],
+      token: "",
+      usernameRule: [(v1) => !!v1 || "ປ້ອນເບີໂທໃໝ່"],
       passwordRule: [(v1) => !!v1 || "ປ້ອນລະຫັສຜ່ານ"],
     };
+  },
+  mounted() {
+    var checkauth = localStorage.getItem("token");
+    if (checkauth) {
+      this.$router.push("/home");
+    }
   },
   computed: {
     loggedIn() {
@@ -145,6 +166,7 @@ export default {
       this.$router.push("/profile");
     }
   },
+
   methods: {
     // submit(){
     //   return alert(JSON.stringify(this.user));
@@ -171,19 +193,17 @@ export default {
     // }
 
     async handleSubmit(e) {
+      if (this.username == null && this.password == null) {
+      }
       e.preventDefault();
-      this.loading=true;
-    
-   
-     const res = await axios.post("http://localhost:8000/api/login", {
+      this.loading = true;
+
+      const res = await axios.post("http://localhost:8000/api/login", {
         username: this.username,
         password: this.password,
-        
-       
       });
-   console.log(res.data)
-   if(res.data.Token.access_token!=null){
- const data = JSON.stringify(res.data.Token.access_token);
+      console.log(res.data);
+      const data = JSON.stringify(res.data.Token.access_token);
       const role = JSON.stringify(res.data.Users?.role_id);
       const name = JSON.stringify(res.data.Users?.name);
       const user_id = JSON.stringify(res.data.Users?.id);
@@ -191,38 +211,40 @@ export default {
       const status = JSON.stringify(res.data.Users?.status);
       localStorage.setItem("token", data);
       localStorage.setItem("role", role);
-      localStorage.setItem("populations_id",populations_id);
-      localStorage.setItem("status",status);
-      localStorage.setItem("name",name);
-      localStorage.setItem("user_id",user_id);
-       this.loading=false;
-      
-    if(role == 1){
-        this.$router.push('/dashboardsuper');
-    }else if(role ==2){
-        this.$router.push('/dashboard_village_headman');
-    }else {
-          this.$router.push('/home');
-    }  
-   }else{
-    this.$router.push('/login');
-   }
-     
+      localStorage.setItem("populations_id", populations_id);
+      localStorage.setItem("status", status);
+      localStorage.setItem("name", name);
+      localStorage.setItem("user_id", user_id);
 
- 
-      
-     
+      this.loading = false;
 
+      if (role == 1) {
+        this.$router.push("/dashboardsuper");
+        this.$store.state.showlogoutbutton = true;
+      } else if (role == 2) {
+        this.$router.push("/dashboard_village_headman");
+        $store.state.showlogoutbutton = true;
+      } else if (role == 3) {
+        this.$router.push("/home");
+        this.$store.state.showlogoutbutton = true;
+      } else {
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("role");
+        localStorage.removeItem("populations_id");
+        localStorage.removeItem("status");
+        localStorage.removeItem("phoneNumber");
+        localStorage.removeItem("name");
+        localStorage.removeItem("_grecaptcha");
+        localStorage.removeItem("token");
+        this.$router.push("/");
+        this.wrong = true;;
       
+        this.$router.push("/login");
+      }
+
       // const token = JSON.parse(res);
       // console.log(JSON.parse(res));
       // console.log(token);
-      
-    
-          
-          
-          
-    
     },
     // handleLogin() {
     //   this.loading = true;

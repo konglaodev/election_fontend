@@ -59,7 +59,8 @@ const actions={
             slogan:slogan,
             history:history,
             address:address,
-            image:image
+            image:image,
+            
         }
 
         await candidateProvider.createCandidate(arg)
@@ -67,7 +68,7 @@ const actions={
     },
 
     async updateCandidate({dispatch },{
-        candidate_id,
+        id,
         name,
         surname,
         gender,
@@ -76,11 +77,12 @@ const actions={
         slogan,
         history,
         address,
-        image
+        image,
+        
     }){
 
         let arg={
-            candidate_id:candidate_id,
+            id:id,
             name:name,
             surname:surname,
             gender:gender,
@@ -98,8 +100,8 @@ const actions={
         //commit('SET_POST',data)
     },
 
-    async deleteCandidate ({dispatch},{candidate_id}) {
-        await candidateProvider.deleteCandidate({candidate_id:candidate_id})
+    async deleteCandidate ({dispatch},{id}) {
+        await candidateProvider.deleteCandidate({id:id})
         dispatch('getCandidate',{ root: true });
 
     },

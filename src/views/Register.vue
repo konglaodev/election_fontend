@@ -43,10 +43,12 @@
                       for="phoneNumber"
                       v-model="username"
                       label="ເບີໂທລະສັບ"
+                      type="number"
                       outlined
                       dense
                       color="blue"
                       autocomplete="false"
+                      :rules="usernameRule"
                     />
                     <v-text-field
                       v-model="password"
@@ -56,11 +58,15 @@
                       color="blue"
                       autocomplete="false"
                       type="password"
+                      :rules="passwordRule"
                     />
 
-                    <v-btn  type="submit" color="blue" dark block tile
+                    <v-btn :loading="loading" type="submit" color="blue" dark block tile
                       >ລົງທະບຽນ</v-btn
                     >
+                      <v-alert v-model="dialogfalse" type="info">
+      ເບີນີ້ລົງທະບຽນແລ້ວ
+    </v-alert>
                   </v-form>
                   <!-- <h5
                           class="text-center  grey--text mt-4 mb-3"
@@ -93,18 +99,22 @@ let phonelocal = localStorage.getItem("phoneNumber");
 import axios from "axios";
 export default {
   data: () => ({
+    dialogfalse: false,
+     usernameRule: [(v1) => !!v1 || "ປ້ອນເບີໂທໃໝ່"],
+      passwordRule: [(v1) => !!v1 || "ປ້ອນລະຫັສຜ່ານ"],
     // name: this.name,
     // username: this.username,
     // password: this.password,
     name: "",
     username: phonelocal,
     password: "",
+    loading: false,
   }),
   name: "register",
   methods: {
     async handleSubmit() {
       
-
+        this.loading = true;
       const data = {
         name: this.name,
         username: this.username,
@@ -125,12 +135,17 @@ console.log(data);
           localStorage.removeItem("name");
           localStorage.removeItem("_grecaptcha");
           localStorage.removeItem("token");
+          this.loading = false;
            this.$router.push('/login');
+           
         })
         .catch((err) => {
           
           console.log(err);
-          alert("ເບີນີ້ລົງທະບຽນແລ້ວ");
+         this.loading = false;
+      
+          
+          this.$router.push('/login');
         });
 
         

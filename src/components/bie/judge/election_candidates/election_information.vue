@@ -121,8 +121,8 @@
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="grey" dark @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="red darken-1" dark @click="deleteItemConfirm">OK</v-btn>
+                  <v-btn color="grey" dark @click="closeDelete">ຍົກເລີກ</v-btn>
+                  <v-btn color="red darken-1" dark @click="deleteItemConfirm">ຕົກລົງ</v-btn>
                   <v-spacer></v-spacer>
                 </v-card-actions>
               </v-card>
@@ -377,18 +377,13 @@ export default {
       this.close()
     },
   },
-
 }
 </script>
-
 <style lang="scss" scoped>
-
-
 .container-content{
   width: 100%;
   background-color: #f0f2f5;
   padding: 1rem;
-
   .make_center{
     width: 100%;
     text-align: center;

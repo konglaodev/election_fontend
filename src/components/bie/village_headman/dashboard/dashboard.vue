@@ -3,7 +3,7 @@
     <div class="Navbar">
       <Navbar :title="title"/>
       <div class="container-content">
-
+            <h1 style="text-align: center;">ໜ້າຈັດການຂໍ້ມູນາສຳຫຼັບຄະນະບ້ານ</h1>
       </div>
     </div>
   </div>

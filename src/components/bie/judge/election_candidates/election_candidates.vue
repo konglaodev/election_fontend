@@ -176,7 +176,7 @@ export default {
   data(){
     return{
       search: '',
-      title:"ລາຍງານຂໍ້ມູນປະຊາກອນທັງໝົດ",
+      title:"ລາຍງານຂໍ້ມູນຜູ້ສະໝັກເລືອກຕັ້ງ",
       dialog: false,
       dialogDelete: false,
       permissionItem:[
@@ -194,9 +194,9 @@ export default {
         { text: 'ນາມສະກຸນ', value: 'surname' },
         {text:'ເພດ',value: 'gender'},
         { text: 'ວ/ດ/ປ ເກີດ', value: 'dateOfBirth' },
-        { text: 'ລະດັບ', value: 'degree' },
-        { text: 'ສະໂລແກນ', value: 'slogan' },
-        { text: 'ປະຫວັດ', value: 'history' },
+        { text: 'ລະດັບການສືກສາ', value: 'degree' },
+        { text: 'ນະໂຍບາຍ', value: 'slogan' },
+        { text: 'ປະຫວັດຫຍໍ້', value: 'history' },
         { text: 'ທີ່ຢູ່', value: 'address' },
 
         { text: 'Actions', value: 'actions', sortable: false },

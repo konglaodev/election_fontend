@@ -2,13 +2,17 @@
   <div>
     <Navbar :title="title"/>
     <div class="container-content">
-
+      <center>
+        <h1 style="margin-top:30px;margin-bottom:30px;">ກວດສອບສິດເລືອກຕັ້ງ</h1>
+      </center>
+        
       <v-data-table
           :search="search"
           :headers="headers"
           :items="verifyData['data']"
           class="elevation-1"
       >
+      
         <template v-slot:top>
           <v-toolbar
               flat
@@ -16,7 +20,7 @@
             <v-spacer></v-spacer>
             <v-dialog
                 v-model="dialog"
-                max-width="500px"
+                max-width="395px"
             >
               <template v-slot:activator="{ }">
 
@@ -59,14 +63,14 @@
                       text
                       @click="close"
                   >
-                    Cancel
+                    ຍົກເລີກ
                   </v-btn>
                   <v-btn
                       color="blue darken-1"
                       text
                       @click="save"
                   >
-                    Save
+                   ບັນທຶກ
                   </v-btn>
                 </v-card-actions>
               </v-card>

@@ -94,7 +94,8 @@ class CandidatesProvider extends HttpRequest {
         bodyFormData.append('image',image);
         bodyFormData.append('_method','put');
         this.setHeader({
-            'Content-Type': 'multipart/form-data',
+            // 'Content-Type': 'multipart/form-data',
+            'Content-Type': 'accplication/json',
         })
 
         const {data} = await this.update('Candidate/'+candidate_id,bodyFormData)

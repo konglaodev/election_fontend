@@ -3,7 +3,7 @@
     <Navbar/>
     <v-container >
         <Causel />
-        <v-container  style="background-color:gray">
+        <v-container  >
              <Votedetail />
         <allscore />
         </v-container>
