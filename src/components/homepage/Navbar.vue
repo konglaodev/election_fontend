@@ -199,15 +199,24 @@ export default {
          this.$store.state.showAdmin=false;
       this.$store.state.showSuper=true;
 this.$store.state.showlogoutbutton=true;
+this.$store.state.showlogin=false;
     }else if(localStorage.getItem('role')==2){
 this.$store.state.showAdmin=true;
 this.$store.state.showSuper=false;
 this.$store.state.showlogoutbutton=true;
+this.$store.state.showlogin=false;
+    }else if(localStorage.getItem('role')==3){
+this.$store.state.showAdmin=false;
+this.$store.state.showSuper=false;
+this.$store.state.showlogoutbutton=true;
+this.$store.state.showlogin=false;
+     
     }else{
-
-      this.$store.state.showlogoutbutton=true;
-      this.show = true;
+       this.$store.state.showlogoutbutton=false;
+      this.show = false;
+      this.$store.state.showlogin=true;
     }
+
   },
   
 };

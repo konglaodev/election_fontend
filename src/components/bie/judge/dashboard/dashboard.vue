@@ -3,7 +3,15 @@
     <div class="Navbar">
       <Navbar :title="title"/>
       <div class="container-content">
-
+              <div>
+                <v-banner 
+  elevation="8"
+  rounded
+  sticky
+>
+<center><h3>ລະບົບຈັດການຂໍ້ມູນສຳຫຼັບຄະນະກຳມະການ</h3></center>
+</v-banner>
+              </div>
       </div>
     </div>
   </div>

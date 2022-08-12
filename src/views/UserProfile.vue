@@ -150,10 +150,7 @@ export default {
   
   mounted() {
     this.token = JSON.parse( localStorage.getItem('toten'));
-   if( this.token==null ){
-    this.$router.push('/home');
-
-   }
+  
 
     this.image = image_holder;
     axios
@@ -186,6 +183,7 @@ export default {
       formData.append("user_id", localStorage.getItem("user_id"));
       formData.append("picture_verify", this.selectImage);
       axios
+      
         .post("http://127.0.0.1:8000/api/addVerify", formData)
         .then((response) => {
           this.dialog = true;

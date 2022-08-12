@@ -29,11 +29,13 @@
         </template>
 
         <v-list>
-          <v-list-item
-              
-              @click="() => {}"
-          >
+          <v-list-item @click="$router.push('/')">
             <v-list-item-title>ໜ້າຫຼັກ</v-list-item-title>
+          </v-list-item>
+        </v-list>
+        <v-list>
+          <v-list-item @click=" $router.push('/')">
+            <v-list-item-title>ອອກຈາກລະບົບ</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
