@@ -98,7 +98,7 @@ class CandidatesProvider extends HttpRequest {
             'Content-Type': 'accplication/json',
         })
 
-        const {data} = await this.update('Candidate/'+candidate_id,bodyFormData)
+        const {data} = await this.create('Candidate/'+candidate_id,bodyFormData)
 
 
         return data
@@ -106,9 +106,7 @@ class CandidatesProvider extends HttpRequest {
 
 
     async deleteCandidate ({candidate_id}) {
-
         this.setHeader({})
-
         // example path http://172.28.26.82:7001/this.get()
         const {data} = await this.delete('Candidate/'+candidate_id)
 

@@ -14,8 +14,7 @@
           <v-toolbar
               flat
           >
-
-
+          
             <v-spacer></v-spacer>
             <v-dialog
                 v-model="dialog"

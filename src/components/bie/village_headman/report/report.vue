@@ -1,10 +1,7 @@
 <template>
   <div>
 
-    <Navbar :title="title"/>
     <div class="container-content">
-        
-
 
       <v-data-table
           :search="search"
@@ -17,8 +14,8 @@
           <v-toolbar
               flat
           >
-          
-                      <v-btn  @click="$router.push('/table_report_population')">report</v-btn>
+
+
             <v-spacer></v-spacer>
             <v-dialog
                 v-model="dialog"
@@ -238,7 +235,7 @@
 <script>
 import axios from "axios";
 import { mapActions, mapGetters } from "vuex";
-import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue"
+
 export default {
   name: "election_candidates",
   data(){
@@ -290,9 +287,7 @@ export default {
       },
     }
   },
-  components:{
-    Navbar
-  },
+ 
   computed: {
     ...mapGetters({
       peopleVotedData:"People/peopleVotedData",

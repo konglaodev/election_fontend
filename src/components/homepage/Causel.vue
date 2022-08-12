@@ -1,11 +1,13 @@
 <template>
 <div style="margin-top:100px;">
   <v-carousel cycle hide-delimiter-background  >
-    <v-carousel-item 
+    <center>
+    <v-carousel-item  
       v-for="(item,i) in items"
       :key="i"
-      :src="item"
+      :src="item"  max-width="500px" 
     ></v-carousel-item>
+    </center>
   </v-carousel>
 
   

@@ -72,6 +72,7 @@ const actions={
 
         let arg={
 
+            
             name:name,
             surname:surname,
             gender:gender,
@@ -116,7 +117,9 @@ const actions={
         //commit('SET_POST',data)
     },
 
-    async deletePeople ({dispatch},{people_id}) {
+    async deletePeople (
+        
+        {dispatch},{people_id}) {
         await peopleProvider.deletePeople({people_id:people_id})
         dispatch('getPeople',{ root: true });
 

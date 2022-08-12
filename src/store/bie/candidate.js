@@ -68,7 +68,7 @@ const actions={
     },
 
     async updateCandidate({dispatch },{
-        id,
+        candidate_id,
         name,
         surname,
         gender,
@@ -82,7 +82,7 @@ const actions={
     }){
 
         let arg={
-            id:id,
+            candidate_id:candidate_id,
             name:name,
             surname:surname,
             gender:gender,
@@ -100,8 +100,8 @@ const actions={
         //commit('SET_POST',data)
     },
 
-    async deleteCandidate ({dispatch},{id}) {
-        await candidateProvider.deleteCandidate({id:id})
+    async deleteCandidate ({dispatch},{candidate_id}) {
+        await candidateProvider.deleteCandidate({candidate_id:candidate_id})
         dispatch('getCandidate',{ root: true });
 
     },

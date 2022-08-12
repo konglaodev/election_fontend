@@ -51,12 +51,14 @@
                       <v-col
                           cols="12"
                       >
-                          <div class="upload-image mb-5" v-if="previewImage == null">
+                          <div class="check_modal_edit" v-show ="isEdit == false">
+                           <div class="upload-image mb-5" v-show="previewImage == null">
                             <div class="content" >
                               <i class="fas fa-plus-circle"></i>
                               <h3>ຮູບ</h3>
                             </div>
                             <input
+                            ref="myFiles"
                                 type="file"
                                 class="choose-file"
                                 name="upload-image"
@@ -65,12 +67,8 @@
                             />
                           </div>
 
-
-                          <div class="image" v-else>
-
-
+                          <div class="image" v-show="previewImage !== null">
                               <div class="increase-decrease-image" >
-
                                 <v-btn
                                     class="mx-2"
                                     color="error"
@@ -83,7 +81,7 @@
                                     mdi-close
                                   </v-icon>
                                 </v-btn>
-
+                              
                                 <input
                                     ref="uploader"
                                     accept="image/*"
@@ -93,11 +91,43 @@
                                 />
                               </div>
                               <v-img class="image-files" :src="previewImage"   max-width="100%" max-height="250"  contain/>
-
-
-
+                          </div>
                           </div>
 
+                        
+                         <div class="check_modal_edit" v-show ="isEdit == true && previewImage ==null" @click="uploadImageByClickOnPreview">
+                            <v-img class="image-files" :src="imageUrlPreview"   max-width="100%" max-height="250"  contain/>
+                          </div>
+
+                    <div class="image" v-show="previewImage !== null && isEdit == true">
+                          <div class="increase-decrease-image" >
+
+                            <v-btn
+                                class="mx-2"
+                                color="error"
+                                dark
+                                fab
+                                small
+                                @click="removeImage"
+                            >
+                              <v-icon dark>
+                                mdi-close
+                              </v-icon>
+                            </v-btn>
+
+                            <input
+                                ref="uploader"
+                                accept="image/*"
+                                class="d-none"
+                                type="file"
+                                @change="UploadImage"
+                            />
+                          </div>
+                          <v-img class="image-files" :src="previewImage"   max-width="100%" max-height="250"  contain/>
+
+
+
+                        </div>
                       </v-col>
 
                       <v-col
@@ -389,7 +419,8 @@ export default {
       dialogDelete: false,
       dialogView:false,
       uploadImage: null,
-
+      imageUrlPreview:'',
+      isEdit:false,
       previewImage: null,
       headers: [
 
@@ -483,6 +514,11 @@ export default {
 
     },
 
+    uploadImageByClickOnPreview(){
+      this.$refs.myFiles.click()
+      console.log(this.$refs.myFiles)
+    },
+
     UploadImage(e) {
       const img = e.target.files[0];
 
@@ -510,12 +546,13 @@ export default {
     },
 
     async editItem (item) {
-
+      this.imageUrlPreview = "http://127.0.0.1:8000/storage/candidate_images/"+item.image
+      this.isEdit = true
       this.btnIndex = 0
       this.editedIndex = this.candidateData['data'].indexOf(item)
       this.candidateItem = Object.assign({}, item)
       this.dialog = true
-      await this.convertUrlToFileImage("http://127.0.0.1:8000/storage/candidate_images/"+item.image)
+      
 
     },
 
@@ -572,6 +609,8 @@ export default {
             }
 
         )
+
+
       } else {
         // this.candidateData['data'].push(this.candidateItem)
         this.createCandidate({
@@ -586,7 +625,10 @@ export default {
               image: this.uploadImage,
             }
         )
+
       }
+                      this.previewImage = null
+this.uploadImage = null
       this.close()
     },
   },

@@ -34,7 +34,7 @@ class PeopleProvider extends HttpRequest {
         //If write Header on class HttpRequest Should call like under method
         this.setHeader({})
         // example path http://172.28.26.82:7001/this.get()
-        const {data} = await this.get('populations')
+        const {data} = await this.get('populations/')
 
         return data
     }
@@ -89,7 +89,7 @@ class PeopleProvider extends HttpRequest {
 
         }
     ){
-        console.log(name);
+        console.log(image);
         var bodyFormData = new FormData();
         bodyFormData.append('name',name);
         bodyFormData.append('surname',surname);
@@ -104,7 +104,7 @@ class PeopleProvider extends HttpRequest {
             'Content-Type': 'multipart/form-data',
         })
 
-        const {data} = await this.update('updatePopulations/'+people_id,bodyFormData)
+        const {data} = await this.create('populations/'+people_id,bodyFormData)
 
 
         return data

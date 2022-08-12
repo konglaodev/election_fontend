@@ -1,7 +1,10 @@
 <template>
   <div>
+
+    
     <Navbar :title="title"/>
     <div class="container-content">
+      <center><h1>ປະຊາກອນທີ່ມີສິດເລືອກຕັ້ງ</h1></center>
       <v-data-table
           :search="search"
           :headers="headers"
@@ -32,7 +35,7 @@
               </template>
               <v-card>
                 <v-card-title>
-                  {{ formTitle }}
+                  {{ formTitle }}ະ
                 </v-card-title>
 
                 <v-card-text>
@@ -296,6 +299,7 @@
             </v-dialog>
           </v-toolbar>
         </template>
+        
         <template v-slot:[`item.actions`]="{ item }">
 
           <v-icon
@@ -307,6 +311,16 @@
             mdi-eye
           </v-icon>
         </template>
+        <template v-slot:[`item.image`]="{ item }"
+        
+        >
+        <v-img
+              max-height="250"
+              max-width="150"
+              :src="'http://127.0.0.1:8000/storage/populations_images/'+item.image"
+          ></v-img>
+
+          </template>
 
       </v-data-table>
     </div>

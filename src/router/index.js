@@ -22,13 +22,20 @@ import PeopleInformation from '@/components/bie/village_headman/management/peopl
 import CandidateInformation from '@/components/bie/judge/management/candidate/candidate.vue'
 import CheckPermissionElection from '@/components/bie/village_headman/management/check_permission_election/check_permission_election.vue'
 import HeadmanElectionInformation from '@/components/bie/village_headman/headman_election_information/headman_election_information.vue'
+import PdfgenerateTablePopulation from '@/components/pdf_generate/table/table_report_population.vue'
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path:'/table_report_population',
+    name:'table_report_population',
+    component: PdfgenerateTablePopulation
+  },
+  {
     path:'/dashboard_village_headman',
     name:'dashboard_village_headman',
-    component: DashboardVillageHeadman
+    component: DashboardVillageHeadman,
+
   },
   {
     path:'/unit_information',
@@ -144,9 +151,9 @@ const routes = [
     component: Profile_edit
   },
   {
-    path: "/crud",
-    name: "crud",
-    component: () => import("../views/crudTable.vue")
+    path: "/example",
+    name: "example",
+    component: () => import("../components/candidate/layoutEx.vue")
   },
   {
     path: '/',

@@ -3,28 +3,31 @@
     <v-app>
       <Navbar />
       <div style="margin-top: 100px">
-        <v-card class="mx-auto my-12" max-width="374">
+        <center>
+          <h1>ຂໍ້ມູນຜູ້ໃຊ້ລະບົບ</h1>
+        </center>
+
+        <v-card class="mx-auto my-12" max-width="1000">
           <v-card-title v-if="profileData.status == 'not_verify'"
             ><b
               >ສະຖານະ: <span style="color: red">ຍັງບໍ່ທັນຢືນຢັນ</span></b
             ></v-card-title
           >
-          <v-card-title v-else-if="profileData.status=='verify'"
+          <v-card-title v-else-if="profileData.status == 'verify'"
             ><b
               >ສະຖານະ:
               <span style="color: lime">ຢືນຢັນແລ້ວ</span>
             </b></v-card-title
           >
           <v-card-title v-else
-            ><b
-              >
+            ><b>
               <span style="color: grey">ກະລຸນາເຂົ້າສູ່ລະບົບ</span>
             </b></v-card-title
           >
 
           <v-card-text>
             <v-row align="center" class="mx-0">
-              <div class="grey--text ms-4">
+              <div class="grey--text ms-4" style="text-align: center">
                 <b>ຊື່: </b>{{ profileData.name }}
               </div>
             </v-row>
@@ -33,8 +36,65 @@
                 <b>ເບີໂທລະສັບ: </b> {{ profileData.phoneNumber }}
               </div>
             </v-row>
+            <v-row align="center" class="mx-0">
+              <div class="grey--text ms-4">
+                <b>ລະດັບສິດ: </b> {{ profileDataAll.rolesname }}
+              </div>
+            </v-row>
+            <center>
+              <div>
+                <div
+                  class="profile"
+                  style="width: 100%; margin-top: 100px; margin-bottom: 100px"
+                >
+                  <v-img
+                    max-height="600"
+                    max-width="400"
+                    min-width="150"
+                    :src="
+                      'http://127.0.0.1:8000/storage/populations_images/' +
+                      profileDataAll.image
+                    "
+                  ></v-img>
+                </div>
+              </div>
+            </center>
+            <div class="details">
+              <center>
+                <h1>ຂໍ້ມູນປະຊາກອນ</h1>
+                <br />
+              </center>
 
-            <div></div>
+              <h3>
+                ຊື່ແລະນາມສະກຸນ :
+                <b
+                  >{{ profileDataAll.gender }} {{ profileDataAll.name }}
+                  {{ profileDataAll.surname }}</b
+                >
+              </h3>
+              <br />
+              <h3>
+                ວັນເດືອນປີເກີດ :
+                <b
+                  >{{ profileDataAll.dateOfBirth }} </b
+                >
+              </h3>
+              <br />
+              <h3>
+                ທີ່ຢູ່ :
+                <b
+                  >{{ profileDataAll.address }} </b
+                >
+              </h3>
+              <br />
+              <h3>
+                ສຳມະໂນຄົວເລກທີ :
+                <b
+                  >{{ profileDataAll.cencus_id }} </b
+                >
+              </h3>
+              <br />
+            </div>
           </v-card-text>
 
           <v-divider class="mx-4"></v-divider>
@@ -49,37 +109,31 @@
               filled
               prepend-icon="mdi-camera"
             ></v-file-input>
-            <v-btn color="green lighten-2" class="ml-3" :disabled="selectImage==null" @click="sendVerify()"> upload </v-btn>
+            <v-btn
+              color="green lighten-2"
+              class="ml-3"
+              :disabled="selectImage == null"
+              @click="sendVerify()"
+            >
+              ອັບໂຫລດຮູບ
+            </v-btn>
           </v-card-title>
           <v-card-title v-else> </v-card-title>
         </v-card>
       </div>
 
-
-<v-dialog
-      v-model="dialog"
-      persistent
-      max-width="290"
-    >
-      <v-card>
-        <v-card-title class="text-h5">
-          ບັນທຶກຂໍ້ມູນແລ້ວ
-        </v-card-title>
-        <v-card-text>ຂໍ້ມູນຂອງທ່ານຖືກສົ່ງໄປແລ້ວ.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
-          >
-            ປິດ
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-card>
+          <v-card-title class="text-h5"> ບັນທຶກຂໍ້ມູນແລ້ວ </v-card-title>
+          <v-card-text>ຂໍ້ມູນຂອງທ່ານຖືກສົ່ງໄປແລ້ວ.</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" text @click="dialog = false">
+              ປິດ
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-app>
   </div>
 </template>
@@ -93,26 +147,48 @@ export default {
   components: {
     Navbar,
   },
+  
   mounted() {
+    this.token = JSON.parse( localStorage.getItem('toten'));
+   if( this.token==null ){
+    this.$router.push('/home');
+
+   }
+
     this.image = image_holder;
-    axios.get("http://127.0.0.1:8000/api/getuserid/"+localStorage.getItem("user_id")).then((response)=>{
-      this.profileData =response.data.data[0];
-      console.log(response.data.data[0]);
-    }).catch((err) => {
-      console.log(err);
-    })
+    axios
+      .get(
+        "http://127.0.0.1:8000/api/getuserid/" + localStorage.getItem("user_id")
+      )
+      .then((response) => {
+        this.profileData = response.data.data[0];
+        console.log(response.data.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      }),
+      axios
+        .get(
+          "http://127.0.0.1:8000/api/profilestatus/" +
+            localStorage.getItem("user_id")
+        )
+        .then((response) => {
+          this.profileDataAll = response.data.data[0];
+          console.log(response.data.data[0]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   },
   methods: {
     sendVerify() {
       let formData = new FormData();
-      formData.append("user_id",localStorage.getItem("user_id"));
-      formData.append("picture_verify",this.selectImage);
+      formData.append("user_id", localStorage.getItem("user_id"));
+      formData.append("picture_verify", this.selectImage);
       axios
-        .post("http://127.0.0.1:8000/api/addVerify", 
-         formData
-        )
+        .post("http://127.0.0.1:8000/api/addVerify", formData)
         .then((response) => {
-          this.dialog=true;
+          this.dialog = true;
         })
         .catch((err) => {
           console.log(err);
@@ -138,10 +214,12 @@ export default {
   },
   data() {
     return {
-      dialog:false,
+      dialog: false,
       image: null,
       selectImage: null,
       profileData: {},
+      profileDataAll: {},
+      token:"",
     };
   },
 };

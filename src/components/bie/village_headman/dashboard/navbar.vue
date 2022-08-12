@@ -93,6 +93,18 @@
             <v-list-item-content>
               <v-list-item-title>ລາຍງານຂໍ້ມູນການເລືອກຕັ້ງ</v-list-item-title>
             </v-list-item-content>
+            
+          </v-list-item>
+                    <v-list-item
+            link
+            @click="$router.push('/pdfgenerate')"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-clock</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>report</v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -129,7 +141,11 @@ export default {
   },
   mounted() {
     this.userinfo = JSON.parse(localStorage.getItem("name"));
-    
+    if(this.userinfo==null){
+       this.$store.state.showlogoutbutton=false;
+      this.$store.state.showlogin=true;
+      this.$router.push('/login');
+    }
   },
 
   watch: {

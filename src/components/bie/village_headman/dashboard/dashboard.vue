@@ -4,13 +4,16 @@
       <Navbar :title="title"/>
       <div class="container-content">
             <h1 style="text-align: center;">ໜ້າຈັດການຂໍ້ມູນາສຳຫຼັບຄະນະບ້ານ</h1>
+           <Report/>
       </div>
+     
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue"
+import Report from "@/components/bie/village_headman/report/report.vue"
 
 export default {
   name: "dashboard",
@@ -20,7 +23,8 @@ export default {
     }
   },
   components:{
-    Navbar
+    Navbar,
+    Report
   }
 }
 </script>

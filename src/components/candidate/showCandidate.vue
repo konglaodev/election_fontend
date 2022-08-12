@@ -1,11 +1,19 @@
 <template>
 <div style="margin-top:100px;" class="home">
+    <center>
+        <h1  >ເລືອກຕັ້ງນາຍບ້ານ ສະໄໝທີ IX</h1>
+    </center>
+    
     <v-container grid-list-xs v-for="item in candidateData" :key="item.id">
-         <v-card 
+         <v-card  
     class="mx-auto"
-    max-width="500"
-    outlined
+    max-width="600"
+    
+    
   >
+  <v-img :src="'http://localhost:8000/storage/candidate_images/'+item.image">
+
+      </v-img>
     <v-list-item three-line >
     
       <v-list-item-content>
@@ -21,15 +29,15 @@
         <v-list-item-subtitle><b>ທີ່ຢູ່: </b>{{item.address}}</v-list-item-subtitle>
       </v-list-item-content>
 
-      <v-list-item-avatar
+      <!-- <v-list-item-avatar
         tile
         size="80"
-        color="grey"
+        color="grey" max-width="500px"
       
       >
       <v-img :src="'http://localhost:8000/storage/candidate_images/'+item.image">
 
-      </v-img></v-list-item-avatar>
+      </v-img></v-list-item-avatar> -->
     </v-list-item>
 
     <v-card-actions>

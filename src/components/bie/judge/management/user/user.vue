@@ -131,6 +131,9 @@
           </v-icon>
 
         </template>
+        <template v-slot:[`item.role_id`]="{ item }">
+          <p>{{findNameRole(item.role_id)}}</p>
+        </template>
         
 
       </v-data-table>
@@ -164,7 +167,7 @@ export default {
           value: 'name',
         },
         { text: 'ເບີໂທ', value: 'phoneNumber' },
-         { text: 'ລະຫັດຜ່ານ', value: 'password' },
+        //  { text: 'ລະຫັດຜ່ານ', value: 'password' },
         { text: 'ສະຖານະ', value: 'status' },
         
         { text: 'ສິດການນຳໃຊ້', value: 'role_id' },
@@ -226,6 +229,15 @@ export default {
     }),
 
 
+    findNameRole(role){
+      if(role==1){
+        return 'superadmin'
+      }else if(role==2){
+        return 'admin'
+      } else{
+               return 'user'
+      } 
+    },
 
     editItem (item) {
       this.editedIndex = this.userData['data'].indexOf(item)
