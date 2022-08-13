@@ -130,7 +130,24 @@
                         </div>
                       </v-col>
 
+<v-col
+                      class="pt-10"
+                          cols="12"
+                      >
+                        <v-select
+                        v-model="candidateItem.gender"
+                        :items="genderItem"
+                        item-text="name"
+                        item-value="name"
+                        label="ເພດ"
+                        outlined
+                        >
+
+                        
+                        </v-select>
+                      </v-col>
                       <v-col
+                 
                           cols="12"
                       >
                         <v-text-field
@@ -440,13 +457,13 @@ export default {
         { text: 'ທີ່ຢູ່', value: 'address' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-
+genderItem:[{id:1,name:"ທ່ານ"},{id:2,name:"ທ່ານ ນາງ"}],
       editedIndex: -1,
       candidateItem: {
 
         name: '',
         surname: '',
-        gender: 'ທ່ານ',
+        gender: '',
         dateOfBirth: '',
         degree: '',
         slogan: '',
@@ -536,6 +553,7 @@ export default {
     removeImage(){
       this.uploadImage = null;
       this.previewImage = null;
+      this.imageUrlPreview='';
     },
 
     viewItem (item) {
@@ -606,8 +624,9 @@ export default {
               history: this.candidateItem.history,
               address: this.candidateItem.address,
               image: this.uploadImage,
-            }
-
+            },
+this.removeImage(),
+this.isEdit=false
         )
 
 
@@ -623,7 +642,9 @@ export default {
               history: this.candidateItem.history,
               address: this.candidateItem.address,
               image: this.uploadImage,
-            }
+            },
+            this.removeImage()
+          
         )
 
       }

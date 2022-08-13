@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar color="blue" fixed>
+    <v-app-bar  fixed  rounded>
       <!-- <v-app-bar-nav-icon color="#F6F1F0"  @click="drawer=true">
 
       </v-app-bar-nav-icon> -->
@@ -19,7 +19,7 @@
             v-bind="attrs"
             v-on="on"
           >
-            <v-icon color="white">mdi-dots-vertical</v-icon>
+            <v-icon >mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
 <v-list  nav dense >
@@ -227,7 +227,7 @@ router-link a {
   
 }
 .te{
-  color: rgb(255, 255, 255);
+  color: black;
   font-size: 24px;
   text-decoration: none !important;
 }

@@ -3,7 +3,7 @@
     <div class="Navbar">
       <Navbar :title="title"/>
       <div class="container-content">
-             <div>
+             <div class="pt-10">
                 <v-banner 
   elevation="8"
   rounded
@@ -12,6 +12,7 @@
 <center><h3>ໜ້າຈັດການຂໍ້ມູນາສຳຫຼັບຄະນະບ້ານ</h3></center>
 </v-banner>
               </div>
+              
 
            <Report/>
       </div>

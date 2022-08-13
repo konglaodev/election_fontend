@@ -7,32 +7,57 @@
 
   <div class="text_result">ຜົນການເລືອກຕັ້ງ</div>
      <v-data-table 
+     
     :headers="header"
     :items="candidateData"
     :items-per-page="10"
     class="elevation-1 "
-  ></v-data-table>
+  >
+    <template v-slot:[`item.index`]="{ item }">
+    <p>{{candidateData.indexOf(item)+1 }}</p>
+  </template>
+  <template v-slot:[`item.candidate_images`]="{ item }">
+     <v-img
+              max-height="250"
+              max-width="150"
+              :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.candidate_image"
+          ></v-img>
+  </template>
+  <template v-slot:[`item.candidate_name`]="{ item }">
+    <p>{{item.gender }} {{item.candidate_name}} {{item.candidate_surname}}</p>
+  </template>
+  </v-data-table>
   </div>
 </template>
 <script>
 import axios from "axios";
 export default {
+  
   data() {
     return {
+      no:1,
       header:[
+          {
+          text:'ລຳດັບທີ',
+          align:'start',
+          sortable: true,
+          value: 'index'
+        },
         {
-          text:'ຊື່',
+          text:'ຮູບ',
+          align:'start',
+          sortable: true,
+          value:'candidate_images'
+        },
+        {
+          text:'ຊື່ ແລະ ນາມສະກຸນ ຜູ້ລົງສະໝັກເລືອກຕັ້ງ',
           align:'start',
           sortable: true,
           value:'candidate_name'
         },
+
         {
-          text:'ນາມສະກຸນ',
-          sortable: true,
-          value:'candidate_surname'
-        },
-        {
-          text:'ຄະແນນໂຫວດ',
+          text:'ຄະແນນເລືອກຕັ້ງ',
           sortable: true,
           value:'votes_count'
         }
@@ -74,4 +99,13 @@ export default {
     text-align: center;
     margin-bottom: 50px;
 }
+
+  .v-data-table ::v-deep th{
+
+        font-size: 24px !important
+  }
+    .v-data-table ::v-deep td{
+font-size: 16px !important
+    }
+        
 </style>

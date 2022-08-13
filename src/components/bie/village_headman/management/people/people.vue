@@ -2,7 +2,8 @@
   <div>
     <Navbar :title="title"/>
     <div class="container-content">
-
+    <center class="py-10">           <h1>ລາຍຊື່ປະຊາກອນທັງໝົດ</h1>
+</center>
       <v-data-table
           :search="search"
           :headers="headers"
@@ -97,7 +98,26 @@
                         </div>
                           </div>
 
-                          <div class="check_modal_edit" v-show ="isEdit == true && previewImage ==null" @click="uploadImageByClickOnPreview">
+<div class="check_modal_edit" v-show="isEdit ===true && peopleItem.image === ''">
+                          <div class="upload-image mb-5" v-show="previewImage == null">
+                          <div class="content" >
+                            <i class="fas fa-plus-circle"></i>
+                            <h3>ຮູບ</h3>
+                          </div>
+                          <input
+                               ref="myFiles"
+                              type="file"
+                              class="choose-file"
+                              name="upload-image"
+                              accept="image/*"
+                              @change="UploadImage"
+                          />
+                        </div>
+                        
+                          </div>
+
+
+                          <div class="check_modal_edit" v-show ="isEdit == true && previewImage ==null && peopleItem.image !== ''" @click="uploadImageByClickOnPreview">
                             <v-img class="image-files" :src="imageUrlPreview"   max-width="100%" max-height="250"  contain/>
                           </div>
 
@@ -529,9 +549,10 @@ uploadImageByClickOnPreview(){
 
     },
 
-    removeImage(){
+  removeImage(){
       this.uploadImage = null;
       this.previewImage = null;
+      this.imageUrlPreview='';
     },
 
     viewItem (item) {
@@ -606,7 +627,8 @@ uploadImageByClickOnPreview(){
               address: this.peopleItem.address,
               image: this.uploadImage,
               cencus_id:this.peopleItem.cencus_id
-            }
+            },
+            this.removeImage()
         )
       } else {
         this.createPeople({
@@ -618,7 +640,8 @@ uploadImageByClickOnPreview(){
               address: this.peopleItem.address,
               image: this.uploadImage,
           cencus_id:this.peopleItem.cencus_id
-            }
+            },
+            this.removeImage(),
         )
       }
       this.close()
@@ -634,4 +657,11 @@ uploadImageByClickOnPreview(){
   background-color: #f0f2f5;
   padding: 1rem;
 }
+ .v-data-table ::v-deep th{
+
+        font-size: 24px !important
+  }
+    .v-data-table ::v-deep td{
+font-size: 16px !important
+    }
 </style>

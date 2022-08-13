@@ -82,6 +82,8 @@ class CandidatesProvider extends HttpRequest {
 
         }
     ){
+
+        console.log("image:"+image);
         var bodyFormData = new FormData();
         bodyFormData.append('name',name);
         bodyFormData.append('surname',surname);

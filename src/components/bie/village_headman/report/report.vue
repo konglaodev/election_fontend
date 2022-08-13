@@ -1,8 +1,8 @@
 <template>
   <div>
 
-    <div class="container-content">
-
+    <div class="container-content pt-5">
+            <center><h1>ລາຍຊື່ປະຊາກອນທັງໝົດທີ່ເລືອກຕັ້ງແລ້ວ</h1></center>
       <v-data-table
           :search="search"
           :headers="headersPeople"
@@ -48,8 +48,8 @@
                       >
                         <v-img
 
-                            max-height="250"
-                            max-width="150"
+                            max-height="600"
+                            max-width="400"
                             :src="'http://127.0.0.1:8000/storage/populations_images/'+peopleItem.image"
                         ></v-img>
 
@@ -126,8 +126,8 @@
         </template>
         <template v-slot:[`item.image`]="{item}">
           <v-img
-              max-height="250"
-              max-width="150"
+              max-height="150"
+              max-width="100"
               :src="'http://127.0.0.1:8000/storage/populations_images/'+item.image"
           ></v-img>
         </template>
@@ -187,7 +187,7 @@
         <h1>ຄະແນນການເລືອກຕັ້ງປັດຈຸບັນ</h1>
       </div>
 
-      <v-simple-table dark>
+      <v-simple-table >
         <template v-slot:default>
           <thead>
           <tr>
@@ -215,10 +215,11 @@
               :key="item.id"
           >
 
-            <td>  <v-img
-                max-height="250"
-                max-width="150"
-                :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.image"
+            <td> 
+               <v-img
+                max-height="150"
+                max-width="100"
+                :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.candidate_image"
             ></v-img></td>
             <td>{{ item.gender}}</td>
             <td>{{ item.candidate_name }}</td>
@@ -399,7 +400,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 
 
 .container-content{
@@ -411,5 +412,13 @@ export default {
     width: 100%;
     text-align: center;
   }
+
 }
+ .v-data-table ::v-deep th{
+
+        font-size: 24px !important
+  }
+    .v-data-table ::v-deep td{
+font-size: 16px !important
+    }
 </style>

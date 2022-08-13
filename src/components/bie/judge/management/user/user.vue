@@ -1,8 +1,8 @@
 <template>
   <div>
     <Navbar :title="title"/>
-    <div class="container-content">
-
+    <div class="container-content pt-13" >
+        <center><h1>ຈັດການຂໍ້ມູນຜູ້ໃຊ້</h1></center>
       <v-data-table
           :search="search"
           :headers="headers"
@@ -151,7 +151,7 @@ export default {
   data(){
     return{
       search: '',
-      title:"ຈັດການຜູ້ໃຊ້",
+      title:"ຈັດການຂໍ້ມູນຜູ້ໃຊ້",
       dialog: false,
       dialogDelete: false,
       permissionItem:[

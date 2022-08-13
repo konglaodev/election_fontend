@@ -35,7 +35,7 @@ class PeopleProvider extends HttpRequest {
         //If write Header on class HttpRequest Should call like under method
         this.setHeader({})
         // example path http://172.28.26.82:7001/this.get()
-        const {data} = await this.get('populations')
+        const {data} = await this.get('showpeoplecanvote')
 
         return data
     }

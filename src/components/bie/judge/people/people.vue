@@ -3,7 +3,7 @@
 
     
     <Navbar :title="title"/>
-    <div class="container-content">
+    <div class="container-content pt-15 py-5">
       <center><h1>ປະຊາກອນທີ່ມີສິດເລືອກຕັ້ງ</h1></center>
       <v-data-table
           :search="search"
@@ -360,7 +360,7 @@ export default {
         { text: 'ນາມສະກຸນ', value: 'surname' },
         { text: 'ເບີໂທ', value: 'phoneNumber' },
         { text: 'ວ/ດ/ປ ເກີດ', value: 'dateOfBirth' },
-        { text: 'ທີ່ຢູ່', value: 'address' },
+        { text: 'ສຳມະໂນຄົວເລກທີ', value: 'cencus' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],

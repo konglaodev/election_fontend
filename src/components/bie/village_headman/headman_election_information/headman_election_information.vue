@@ -4,7 +4,8 @@
     <Navbar :title="title"/>
     <div class="container-content">
         
-
+<center class=" py-5 pt">          <h1>ລາຍຊື່ປະຊາກອນທັງໝົດທີ່ເລືອກຕັ້ງແລ້ວ</h1>
+</center>
 
       <v-data-table
           :search="search"
@@ -18,7 +19,7 @@
               flat
           >
           
-                      <v-btn  @click="$router.push('/table_report_population')">report</v-btn>
+                      <v-btn  @click="$router.push('/table_report_population')">ປີ້ນລາຍງານ</v-btn>
             <v-spacer></v-spacer>
             <v-dialog
                 v-model="dialog"
@@ -186,8 +187,8 @@
       <br>
       <hr>
       <br>
-      <div class="make_center">
-        <h1>ຄະແນນການເລືອກຕັ້ງປັດຈຸບັນ</h1>
+      <div class="make_center py-5">
+        <h1>ຄະແນນການເລືອກຕັ້ງປັດຈຸບັນຂອງນາຍບ້ານ</h1>
       </div>
 
       <v-simple-table dark>
@@ -417,4 +418,11 @@ export default {
     text-align: center;
   }
 }
+ .v-data-table ::v-deep th{
+
+        font-size: 24px !important
+  }
+    .v-data-table ::v-deep td{
+font-size: 16px !important
+    }
 </style>

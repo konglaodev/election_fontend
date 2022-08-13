@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <v-app>
+  <div id="app" style="background-color: #D7F4EC;">
+    <v-app  rounded color="#D7F4EC">
       <router-view></router-view>
     </v-app>
   </div>
@@ -15,6 +15,7 @@ export default {
 <style lang="scss">
 #app 
 {
+  background-color: #F2FFFC;
   font-family: $font-family  !important;
 }
 

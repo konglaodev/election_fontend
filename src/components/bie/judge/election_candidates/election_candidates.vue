@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar :title="title"/>
-    <div class="container-content">
+    <div class="container-content pt-15">
 
       <v-data-table
           :search="search"

@@ -38,7 +38,7 @@
             </v-row>
             <v-row align="center" class="mx-0">
               <div class="grey--text ms-4">
-                <b>ລະດັບສິດ: </b> {{ profileDataAll.rolesname }}
+                <!-- <b>ລະດັບສິດ: </b> {{ profileDataAll.rolesname }} -->
               </div>
             </v-row>
             <center>
@@ -53,7 +53,7 @@
                     min-width="150"
                     :src="
                       'http://127.0.0.1:8000/storage/populations_images/' +
-                      profileDataAll.image
+                      profileDataAll?.image
                     "
                   ></v-img>
                 </div>
@@ -68,29 +68,29 @@
               <h3>
                 ຊື່ແລະນາມສະກຸນ :
                 <b
-                  >{{ profileDataAll.gender }} {{ profileDataAll.name }}
-                  {{ profileDataAll.surname }}</b
+                  >{{ profileDataAll?.gender }} {{ profileDataAll?.name }}
+                  {{ profileDataAll?.surname }}</b
                 >
               </h3>
               <br />
               <h3>
                 ວັນເດືອນປີເກີດ :
                 <b
-                  >{{ profileDataAll.dateOfBirth }} </b
+                  >{{ profileDataAll?.dateOfBirth }} </b
                 >
               </h3>
               <br />
               <h3>
                 ທີ່ຢູ່ :
                 <b
-                  >{{ profileDataAll.address }} </b
+                  >{{ profileDataAll?.address }} </b
                 >
               </h3>
               <br />
               <h3>
                 ສຳມະໂນຄົວເລກທີ :
                 <b
-                  >{{ profileDataAll.cencus_id }} </b
+                  >{{ profileDataAll?.cencus_id }} </b
                 >
               </h3>
               <br />
@@ -150,8 +150,6 @@ export default {
   
   mounted() {
     this.token = JSON.parse( localStorage.getItem('toten'));
-  
-
     this.image = image_holder;
     axios
       .get(
@@ -176,17 +174,31 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+      axios
+        .get(
+          "http://127.0.0.1:8000/api/showverify/" +
+            localStorage.getItem("user_id")
+        )
+        .then((response) => {
+          this.dataverify = response.data.data;
+          if(this.dataverify!=null){
+            this.image = "http://localhost:8000/storage/verifys_images/"+this.dataverify.picture_verify
+          }
+          console.log(this.dataverify);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   },
   methods: {
     sendVerify() {
       let formData = new FormData();
       formData.append("user_id", localStorage.getItem("user_id"));
       formData.append("picture_verify", this.selectImage);
-      axios
-      
-        .post("http://127.0.0.1:8000/api/addVerify", formData)
-        .then((response) => {
+      axios.post("http://127.0.0.1:8000/api/addVerify", formData).then((response) => {
           this.dialog = true;
+          console.log(this.selectImage);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -194,10 +206,14 @@ export default {
     },
 
     createImage(file) {
+     
       const reader = new FileReader();
+      
 
       reader.onload = (e) => {
-        this.image = e.target.result;
+      
+       // this.selectImage = e.target.result;
+        this.image= e.target.result;
       };
       reader.readAsDataURL(file);
     },
@@ -218,6 +234,7 @@ export default {
       profileData: {},
       profileDataAll: {},
       token:"",
+      dataverify:{},
     };
   },
 };

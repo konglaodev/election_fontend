@@ -1,6 +1,6 @@
 <template>
   <div class="navbar" >
-    <v-app-bar
+    <v-app-bar 
       dense
       color="white"
       elevate-on-scroll
@@ -20,8 +20,11 @@
         </template>
 
         <v-list>
+          <v-list-item >
+            <v-list-item-title><b>ຊື່ຜູ້ໃຊ້ລະບົບ : </b> {{ userinfo}}</v-list-item-title>
+          </v-list-item>
           <v-list-item @click="$router.push('/');">
-            <v-list-item-title>ໜ້າຫຼັກ</v-list-item-title>
+            <v-list-item-title> ໜ້າຫຼັກ</v-list-item-title>
           </v-list-item>
 
           <v-list-item @click="clearAndLogout();">
@@ -38,9 +41,9 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
-          <v-app-bar-title class="justify-center">
+          <!-- <v-app-bar-title class="justify-center">
             ຊື່ຜູ້ໃຊ້ລະບົບ : <strong>{{ userinfo }}</strong></v-app-bar-title
-          >
+          > -->
 
           <v-list-item link @click="$router.push('/dashboard_village_headman')">
             ໜ້າຫຼັກ
@@ -50,7 +53,7 @@
 
           <v-list-item link @click="$router.push('/unit_information')">
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-format-list-checkbox</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ຂໍ້ມູນໜ່ວຍ</v-list-item-title>
@@ -59,7 +62,7 @@
 
           <v-list-item link @click="$router.push('/census_information')">
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-format-list-numbered</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ຂໍ້ມູນເລກທີສຳມະໂນ</v-list-item-title>
@@ -77,7 +80,7 @@
 
           <v-list-item link @click="$router.push('/check_permission_election')">
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-human-greeting-variant</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ກວດສອບສິດເລືອກຕັ້ງ</v-list-item-title>
@@ -88,7 +91,7 @@
             @click="$router.push('/headman_election_information')"
           >
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-human-handsup</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ລາຍງານຂໍ້ມູນການເລືອກຕັ້ງ</v-list-item-title>
@@ -100,10 +103,10 @@
             @click="$router.push('/pdfgenerate')"
           >
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-newspaper-variant-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>report</v-list-item-title>
+              <v-list-item-title>ກົດລາຍງານຂໍ້ມູນປະຊາກອນທີ່ມາໃຊ້ສິດ</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>

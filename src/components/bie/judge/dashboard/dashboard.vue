@@ -3,8 +3,8 @@
     <div class="Navbar">
       <Navbar :title="title"/>
       <div class="container-content">
-              <div>
-                <v-banner 
+              <div class="pt-15">
+                <v-banner  class="py-2" 
   elevation="8"
   rounded
   sticky

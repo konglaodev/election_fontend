@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="blue"
+  <v-footer 
   >
     <v-row
       justify="center"
@@ -7,10 +7,10 @@
     >
       
       <v-col
-        class="  py-4 text-center  " style="font-color:white"
+        class="  py-4 text-center  " 
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong  >ລະບົບເລືອກຕັ້ງນາຍບ້ານ</strong>
+      <h2>  {{ new Date().getFullYear() }} — <strong >ລະບົບເລືອກຕັ້ງນາຍບ້ານ</strong></h2>
       </v-col>
     </v-row>
   </v-footer>

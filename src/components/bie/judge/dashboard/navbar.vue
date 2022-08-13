@@ -1,6 +1,6 @@
 <template>
   <div class="navbar" v-if="showadmin" >
-    <v-app-bar 
+    <v-app-bar  
         dense
         color="white"
         elevate-on-scroll
@@ -29,15 +29,17 @@
         </template>
 
         <v-list>
+          <v-list-item  >
+            <v-list-item-title > ຊື່ຜູ້ໃຊ້ລະບົບ : {{userLogin}}</v-list-item-title>
+          </v-list-item>
           <v-list-item @click="$router.push('/')">
             <v-list-item-title>ໜ້າຫຼັກ</v-list-item-title>
           </v-list-item>
-        </v-list>
-        <v-list>
-          <v-list-item @click=" $router.push('/')">
+           <v-list-item @click="clearAndLogout()">
             <v-list-item-title>ອອກຈາກລະບົບ</v-list-item-title>
           </v-list-item>
         </v-list>
+        
       </v-menu>
     </v-app-bar>
     <v-navigation-drawer
@@ -55,23 +57,19 @@
             active-class="deep-purple--text text--accent-4"
         >
 
-          <v-list-item>
-            <v-list-item-avatar>
-              <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-            </v-list-item-avatar>
-          </v-list-item>
+          
 
           <v-list-item link @click="$router.push('/dashboardsuper')">
             <v-list-item-content>
               <v-list-item-title class="text-h6">
-              
+              ໜ້າຫຼັກ
               </v-list-item-title>
-              <v-list-item-subtitle> {{userLogin}}</v-list-item-subtitle>
+              <!-- <v-list-item-subtitle> {{userLogin}}</v-list-item-subtitle> -->
             </v-list-item-content>
 
-            <v-list-item-action>
+            <!-- <v-list-item-action>
               <v-icon>mdi-menu-down</v-icon>
-            </v-list-item-action>
+            </v-list-item-action> -->
           </v-list-item>
 
           <v-divider></v-divider>
@@ -81,7 +79,7 @@
               @click="$router.push('/user_management')"
           >
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ຈັດການຂໍ້ມູນຜູ້ໃຊ້</v-list-item-title>
@@ -93,7 +91,7 @@
               @click="$router.push('/people')"
           >
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ຂໍ້ມູນປະຊາກອນ</v-list-item-title>
@@ -104,7 +102,7 @@
               @click="$router.push('/candidate_information')"
           >
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-human-handsup</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ຂໍ້ມູນຜູ້ສະໝັກເລືອກຕັ້ງ</v-list-item-title>
@@ -115,7 +113,7 @@
               @click="$router.push('/election_candidates')"
           >
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-newspaper-variant-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ລາຍງານຂໍ້ມູນຜູ້ສະໝັກເລືອກຕັ້ງ</v-list-item-title>
@@ -127,7 +125,7 @@
               @click="$router.push('/election_information')"
           >
             <v-list-item-icon>
-              <v-icon>mdi-clock</v-icon>
+              <v-icon>mdi-newspaper-variant-outline</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>ລາຍງານຂໍ້ມູນການເລືອກຕັ້ງ</v-list-item-title>
@@ -153,9 +151,24 @@ export default {
     userrole: "",
     showadmin: false,
   }),
+  methods:{
+clearAndLogout() {
+      localStorage.removeItem("user_id");
+      localStorage.removeItem("role");
+      localStorage.removeItem("populations_id");
+      localStorage.removeItem("status");
+      localStorage.removeItem("phoneNumber");
+      localStorage.removeItem("name");
+      localStorage.removeItem("_grecaptcha");
+      localStorage.removeItem("token");
+      this.$router.push("/login");
+      this.$store.state.showlogoutbutton=false;
+      this.$store.state.showlogin=true;
+    },
+  },
   mounted(){
 
-  this.userLogin= localStorage.getItem("name");
+  this.userLogin= JSON.parse(localStorage.getItem("name"));
   this.userrole= localStorage.getItem("role");
   if(this.userrole==1){
     this.showadmin=true;

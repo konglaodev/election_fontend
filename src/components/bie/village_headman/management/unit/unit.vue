@@ -242,4 +242,11 @@ export default {
   background-color: #f0f2f5;
   padding: 1rem;
 }
+ .v-data-table ::v-deep th{
+
+        font-size: 24px !important
+  }
+    .v-data-table ::v-deep td{
+font-size: 24px !important
+    }
 </style>
