@@ -2,3 +2,8 @@
 main.js import plugin and connect vue app in app.vue connect id from  index.html then reden vue component in root (app.vue)
 folder
 2 component ຕ່າງໆ ຂຽນແຍກກັນ
+
+ຄົນທີ່ຍັງບໍ່ທັນໂວດ http://127.0.0.1:8000/api/peopleNotvote
+SELECT populations.gender ,populations.name,populations.surname FROM cencuses,populations,votes WHERE populations.id != votes.population_id GROUP by populations.id;
+ຄົນທີ່ໂວດແລ້ວ 
+SELECT populations.gender ,populations.name,populations.surname FROM cencuses,populations,votes WHERE populations.id = votes.population_id GROUP by populations.id;

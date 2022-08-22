@@ -3,7 +3,7 @@
     <div class="Navbar">
       <Navbar :title="title"/>
       <div class="container-content">
-             <div class="pt-10">
+             <div class="pt-2">
                 <v-banner 
   elevation="8"
   rounded

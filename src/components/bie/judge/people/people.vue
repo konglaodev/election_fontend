@@ -3,7 +3,7 @@
 
     
     <Navbar :title="title"/>
-    <div class="container-content pt-15 py-5">
+    <div class="container-content pt-5 py-5">
       <center><h1>ປະຊາກອນທີ່ມີສິດເລືອກຕັ້ງ</h1></center>
       <v-data-table
           :search="search"
@@ -229,7 +229,8 @@
             </v-dialog>
             <v-dialog
                 v-model="dialogView"
-                max-width="500px"
+                max-width="600px"
+                max-height="800px"
             >
               <v-card>
                 <v-card-title>
@@ -244,8 +245,8 @@
                       >
                         <v-img
 
-                            max-height="250"
-                            max-width="150"
+                            max-height="600"
+                            max-width="400"
                             :src="'http://127.0.0.1:8000/storage/populations_images/'+peopleItem.image"
                         ></v-img>
 
@@ -273,11 +274,7 @@
                             <h3>ເບີໂທ: {{peopleItem.phoneNumber}}</h3>
                           </v-col>
 
-                          <v-col
-                              cols="12"
-                          >
-                            <h3>ທີ່ຢູ່: {{peopleItem.address}}</h3>
-                          </v-col>
+                        
 
                         </v-row>
                       </v-col>
@@ -315,8 +312,8 @@
         
         >
         <v-img
-              max-height="250"
-              max-width="150"
+              max-height="80"
+              max-width="60"
               :src="'http://127.0.0.1:8000/storage/populations_images/'+item.image"
           ></v-img>
 
@@ -551,4 +548,11 @@ export default {
   background-color: #f0f2f5;
   padding: 1rem;
 }
+ .v-data-table ::v-deep th{
+
+        font-size: 24px !important
+  }
+    .v-data-table ::v-deep td{
+font-size: 16px !important
+    }
 </style>

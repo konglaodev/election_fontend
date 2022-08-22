@@ -1,15 +1,15 @@
 <template>
 <div style="margin-top:100px;" class="home ">
     <center>
-        <h1  >ເລືອກຕັ້ງນາຍບ້ານ ສະໄໝທີ IX</h1>
+        <h1 >ປະຫວັດຫຍໍ້ຂອງຜູ້ລົງສະໝັກເລືອກຕັ້ງ</h1><br>
     </center>
-    <v-row  :align="align"
+    <v-row  :align="align" 
         no-gutters
-        style="height: 200px;">
+        style="height: 150px; margin-top:50px">
         <v-col cols=1 ></v-col>
-<v-col  xs="12" 
-  sm="2" 
-  md="2" grid-list-lg  v-for="item in candidateData" :key="item.id">
+<v-col  xs="12"  class="pt-10"
+  sm="12" 
+  md="12" grid-list-lg  v-for="item in candidateData" :key="item.id">
 
     <v-container width="100%" >
       
@@ -17,28 +17,32 @@
          <v-card   
  
     class="mx-auto"
-    max-width="300"
+    max-width="800"
     
     
   >
-  <v-img :src="'http://localhost:8000/storage/candidate_images/'+item.image">
+  <v-row xs="12" >
+    <v-col cols="6">
+        <v-img :src="'http://localhost:8000/storage/candidate_images/'+item.image">
 
       </v-img>
-    <v-list-item three-line >
+    </v-col>
+    <v-col cols="6" >
+ <v-list-item three-line >
     
       <v-list-item-content>
-        <div class="text-overline mb-4">
-     
-        </div>
-        <v-list-item-title class="text-h6 mb-1">
-          <h6>  {{item.gender}} {{item.name}} {{item.surname}}</h6><br>
-          
+        
+        <v-list-item-title class=" mb-1">
+          <h1>  {{item.gender}} {{item.name}} {{item.surname}}</h1><br>
+          <hr>
         </v-list-item-title>
-        <!-- <h5 style="font-size:16px">
-        <v-list-item-subtitle><b >ວັນເດືອນປີເກີດ :</b> {{item.dateOfBirth}}</v-list-item-subtitle>
-        <v-list-item-subtitle><b>ນະໂຍບາຍ :</b> {{item.slogan}}</v-list-item-subtitle>
-        <v-list-item-subtitle><b>ປະຫວັດຫຍໍ້: </b> {{item.history}}</v-list-item-subtitle>
-        <v-list-item-subtitle><b>ທີ່ຢູ່: </b>{{item.address}}</v-list-item-subtitle></h5> -->
+       <div style="font-size:18px" class="pt-10 py-10"> 
+        <b >ວັນເດືອນປີເກີດ : <strong> {{item.dateOfBirth}}</strong> </b> <br>
+      
+        <b s>ນະໂຍບາຍ :</b> {{item.slogan}} <br>
+        <b>ປະຫວັດຫຍໍ້: </b><p>{{item.history}}</p> <br>
+       <b>ທີ່ຢູ່: </b>{{item.address}}
+       </div>
       </v-list-item-content>
 
       <!-- <v-list-item-avatar
@@ -51,17 +55,21 @@
 
       </v-img></v-list-item-avatar> -->
     </v-list-item>
+    </v-col>
+  </v-row>
+  
+   
 <center>
     <v-card-actions>
        <v-btn
               x-large
-              color="success"
+              color="info"
               dark
-               @click="openConfirmDialog(item)"
+               @click="$router.push('/candidate');"
             >
-                ເລືອກ
+                ກັບໃປເລືອກຕັ້ງ
             </v-btn>
-      <!-- <v-btn
+       <!-- <v-btn
         outlined
         rounded
         text
@@ -70,15 +78,7 @@
      
       >
       
-      </v-btn> -->
-      <v-btn
-              x-large
-              color="info"
-              dark
-               @click="$router.push('/showHistory');"
-            >
-                ອ່ານປະຫວັດ
-            </v-btn>
+      </v-btn>  -->
     </v-card-actions>
     </center>
   </v-card>
@@ -140,9 +140,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <div> 
-      
-    </div>
   </div> 
 
 

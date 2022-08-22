@@ -3,8 +3,8 @@
     <div class="Navbar">
       <Navbar :title="title"/>
       <div class="container-content">
-              <div class="pt-15">
-                <v-banner  class="py-2" 
+              <div class="pt-5">
+                <v-banner   
   elevation="8"
   rounded
   sticky
@@ -13,6 +13,7 @@
 </v-banner>
               </div>
       </div>
+     <Report />
     </div>
   </div>
 </template>
@@ -20,6 +21,8 @@
 <script>
 import Navbar from "@/components/bie/judge/dashboard/navbar.vue"
 
+
+import Report from "@/components/bie/village_headman/report/report.vue"
 export default {
   name: "dashboard_superadmin",
   data(){
@@ -28,7 +31,8 @@ export default {
     }
   },
   components:{
-    Navbar
+    Navbar, 
+    Report,
   }
 }
 </script>

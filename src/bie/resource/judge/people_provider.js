@@ -39,6 +39,16 @@ class PeopleProvider extends HttpRequest {
 
         return data
     }
+    async getPeopleNotvoted () {
+
+        //Call setHeader on class HttpRequest and write common header
+        //If write Header on class HttpRequest Should call like under method
+        this.setHeader({})
+        // example path http://172.28.26.82:7001/this.get()
+        const {data} = await this.get('peopleNotvote')
+
+        return data
+    }
 
 
 }

@@ -63,7 +63,8 @@
               </v-card>
             </v-dialog>
 
-            <v-dialog v-model="dialogView" max-width="100%">
+            <v-dialog v-model="dialogView" max-width="100%"
+            max-height="600">
               <v-card>
                 <v-card-title>
                   {{ formTitle }}
@@ -74,7 +75,7 @@
                     <v-row dense>
                       <v-col cols="6">
                         <v-img
-                          max-height="400"
+                          max-height="600"
                           max-width="400"
                           :src="
                             'http://127.0.0.1:8000/storage/verifys_images/' +
@@ -118,8 +119,8 @@
         <template v-slot:[`item.picture_verify`]="{ item }">
           
    <v-img
-                          max-height="250"
-                          max-width="150"
+                          max-height="80"
+                          max-width="60"
                           :src="
                             'http://127.0.0.1:8000/storage/verifys_images/' +
                             item.picture_verify

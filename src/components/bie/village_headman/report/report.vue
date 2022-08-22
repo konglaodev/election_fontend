@@ -2,8 +2,88 @@
   <div>
 
     <div class="container-content pt-5">
-            <center><h1>ລາຍຊື່ປະຊາກອນທັງໝົດທີ່ເລືອກຕັ້ງແລ້ວ</h1></center>
-      <v-data-table
+            <center><h1>ລາຍງານຂໍ້ມູນການເລືອກຕັ້ງ</h1></center>
+     
+      <br>
+      <v-container fill-height fluid>
+        <v-row align="center" justify="center">
+          <v-col cols="12" sm="6">
+            <h2>ຈຳນວນປະຊາກອນທັງໝົດ</h2>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h2>{{peopleDataCount['data'].length ?? "0"}} ຄົນ</h2>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <h2>ຈຳນວນປະຊາກອນທີ່ມີສິດເລືອກຕັ້ງ</h2>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h2> {{this.voting}} ຄົນ</h2>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <h2>ຈຳນວນປະຊາກອນທີ່ລົງຄະແນນ</h2>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h2>{{peopleData['data'].length ?? "0"}} ຄົນ</h2>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <h2>ຈຳນວນຜູ້ລົງສະໝັກເລືອກຕັ້ງນາຍບ້ານ</h2>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <h2>{{candidateData['data'].length ?? "0"}} ຄົນ</h2>
+          </v-col>
+        </v-row>
+      </v-container>
+      <br>
+      <hr>
+      <br>
+      <div class="make_center py-3 pt-3" >
+        <h1>ຄະແນນການເລືອກຕັ້ງປັດຈຸບັນ</h1>
+      </div>
+
+      <v-simple-table >
+        <template v-slot:default>
+          <thead>
+          <tr>
+             <th class="text-left">
+              ຮູບ
+            </th>
+            <th class="text-left">
+              ເພດ
+            </th>
+            <th class="text-left">
+              ຊື່
+            </th>
+            <th class="text-left">
+              ນາມສະກຸນ
+            </th>
+            <th class="text-left">
+              ຄະແນນ
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+            
+          <tr
+              v-for="item in candidateHighVoteData['Data']"
+              :key="item.id"
+          >
+
+            <td> 
+               <v-img
+                max-height="150"
+                max-width="100"
+                :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.candidate_image"
+            ></v-img></td>
+            <td>{{ item.gender}}</td>
+            <td>{{ item.candidate_name }}</td>
+            <td>{{ item.candidate_surname }}</td>
+            <td>{{ item.votes_count }}</td>
+          </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+       <center><h1 class="pt-3 py-3">ລາຍຊື່ປະຊາກອນທັງໝົດທີ່ເລືອກຕັ້ງແລ້ວ</h1></center>
+       <v-data-table
           :search="search"
           :headers="headersPeople"
           :items="peopleData['data']"
@@ -96,15 +176,15 @@
                       text
                       @click="close"
                   >
-                    ຍົກເລີກ
+                    ປິດ
                   </v-btn>
-                  <v-btn
+                  <!-- <v-btn
                       color="blue darken-1"
                       text
                       @click="save"
                   >
                     ບັນທຶກ
-                  </v-btn>
+                  </v-btn> -->
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -122,12 +202,14 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+            
           </v-toolbar>
         </template>
+        
         <template v-slot:[`item.image`]="{item}">
           <v-img
-              max-height="150"
-              max-width="100"
+              max-height="80"
+              max-width="60"
               :src="'http://127.0.0.1:8000/storage/populations_images/'+item.image"
           ></v-img>
         </template>
@@ -151,85 +233,40 @@
         </template>
 
       </v-data-table>
-      <br>
-      <v-container fill-height fluid>
-        <v-row align="center" justify="center">
-          <v-col cols="12" sm="6">
-            <h2>ປະຊາກອນທັງໝົດ</h2>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h2>{{peopleDataCount['data'].length ?? "0"}} ຄົນ</h2>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <h2>ປະຊາກອນທີ່ສາມາດລົງຄະແນນທັງໝົດ</h2>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h2> {{this.voting}} ຄົນ</h2>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <h2>ປະຊາກອນທີ່ລົງສຽງແລ້ວ</h2>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h2>{{peopleData['data'].length ?? "0"}} ຄົນ</h2>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <h2>ຜູ້ລົງສະໝັກເລືອກຕັ້ງ</h2>
-          </v-col>
-          <v-col cols="12" sm="2">
-            <h2>{{candidateData['data'].length ?? "0"}} ຄົນ</h2>
-          </v-col>
-        </v-row>
-      </v-container>
-      <br>
-      <hr>
-      <br>
-      <div class="make_center">
-        <h1>ຄະແນນການເລືອກຕັ້ງປັດຈຸບັນ</h1>
-      </div>
-
-      <v-simple-table >
-        <template v-slot:default>
-          <thead>
-          <tr>
-             <th class="text-left">
-              ຮູບ
-            </th>
-            <th class="text-left">
-              ເພດ
-            </th>
-            <th class="text-left">
-              ຊື່
-            </th>
-            <th class="text-left">
-              ນາມສະກຸນ
-            </th>
-            <th class="text-left">
-              ຄະແນນ
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-            
-          <tr
-              v-for="item in candidateHighVoteData['Data']"
-              :key="item.id"
-          >
-
-            <td> 
-               <v-img
-                max-height="150"
-                max-width="100"
-                :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.candidate_image"
-            ></v-img></td>
-            <td>{{ item.gender}}</td>
-            <td>{{ item.candidate_name }}</td>
-            <td>{{ item.candidate_surname }}</td>
-            <td>{{ item.votes_count }}</td>
-          </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
     </div>
+    <v-btn
+      depressed
+      color="primary"
+       @click="print"
+    >
+      ປີ້ນລາຍງານ
+    </v-btn>
+     <div  id="report">
+     <div style="text-align:center;"><h1>ປະຊາກອນທີ່ມີສິດແຕ່ຍັງບໍ່ໄດ້ເລືອກຕັ້ງ</h1></div>
+    
+      
+     <v-data-table 
+     :search="search"
+    :headers="header"
+    :items="notevote"
+    :items-per-page="50"
+    class="elevation-1 "
+  >
+    <!-- <template v-slot:[`item.index`]="{ item }">
+    <p>{{notevote.indexOf(item)+1 }}</p>
+  </template>
+  <template v-slot:[`item.candidate_images`]="{ item }">
+     <v-img
+              max-height="250"
+              max-width="150"
+              :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.candidate_image"
+          ></v-img>
+  </template> -->
+  <template v-slot:[`item.name`]="{ item }">
+    <p>{{item.gender }} {{item.name}} {{item.surname}}</p>
+  </template>
+  </v-data-table>
+  </div>
   </div>
 </template>
 
@@ -241,15 +278,53 @@ export default {
   name: "election_candidates",
   data(){
     return{
-      voting:""
- ,     search: '',
+      voting:"",
+      peopleCanvote:"",
+      
+      
+   search: '',
       title:"ລາຍງານຂໍ້ມູນການເລືອກຕັ້ງ",
       dialog: false,
       dialogDelete: false,
       permissionItem:[
         'abc',
         'efg'
+      ],      no:1,
+      header:[
+        //   {
+        //   text:'ລຳດັບທີ',
+        //   align:'start',
+        //   sortable: true,
+        //   value: 'index'
+        // },
+        {
+          text:'ຊື່ ແລະ ນາມສະກຸນ',
+          align:'start',
+          sortable: true,
+          value:'name'
+        },
+        {
+          text:'ເບີໂທ',
+          align:'start',
+          sortable: true,
+          value:'phoneNumber'
+        },
+        {
+          text:'ສຳມະໂນຄົວເລກທີ',
+          align:'start',
+          sortable: true,
+          value:'cencus_id'
+        },
+
+        // {
+        //   text:'ຄະແນນເລືອກຕັ້ງ',
+        //   sortable: true,
+        //   value:'votes_count'
+        // }
       ],
+      notevote:[]
+
+      ,
       headersPeople: [
         { text: 'ຮູບ', value: 'image' },
         { text:'ເພດ',value: 'gender'},
@@ -305,13 +380,31 @@ export default {
   },
   mounted(){
  axios.get("http://127.0.0.1:8000/api/canvoted").then((response)=>{
-  console.log('res',response);
+  // console.log('res',response);
       let vot = response.data.data;
       this.voting= vot[0]['canvoted'];
-      console.log(this.voting);
+      // console.log(this.voting);
     }).catch((err)=>{
       console.log(err);
     });
+ axios.get("http://127.0.0.1:8000/api/peopleNotvote").then((response)=>{
+  // console.log('res',response);
+       this.notevote = response.data.data;
+    
+      console.log('thislog',this.notevote);
+    }).catch((err)=>{
+      console.log(err);
+    });
+ axios.get("http://127.0.0.1:8000/api/peoplecanvoteAndChecked").then((response)=>{
+  // console.log('res',response);
+       this.peopleCanvote = response.data.data;
+    
+      console.log('thislog',this.peopleCanvote);
+    }).catch((err)=>{
+      console.log(err);
+    });
+
+    
   },
 
 
@@ -330,6 +423,7 @@ export default {
     this.getCandidate()
     this.getPeopleVoted()
     this.getPeopleCount()
+    
 
   },
 
@@ -343,6 +437,11 @@ export default {
       getPeopleCount : "People/getPeople",
       getPeopleOne: "PeopleForJudge/getPeopleOne",
     }),
+      async print () {
+      // Pass the element id here
+      await this.$htmlToPaper('report');
+    },
+  
 
 
 
@@ -400,7 +499,7 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 
 
 .container-content{
@@ -414,11 +513,18 @@ export default {
   }
 
 }
- .v-data-table ::v-deep th{
+  .v-data-table ::v-deep th{
 
-        font-size: 24px !important
+font-style:bold;
+        font-size: 24px !important;
+        text-align: center !important ;
+        
   }
     .v-data-table ::v-deep td{
-font-size: 16px !important
+font-size: 18px !important;
+ text-align: center !important ;
+    }
+    #report{
+      text-align: center !important; 
     }
 </style>

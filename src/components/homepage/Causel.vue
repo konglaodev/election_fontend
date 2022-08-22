@@ -21,19 +21,19 @@ export default {
  data () {
       return {
 
-        items: {}
+         items: {},
          
-        ,
+        
       }
     }, mounted (){
-      axios.get('http://localhost:8000/api/showimagesCandidate')
+      axios.get('http://localhost:8000/api/elections')
       .then(response =>{
         
         let imageArray = [];
         for (let i = 0; i < response.data.data.length; i++) {
-          console.log("http://localhost:8000/storage/candidate_images/"+response.data.data[i].image)
+          console.log("http://localhost:8000/storage/Elections_images/"+response.data.data[i].image)
           imageArray.push(
-            "http://localhost:8000/storage/candidate_images/"+response.data.data[i].image);
+            "http://localhost:8000/storage/Elections_images/"+response.data.data[i].image);
         }
      this.items=imageArray;
       

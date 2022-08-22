@@ -292,9 +292,10 @@
             </v-dialog>
             <v-dialog
                 v-model="dialogView"
-                max-width="500px"
+                max-width="800"
+                max-height="1000"
             >
-              <v-card>
+              <v-card >
                 <v-card-title>
                   {{ formTitle }}
                 </v-card-title>
@@ -307,8 +308,8 @@
                       >
                         <v-img
 
-                            max-height="250"
-                            max-width="150"
+                            max-height="600"
+                            max-width="400"
                             :src="'http://127.0.0.1:8000/storage/populations_images/'+peopleItem.image"
                         ></v-img>
 
@@ -364,8 +365,8 @@
         </template>
         <template v-slot:[`item.image`]="{item}">
           <v-img
-              max-height="250"
-              max-width="150"
+              max-height="80"
+              max-width="60"
               :src="'http://127.0.0.1:8000/storage/populations_images/'+item.image"
           ></v-img>
         </template>

@@ -33,7 +33,7 @@
 import axios from "axios";
 export default {
   
-  data() {
+  data() { 
     return {
       no:1,
       header:[
@@ -105,7 +105,7 @@ export default {
         font-size: 24px !important
   }
     .v-data-table ::v-deep td{
-font-size: 16px !important
+font-size: 24px !important
     }
         
 </style>

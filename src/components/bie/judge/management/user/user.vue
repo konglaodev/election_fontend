@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar :title="title"/>
-    <div class="container-content pt-13" >
+    <div class="container-content pt-5 py-5" >
         <center><h1>ຈັດການຂໍ້ມູນຜູ້ໃຊ້</h1></center>
       <v-data-table
           :search="search"

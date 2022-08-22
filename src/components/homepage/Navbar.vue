@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar  fixed  rounded>
+    <v-app-bar  fixed  rounded color="#F2FFFC">
       <!-- <v-app-bar-nav-icon color="#F6F1F0"  @click="drawer=true">
 
       </v-app-bar-nav-icon> -->
@@ -36,6 +36,14 @@
             </v-list-item>
           </router-link>
           <router-link to="/candidate" style="text-decoration: none">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-account</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>ເລືອກຕັ້ງນາຍບ້ານ</v-list-item-title>
+            </v-list-item>
+          </router-link>
+          <router-link to="/showHistory" style="text-decoration: none">
             <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-account</v-icon>

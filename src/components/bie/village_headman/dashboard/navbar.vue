@@ -98,7 +98,7 @@
             </v-list-item-content>
             
           </v-list-item>
-                    <v-list-item
+                    <!-- <v-list-item
             link
             @click="$router.push('/pdfgenerate')"
           >
@@ -108,7 +108,7 @@
             <v-list-item-content>
               <v-list-item-title>ກົດລາຍງານຂໍ້ມູນປະຊາກອນທີ່ມາໃຊ້ສິດ</v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
+          </v-list-item> -->
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

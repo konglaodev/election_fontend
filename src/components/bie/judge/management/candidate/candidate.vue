@@ -221,7 +221,7 @@
                             outlined
                             v-model="candidateItem.slogan"
 
-                            label="ສະໂລແກນ"
+                            label="ນະໂຍບາຍ"
                         ></v-text-field>
                       </v-col>
 
@@ -272,7 +272,7 @@
             </v-dialog>
             <v-dialog v-model="dialogDelete" max-width="500px" >
               <v-card>
-                <v-card-title class="justify-center" >ຕ້ອງການລຶບປະຊາກອນຄົນນີ້ແທ້ຫຼືບໍ່?</v-card-title>
+                <v-card-title class="justify-center" >ຕ້ອງການລຶບຜູ້ສະໝັກຄົນນີ້ແທ້ຫຼືບໍ່?</v-card-title>
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -284,9 +284,9 @@
             </v-dialog>
             <v-dialog
                 v-model="dialogView"
-                max-width="500px"
+                max-width="800px"
             >
-              <v-card>
+              <v-card max-width="100%">
                 <v-card-title>
                   {{ formTitle }}
                 </v-card-title>
@@ -299,8 +299,8 @@
                       >
                         <v-img
 
-                            max-height="250"
-                            max-width="150"
+                            max-height="600"
+                            max-width="400"
                             :src="'http://127.0.0.1:8000/storage/candidate_images/'+candidateItem.image"
                         ></v-img>
 
@@ -313,7 +313,7 @@
                               cols="12"
                           >
                             <h3>
-                              ຊື່ແລະນາມສະກຸນ: {{candidateItem.gender}} {{candidateItem.name}} {{candidateItem.surname}}
+                          ຊື່ແລະນາມສະກຸນ:  {{candidateItem.gender}} {{candidateItem.name}} {{candidateItem.surname}}
                             </h3>
                           </v-col>
                           <v-col
@@ -325,13 +325,13 @@
                               cols="12"
                           >
 
-                            <h3>ລະດັບ: {{candidateItem.degree}}</h3>
+                            <h3>ລະດັບການສືກສາ: {{candidateItem.degree}}</h3>
                           </v-col>
                           <v-col
                               cols="12"
                           >
 
-                            <h3>ສະໂລແກນ: {{candidateItem.slogan}}</h3>
+                            <h3>ນະໂຍບາຍ: {{candidateItem.slogan}}</h3>
                           </v-col>
                           <v-col
                               cols="12"
@@ -664,4 +664,11 @@ this.uploadImage = null
   padding: 1rem;
 
 }
+.v-data-table ::v-deep th{
+
+        font-size: 18px !important
+  }
+    .v-data-table ::v-deep td{
+font-size: 16px !important
+    }
 </style>

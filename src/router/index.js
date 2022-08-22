@@ -23,9 +23,28 @@ import CandidateInformation from '@/components/bie/judge/management/candidate/ca
 import CheckPermissionElection from '@/components/bie/village_headman/management/check_permission_election/check_permission_election.vue'
 import HeadmanElectionInformation from '@/components/bie/village_headman/headman_election_information/headman_election_information.vue'
 import PdfgenerateTablePopulation from '@/components/pdf_generate/table/table_report_population.vue'
+import Report from '@/components/pdf_generate/table/report.vue'
+import ShowHistory from '@/views/history.vue'
+import PeopleCanvote from '@/components/report/peoplecanvote.vue'
 Vue.use(VueRouter)
 
 const routes = [
+
+  {
+    path:'/PeopleCanvote',
+    name:'peopleCanvote',
+    component: PeopleCanvote
+  },
+  {
+    path:'/Report',
+    name:'Report',
+    component: Report
+  },
+  {
+    path:'/showHistory',
+    name:'showHistory',
+    component: ShowHistory
+  },
   {
     path:'/table_report_population',
     name:'table_report_population',

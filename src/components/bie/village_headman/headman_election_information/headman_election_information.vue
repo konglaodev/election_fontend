@@ -4,180 +4,33 @@
     <Navbar :title="title"/>
     <div class="container-content">
         
-<center class=" py-5 pt">          <h1>ລາຍຊື່ປະຊາກອນທັງໝົດທີ່ເລືອກຕັ້ງແລ້ວ</h1>
+<center class=" py-5 pt">          <h1>ລາຍງານຜົນການເລືອກຕັ້ງ</h1>
 </center>
 
-      <v-data-table
-          :search="search"
-          :headers="headersPeople"
-          :items="peopleData['data']"
-          sort-by="calories"
-          class="elevation-1"
-      >
-        <template v-slot:top>
-          <v-toolbar
-              flat
-          >
-          
-                      <v-btn  @click="$router.push('/table_report_population')">ປີ້ນລາຍງານ</v-btn>
-            <v-spacer></v-spacer>
-            <v-dialog
-                v-model="dialog"
-                max-width="700px"
-            >
-
-              <template v-slot:activator="{  }">
-
-                <v-text-field
-
-                    class="pr-10"
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Search"
-                    single-line
-                    hide-details
-                ></v-text-field>
-              </template>
-
-              <v-card>
-                <v-card-title>
-                  {{ formTitle }}
-                </v-card-title>
-
-                <v-card-text>
-                  <v-container>
-                    <v-row dense>
-                      <v-col
-                          cols="6"
-                      >
-                        <v-img
-
-                            max-height="250"
-                            max-width="150"
-                            :src="'http://127.0.0.1:8000/storage/populations_images/'+peopleItem.image"
-                        ></v-img>
-
-                      </v-col>
-
-                      <v-col cols="6">
-                        <v-row >
-
-                          <v-col
-                              cols="12"
-                          >
-                            <h3>
-                              ຊື່ແລະນາມສະກຸນ: {{peopleItem.gender}} {{peopleItem.name}} {{peopleItem.surname}}
-                            </h3>
-                          </v-col>
-                          <v-col
-                              cols="12"
-                          >
-                            <h3>ວັນເດືອນປີເກີດ: {{peopleItem.dateOfBirth}}</h3>
-                          </v-col>
-
-                          <!-- <v-col
-                              cols="12"
-                          >
-                            <h3>ເບີໂທ: {{peopleItem.phoneNumber}}</h3>
-                          </v-col> -->
-
-                          <v-col
-                              cols="12"
-                          >
-                            <h3>ເລກສຳມະໂນ: {{peopleItem.cencus_id}}</h3>
-                          </v-col>
-
-                        </v-row>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="close"
-                  >
-                    ຍົກເລີກ
-                  </v-btn>
-                  <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="save"
-                  >
-                    ບັນທຶກ
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-            <v-dialog v-model="dialogDelete" max-width="800px" >
-              <v-card
-              >
-                <br>
-                <v-card-title class="text-h5 justify-center" >ຕ້ອງການລຶບຜູ້ໃຊ້ແທ້ຫຼືບໍ່?</v-card-title>
-
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="grey" dark @click="closeDelete">Cancel</v-btn>
-                  <v-btn color="red darken-1" dark @click="deleteItemConfirm">OK</v-btn>
-                  <v-spacer></v-spacer>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-toolbar>
-        </template>
-        <template v-slot:[`item.image`]="{item}">
-          <v-img
-              max-height="250"
-              max-width="150"
-              :src="'http://127.0.0.1:8000/storage/populations_images/'+item.image"
-          ></v-img>
-        </template>
-        <template v-slot:[`item.actions`]="{ item }">
-
-          <v-icon
-              color="blue"
-              large
-              class="mr-2"
-              @click="editItem(item)"
-          >
-            mdi-eye
-          </v-icon>
-          <!--          <v-icon-->
-          <!--              color="red"-->
-          <!--              dense-->
-          <!--              @click="deleteItem(item)"-->
-          <!--          >-->
-          <!--            mdi-delete-->
-          <!--          </v-icon>-->
-        </template>
-
-      </v-data-table>
+ 
       <br>
       <v-container fill-height fluid>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="6">
-            <h2>ປະຊາກອນທັງໝົດ</h2>
+            <h2>ຈຳນວນປະຊາກອນທັງໝົດ</h2>
           </v-col>
           <v-col cols="12" sm="2">
             <h2>{{peopleDataCount['data'].length ?? "0"}} ຄົນ</h2>
           </v-col>
           <v-col cols="12" sm="6">
-            <h2>ປະຊາກອນທີ່ສາມາດລົງຄະແນນທັງໝົດ</h2>
+            <h2>ຈຳນວນປະຊາກອນທີ່ສາມາດເລືອກຕັ້ງ</h2>
           </v-col>
           <v-col cols="12" sm="2">
             <h2> {{this.voting}} ຄົນ</h2>
           </v-col>
           <v-col cols="12" sm="6">
-            <h2>ປະຊາກອນທີ່ລົງສຽງແລ້ວ</h2>
+            <h2>ຈຳນວນປະຊາກອນທີ່ລົງຄະແນນແລ້ວ</h2>
           </v-col>
           <v-col cols="12" sm="2">
             <h2>{{peopleData['data'].length ?? "0"}} ຄົນ</h2>
           </v-col>
           <v-col cols="12" sm="6">
-            <h2>ຜູ້ລົງສະໝັກເລືອກຕັ້ງ</h2>
+            <h2>ຈຳນວນຜູ້ລົງສະໝັກເລືອກຕັ້ງ</h2>
           </v-col>
           <v-col cols="12" sm="2">
             <h2>{{candidateData['data'].length ?? "0"}} ຄົນ</h2>
@@ -187,29 +40,27 @@
       <br>
       <hr>
       <br>
-      <div class="make_center py-5">
-        <h1>ຄະແນນການເລືອກຕັ້ງປັດຈຸບັນຂອງນາຍບ້ານ</h1>
+      <div class="make_center py-5 pt-5">
+        <h1>ສະຫຼຸບຄະແນນເລືອກຕັ້ງ</h1>
       </div>
 
-      <v-simple-table dark>
+      <v-simple-table >
         <template v-slot:default>
           <thead>
           <tr>
              <th class="text-left">
-              ຮູບ
+              ນາມ
             </th>
             <th class="text-left">
-              ເພດ
-            </th>
-            <th class="text-left">
-              ຊື່
+               ຊື່
             </th>
             <th class="text-left">
               ນາມສະກຸນ
             </th>
             <th class="text-left">
-              ຄະແນນ
+             ຄະແນນ
             </th>
+           
           </tr>
           </thead>
           <tbody>
@@ -219,11 +70,11 @@
               :key="item.id"
           >
 
-            <td>  <v-img
+            <!-- <td>  <v-img
                 max-height="250"
                 max-width="150"
-                :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.image"
-            ></v-img></td>
+                :src="'http://127.0.0.1:8000/storage/candidate_images/'+item.candidate_image"
+            ></v-img></td> -->
             <td>{{ item.gender}}</td>
             <td>{{ item.candidate_name }}</td>
             <td>{{ item.candidate_surname }}</td>
@@ -232,16 +83,20 @@
           </tbody>
         </template>
       </v-simple-table>
+      <Peoplereport />
     </div>
+    
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Peoplereport from '@/components/report/peoplecanvote.vue';
 import { mapActions, mapGetters } from "vuex";
 import Navbar from "@/components/bie/village_headman/dashboard/navbar.vue"
 export default {
   name: "election_candidates",
+ 
   data(){
     return{
       voting:""
@@ -292,7 +147,8 @@ export default {
     }
   },
   components:{
-    Navbar
+    Navbar,
+    Peoplereport
   },
   computed: {
     ...mapGetters({
